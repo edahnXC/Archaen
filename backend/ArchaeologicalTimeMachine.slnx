@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/ArchaeologicalTimeMachine.Api/ArchaeologicalTimeMachine.Api.csproj" />
+    <Project Path="src/ArchaeologicalTimeMachine.Domain/ArchaeologicalTimeMachine.Domain.csproj" />
+    <Project Path="src/ArchaeologicalTimeMachine.Infrastructure/ArchaeologicalTimeMachine.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/ArchaeologicalTimeMachine.UnitTests/ArchaeologicalTimeMachine.UnitTests.csproj" />
+  </Folder>
+</Solution>
