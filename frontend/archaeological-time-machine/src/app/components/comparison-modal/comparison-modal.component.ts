@@ -28,7 +28,7 @@ import { ArchaeologyApiService } from '../../services/archaeology-api.service';
         <header class="modal-header">
           <div>
             <span class="badge-compare">Analytical GIS Comparator</span>
-            <h3 class="modal-title">Side-by-Side Archaeological Comparison</h3>
+            <h3 class="modal-title font-display">Side-by-Side Archaeological Comparison</h3>
           </div>
           <button class="close-btn" (click)="close()" title="Close Comparator">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -37,7 +37,7 @@ import { ArchaeologyApiService } from '../../services/archaeology-api.service';
           </button>
         </header>
 
-        <!-- Selector for Site 2 if needed -->
+        <!-- Selector for Site 2 -->
         <div class="selector-bar">
           <div class="selected-site-label">
             Primary: <strong>{{ site1?.name }}</strong>
@@ -57,7 +57,7 @@ import { ArchaeologyApiService } from '../../services/archaeology-api.service';
           </div>
         </div>
 
-        <!-- Comparative Metrics Banner -->
+        <!-- Comparative Metrics Banner (Zoom Earth HUD Style) -->
         <div class="metrics-banner" *ngIf="comparison">
           <div class="metric-card">
             <span class="metric-label">Geodesic Distance</span>
@@ -89,7 +89,7 @@ import { ArchaeologyApiService } from '../../services/archaeology-api.service';
           <!-- Column 1 -->
           <div class="site-column">
             <div class="column-header">
-              <h4 class="col-site-name">{{ comparison.site1.name }}</h4>
+              <h4 class="col-site-name font-display">{{ comparison.site1.name }}</h4>
               <div class="col-ancient" *ngIf="comparison.site1.ancientName"><em>{{ comparison.site1.ancientName }}</em></div>
               <div class="col-meta">{{ comparison.site1.region }}, <strong>{{ comparison.site1.country }}</strong></div>
               <div class="col-dates font-mono">⏳ {{ comparison.site1.startYearFormatted }} – {{ comparison.site1.endYearFormatted }}</div>
@@ -119,7 +119,7 @@ import { ArchaeologyApiService } from '../../services/archaeology-api.service';
           <!-- Column 2 -->
           <div class="site-column">
             <div class="column-header">
-              <h4 class="col-site-name">{{ comparison.site2.name }}</h4>
+              <h4 class="col-site-name font-display">{{ comparison.site2.name }}</h4>
               <div class="col-ancient" *ngIf="comparison.site2.ancientName"><em>{{ comparison.site2.ancientName }}</em></div>
               <div class="col-meta">{{ comparison.site2.region }}, <strong>{{ comparison.site2.country }}</strong></div>
               <div class="col-dates font-mono">⏳ {{ comparison.site2.startYearFormatted }} – {{ comparison.site2.endYearFormatted }}</div>
@@ -153,7 +153,7 @@ import { ArchaeologyApiService } from '../../services/archaeology-api.service';
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.75);
+      background: rgba(0, 0, 0, 0.45);
       backdrop-filter: blur(8px);
       z-index: 1100;
       display: flex;
@@ -164,50 +164,50 @@ import { ArchaeologyApiService } from '../../services/archaeology-api.service';
     }
 
     .modal-card {
-      background: #12151f;
-      border: 1px solid rgba(212, 175, 55, 0.4);
-      border-radius: 14px;
-      width: 900px;
+      background: #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      border-radius: 16px;
+      width: 920px;
       max-width: 95vw;
       max-height: 90vh;
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
     }
 
     .modal-header {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      padding: 18px 24px;
-      background: linear-gradient(180deg, #1b202e 0%, #12151f 100%);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 20px 26px;
+      background: #fafafa;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
     }
 
     .badge-compare {
-      font-size: 10px;
+      font-size: 10.5px;
       font-weight: 700;
-      color: #e9c46a;
-      letter-spacing: 0.08em;
+      color: #92400e;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      background: rgba(233, 196, 106, 0.15);
-      border: 1px solid rgba(233, 196, 106, 0.3);
-      padding: 2px 7px;
-      border-radius: 4px;
+      background: #fef8e7;
+      border: 1px solid #fef3c7;
+      padding: 3px 8px;
+      border-radius: 6px;
     }
 
     .modal-title {
-      font-family: var(--font-display, serif);
-      font-size: 19px;
-      color: #f8fafc;
+      font-size: 20px;
+      font-weight: 700;
+      color: #111827;
       margin-top: 4px;
     }
 
     .close-btn {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: #94a3b8;
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      color: #4b5563;
       width: 32px;
       height: 32px;
       border-radius: 50%;
@@ -215,29 +215,31 @@ import { ArchaeologyApiService } from '../../services/archaeology-api.service';
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: all 0.2s ease;
     }
 
     .close-btn:hover {
-      background: rgba(217, 4, 41, 0.25);
-      color: #ff4d6d;
+      background: #fee2e2;
+      color: #b91c1c;
+      border-color: #ef4444;
     }
 
     .selector-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 12px 24px;
-      background: rgba(20, 24, 34, 0.7);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 12px 26px;
+      background: #f8fafc;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
     }
 
     .selected-site-label {
       font-size: 13.5px;
-      color: #cbd5e1;
+      color: #374151;
     }
 
     .selected-site-label strong {
-      color: #ffd166;
+      color: var(--accent-terracotta);
     }
 
     .site-picker {
@@ -245,16 +247,17 @@ import { ArchaeologyApiService } from '../../services/archaeology-api.service';
       align-items: center;
       gap: 8px;
       font-size: 12.5px;
-      color: #94a3b8;
+      color: #4b5563;
     }
 
     .site-select {
-      background: #0d0f16;
-      border: 1px solid rgba(212, 175, 55, 0.35);
-      color: #f8fafc;
+      background: #ffffff;
+      border: 1px solid #d1d5db;
+      color: #111827;
       font-size: 13px;
+      font-family: inherit;
       padding: 6px 12px;
-      border-radius: 6px;
+      border-radius: 8px;
       outline: none;
     }
 
@@ -262,48 +265,49 @@ import { ArchaeologyApiService } from '../../services/archaeology-api.service';
       display: grid;
       grid-template-columns: 1fr 1fr 1.5fr;
       gap: 12px;
-      padding: 14px 24px;
-      background: rgba(10, 12, 18, 0.7);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 14px 26px;
+      background: #ffffff;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
     }
 
     .metric-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 8px;
-      padding: 10px 14px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 12px 14px;
       display: flex;
       flex-direction: column;
     }
 
     .metric-card.highlight-overlap {
-      background: rgba(42, 157, 143, 0.12);
-      border-color: rgba(42, 157, 143, 0.3);
+      background: #ecfdf5;
+      border-color: #a7f3d0;
     }
 
     .metric-label {
       font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      color: #94a3b8;
+      color: #6b7280;
       margin-bottom: 2px;
+      font-weight: 700;
     }
 
     .metric-val {
-      font-size: 17px;
-      font-weight: 800;
-      color: #ffd166;
+      font-size: 18px;
+      font-weight: 700;
+      color: #111827;
     }
 
     .relation-text {
       font-size: 13.5px;
-      color: #f4a261;
+      color: var(--accent-terracotta);
       font-family: inherit;
     }
 
     .metric-sub {
       font-size: 11px;
-      color: #94a3b8;
+      color: #6b7280;
       margin-top: 2px;
       line-height: 1.3;
     }
@@ -312,9 +316,10 @@ import { ArchaeologyApiService } from '../../services/archaeology-api.service';
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 18px;
-      padding: 20px 24px;
+      padding: 22px 26px;
       overflow-y: auto;
       flex: 1;
+      background: #ffffff;
     }
 
     .site-column {
@@ -324,54 +329,59 @@ import { ArchaeologyApiService } from '../../services/archaeology-api.service';
     }
 
     .column-header {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 8px;
-      padding: 14px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 16px;
     }
 
     .col-site-name {
-      font-family: var(--font-display, serif);
-      font-size: 16px;
-      color: #f8fafc;
+      font-size: 17px;
+      font-weight: 700;
+      color: #111827;
       margin-bottom: 2px;
     }
 
     .col-ancient {
       font-size: 12px;
-      color: #e9c46a;
+      color: var(--accent-terracotta);
       margin-bottom: 4px;
     }
 
     .col-meta {
       font-size: 12px;
-      color: #94a3b8;
+      color: #6b7280;
       margin-bottom: 6px;
     }
 
     .col-dates {
       font-size: 12px;
-      color: #ffd166;
+      color: #92400e;
+      background: #fef8e7;
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
     }
 
     .section-box {
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 8px;
-      padding: 12px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 14px;
     }
 
     .section-box h5 {
       font-size: 11.5px;
       text-transform: uppercase;
       letter-spacing: 0.04em;
-      color: #94a3b8;
+      color: #6b7280;
       margin-bottom: 4px;
+      font-weight: 700;
     }
 
     .section-box p {
-      font-size: 12.5px;
-      color: #cbd5e1;
+      font-size: 13px;
+      color: #374151;
       line-height: 1.5;
     }
   `]
@@ -389,7 +399,6 @@ export class ComparisonModalComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['isOpen'] && this.isOpen && this.site1 && this.allSites.length > 0) {
-      // Pick a default site2 (e.g. Lothal if site1 is Dholavira, or first other site)
       const other = this.allSites.find(s => s.id !== this.site1!.id);
       if (other) {
         this.selectedSite2Id.set(other.id);

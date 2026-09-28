@@ -21,7 +21,7 @@ import { Artefact } from '../../models/archaeology.models';
     <div class="artefact-viewer-container">
       <div class="viewer-header">
         <div class="header-info">
-          <span class="badge-3d">3D WebGL PBR Lab</span>
+          <span class="badge-3d">3D WebGL Gallery Lab</span>
           <h4 class="artefact-title">{{ artefact?.name || 'Diagnostic Artefact 3D Inspection' }}</h4>
           <p class="artefact-meta" *ngIf="artefact">
             <span class="meta-tag">{{ artefact.material }}</span>
@@ -64,20 +64,20 @@ import { Artefact } from '../../models/archaeology.models';
     .artefact-viewer-container {
       display: flex;
       flex-direction: column;
-      background: #11141c;
-      border: 1px solid rgba(212, 175, 55, 0.25);
-      border-radius: 12px;
+      background: #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 14px;
       overflow: hidden;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
     }
 
     .viewer-header {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      padding: 14px 18px;
-      background: rgba(22, 26, 36, 0.9);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      padding: 16px 20px;
+      background: #fafafa;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
     }
 
     .badge-3d {
@@ -86,18 +86,19 @@ import { Artefact } from '../../models/archaeology.models';
       font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: #e9c46a;
-      background: rgba(233, 196, 106, 0.15);
-      border: 1px solid rgba(233, 196, 106, 0.3);
-      padding: 2px 7px;
-      border-radius: 4px;
+      color: #92400e;
+      background: #fef8e7;
+      border: 1px solid #fef3c7;
+      padding: 3px 8px;
+      border-radius: 6px;
       margin-bottom: 4px;
     }
 
     .artefact-title {
-      font-family: var(--font-display, serif);
-      font-size: 15px;
-      color: #f3f4f6;
+      font-family: var(--font-display, sans-serif);
+      font-size: 16px;
+      font-weight: 700;
+      color: #111827;
       margin: 2px 0 6px;
     }
 
@@ -109,11 +110,11 @@ import { Artefact } from '../../models/archaeology.models';
 
     .meta-tag {
       font-size: 11px;
-      background: rgba(255, 255, 255, 0.06);
-      color: #9ca3af;
-      padding: 2px 8px;
-      border-radius: 4px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: #f1f3f5;
+      color: #4b5563;
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid #e5e7eb;
     }
 
     .viewer-controls {
@@ -125,34 +126,35 @@ import { Artefact } from '../../models/archaeology.models';
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #e5e7eb;
-      font-size: 11px;
+      background: #ffffff;
+      border: 1px solid #d1d5db;
+      color: #374151;
+      font-size: 11.5px;
       font-weight: 600;
-      padding: 5px 10px;
-      border-radius: 6px;
+      padding: 6px 12px;
+      border-radius: 8px;
       cursor: pointer;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
       transition: all 0.2s ease;
     }
 
     .control-btn:hover {
-      background: rgba(212, 175, 55, 0.2);
-      border-color: #d4af37;
-      color: #ffd166;
+      background: #f9fafb;
+      border-color: #111827;
+      color: #111827;
     }
 
     .control-btn.active {
-      background: rgba(212, 175, 55, 0.25);
-      border-color: #d4af37;
-      color: #ffd166;
+      background: #111827;
+      border-color: #111827;
+      color: #ffffff;
     }
 
     .canvas-wrapper {
       position: relative;
       width: 100%;
-      height: 320px;
-      background: radial-gradient(circle at center, #1b202e 0%, #0d0f14 100%);
+      height: 330px;
+      background: radial-gradient(circle at center, #ffffff 0%, #f1f5f9 100%);
       cursor: grab;
       overflow: hidden;
     }
@@ -163,21 +165,21 @@ import { Artefact } from '../../models/archaeology.models';
 
     .canvas-hint {
       position: absolute;
-      bottom: 8px;
-      left: 12px;
-      font-size: 10px;
-      color: rgba(255, 255, 255, 0.35);
+      bottom: 10px;
+      left: 14px;
+      font-size: 11px;
+      color: #9ca3af;
       pointer-events: none;
       font-family: var(--font-mono, monospace);
     }
 
     .artefact-discovery-note {
-      padding: 10px 16px;
+      padding: 12px 18px;
       font-size: 12px;
-      color: #94a3b8;
-      background: rgba(15, 18, 26, 0.7);
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      line-height: 1.4;
+      color: #4b5563;
+      background: #fbfbfa;
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+      line-height: 1.5;
     }
   `]
 })
@@ -260,7 +262,7 @@ export class ArtefactViewer3DComponent implements OnInit, OnChanges, OnDestroy {
   private initThree(): void {
     const container = this.canvasContainerRef.nativeElement;
     const width = container.clientWidth || 400;
-    const height = container.clientHeight || 320;
+    const height = container.clientHeight || 330;
 
     this.scene = new THREE.Scene();
 
@@ -275,22 +277,22 @@ export class ArtefactViewer3DComponent implements OnInit, OnChanges, OnDestroy {
 
     container.appendChild(this.renderer.domElement);
 
-    // Dynamic Archaeological Lighting setup
-    const ambientLight = new THREE.AmbientLight(0xfff5e6, 0.85);
+    // Museum Gallery Studio Lighting (Bright, Crisp, Soft Shadows)
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.1);
     this.scene.add(ambientLight);
 
-    const dirLight1 = new THREE.DirectionalLight(0xffd7a0, 1.4);
+    const dirLight1 = new THREE.DirectionalLight(0xfff8ee, 1.4);
     dirLight1.position.set(4, 5, 4);
     dirLight1.castShadow = true;
     this.scene.add(dirLight1);
 
-    const dirLight2 = new THREE.DirectionalLight(0x7090b0, 0.7);
+    const dirLight2 = new THREE.DirectionalLight(0xdbeafe, 0.6);
     dirLight2.position.set(-4, -2, -3);
     this.scene.add(dirLight2);
 
-    const goldPoint = new THREE.PointLight(0xd4af37, 1.2, 8);
-    goldPoint.position.set(0, 2, 2.5);
-    this.scene.add(goldPoint);
+    const gallerySpot = new THREE.PointLight(0xfff3dc, 1.2, 8);
+    gallerySpot.position.set(0, 2, 2.5);
+    this.scene.add(gallerySpot);
 
     this.scene.add(this.currentMeshGroup);
   }
@@ -299,7 +301,6 @@ export class ArtefactViewer3DComponent implements OnInit, OnChanges, OnDestroy {
    * Procedural PBR 3D Generation for Authentic Diagnostic Archaeological Artifacts
    */
   private buildArtefactModel(modelType: string): void {
-    // Clear previous geometries
     while (this.currentMeshGroup.children.length > 0) {
       const obj = this.currentMeshGroup.children[0] as THREE.Mesh;
       if (obj.geometry) obj.geometry.dispose();
@@ -335,47 +336,36 @@ export class ArtefactViewer3DComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  /**
-   * Harappan Steatite Unicorn Seal
-   */
   private createSteatiteSealModel(): void {
     const sealMat = new THREE.MeshStandardMaterial({
-      color: 0xdfd7c5, // Bleached steatite
+      color: 0xdfd7c5,
       roughness: 0.45,
       metalness: 0.1
     });
 
-    // Square seal block
     const baseGeo = new THREE.BoxGeometry(2.0, 2.0, 0.45);
     const sealMesh = new THREE.Mesh(baseGeo, sealMat);
     this.currentMeshGroup.add(sealMesh);
 
-    // Intaglio Unicorn / Sacred Bovine Relief
-    const bovineMat = new THREE.MeshStandardMaterial({
-      color: 0xc8bc9e,
-      roughness: 0.6
-    });
+    const bovineMat = new THREE.MeshStandardMaterial({ color: 0xc8bc9e, roughness: 0.6 });
     const torsoGeo = new THREE.CylinderGeometry(0.35, 0.45, 1.1, 16);
     torsoGeo.rotateZ(Math.PI / 2);
     const torsoMesh = new THREE.Mesh(torsoGeo, bovineMat);
     torsoMesh.position.set(0, -0.15, 0.25);
     this.currentMeshGroup.add(torsoMesh);
 
-    // Single graceful curved horn
     const hornGeo = new THREE.ConeGeometry(0.08, 0.75, 12);
     hornGeo.rotateZ(-Math.PI / 4);
     const hornMesh = new THREE.Mesh(hornGeo, bovineMat);
     hornMesh.position.set(0.4, 0.4, 0.25);
     this.currentMeshGroup.add(hornMesh);
 
-    // Standard Incense Burner / Offering Stand
     const standMat = new THREE.MeshStandardMaterial({ color: 0x8a7a5d, roughness: 0.7 });
     const standGeo = new THREE.CylinderGeometry(0.18, 0.22, 0.8, 12);
     const standMesh = new THREE.Mesh(standGeo, standMat);
     standMesh.position.set(0.7, -0.2, 0.25);
     this.currentMeshGroup.add(standMesh);
 
-    // Perforated Boss handle on reverse
     const bossGeo = new THREE.CylinderGeometry(0.35, 0.45, 0.35, 16);
     bossGeo.rotateX(Math.PI / 2);
     const bossMat = new THREE.MeshStandardMaterial({ color: 0xb5a88e, roughness: 0.5 });
@@ -384,20 +374,15 @@ export class ArtefactViewer3DComponent implements OnInit, OnChanges, OnDestroy {
     this.currentMeshGroup.add(bossMesh);
   }
 
-  /**
-   * Sinauli Royal Copper-Bronze War Chariot with Solid Wheels
-   */
   private createSinauliChariotModel(): void {
-    const woodMat = new THREE.MeshStandardMaterial({ color: 0x5a3d28, roughness: 0.7 });
+    const woodMat = new THREE.MeshStandardMaterial({ color: 0x6e482f, roughness: 0.7 });
     const copperMat = new THREE.MeshStandardMaterial({ color: 0xc86432, metalness: 0.75, roughness: 0.35 });
 
-    // Axle
     const axleGeo = new THREE.CylinderGeometry(0.06, 0.06, 2.2, 16);
     axleGeo.rotateZ(Math.PI / 2);
     const axleMesh = new THREE.Mesh(axleGeo, woodMat);
     this.currentMeshGroup.add(axleMesh);
 
-    // 2 Solid Disk Wheels with Copper Triangle Inlays
     const wheelGeo = new THREE.CylinderGeometry(0.85, 0.85, 0.12, 32);
     wheelGeo.rotateZ(Math.PI / 2);
 
@@ -409,7 +394,6 @@ export class ArtefactViewer3DComponent implements OnInit, OnChanges, OnDestroy {
     rightWheel.position.set(1.0, 0, 0);
     this.currentMeshGroup.add(rightWheel);
 
-    // Copper Hubcaps
     const capGeo = new THREE.CylinderGeometry(0.2, 0.2, 0.16, 16);
     capGeo.rotateZ(Math.PI / 2);
     const leftCap = new THREE.Mesh(capGeo, copperMat);
@@ -420,20 +404,17 @@ export class ArtefactViewer3DComponent implements OnInit, OnChanges, OnDestroy {
     rightCap.position.set(1.08, 0, 0);
     this.currentMeshGroup.add(rightCap);
 
-    // High Canopy Chassis Platform
     const chassisGeo = new THREE.BoxGeometry(1.2, 0.1, 1.4);
     const chassisMesh = new THREE.Mesh(chassisGeo, woodMat);
     chassisMesh.position.set(0, 0.25, 0.4);
     this.currentMeshGroup.add(chassisMesh);
 
-    // Curved Protective Front Railing with Copper Trimming
     const railGeo = new THREE.CylinderGeometry(0.65, 0.65, 0.6, 16, 1, true, 0, Math.PI);
     railGeo.rotateX(Math.PI / 2);
     const railMesh = new THREE.Mesh(railGeo, copperMat);
     railMesh.position.set(0, 0.55, 0.9);
     this.currentMeshGroup.add(railMesh);
 
-    // Draft Pole
     const poleGeo = new THREE.CylinderGeometry(0.05, 0.05, 2.0, 12);
     poleGeo.rotateX(Math.PI / 2);
     const poleMesh = new THREE.Mesh(poleGeo, woodMat);
@@ -441,12 +422,9 @@ export class ArtefactViewer3DComponent implements OnInit, OnChanges, OnDestroy {
     this.currentMeshGroup.add(poleMesh);
   }
 
-  /**
-   * Kanaganahalli Ashokan Limestone Relief Slab (Ranyo Asoko)
-   */
   private createAshokanReliefModel(): void {
     const limestoneMat = new THREE.MeshStandardMaterial({
-      color: 0xd9dfce, // Pale greenish Palnad limestone
+      color: 0xd9dfce,
       roughness: 0.6,
       metalness: 0.05
     });
@@ -455,14 +433,12 @@ export class ArtefactViewer3DComponent implements OnInit, OnChanges, OnDestroy {
     const slabMesh = new THREE.Mesh(slabGeo, limestoneMat);
     this.currentMeshGroup.add(slabMesh);
 
-    // Carved Imperial Torso & Head
     const figureMat = new THREE.MeshStandardMaterial({ color: 0xc4cbba, roughness: 0.7 });
     const torsoGeo = new THREE.CylinderGeometry(0.3, 0.38, 0.9, 16);
     const torsoMesh = new THREE.Mesh(torsoGeo, figureMat);
     torsoMesh.position.set(0, 0.1, 0.2);
     this.currentMeshGroup.add(torsoMesh);
 
-    // Royal Turban / Headgear
     const headGeo = new THREE.SphereGeometry(0.24, 16, 16);
     const headMesh = new THREE.Mesh(headGeo, figureMat);
     headMesh.position.set(0, 0.75, 0.22);
@@ -475,14 +451,10 @@ export class ArtefactViewer3DComponent implements OnInit, OnChanges, OnDestroy {
     this.currentMeshGroup.add(turbanMesh);
   }
 
-  /**
-   * Sangam Inscribed Black-and-Red Ware Potsherd (Aadhan)
-   */
   private createSangamPotsherdModel(): void {
-    // Curved ceramic fragment
     const sherdGeo = new THREE.CylinderGeometry(1.4, 1.3, 1.5, 24, 1, true, 0, Math.PI / 2);
     const ceramicMat = new THREE.MeshStandardMaterial({
-      color: 0x933b27, // Burnished Terracotta Red Slip
+      color: 0x933b27,
       roughness: 0.55,
       side: THREE.DoubleSide
     });
@@ -491,27 +463,18 @@ export class ArtefactViewer3DComponent implements OnInit, OnChanges, OnDestroy {
     this.currentMeshGroup.add(sherdMesh);
   }
 
-  /**
-   * Roman Mediterranean Wine Transport Amphora (Arikamedu)
-   */
   private createRomanAmphoraModel(): void {
-    const amphoraMat = new THREE.MeshStandardMaterial({
-      color: 0xd2a679, // Italian coarse terracotta
-      roughness: 0.65
-    });
+    const amphoraMat = new THREE.MeshStandardMaterial({ color: 0xd2a679, roughness: 0.65 });
 
-    // Body
     const bodyGeo = new THREE.CylinderGeometry(0.15, 0.65, 1.8, 20);
     const bodyMesh = new THREE.Mesh(bodyGeo, amphoraMat);
     this.currentMeshGroup.add(bodyMesh);
 
-    // Neck
     const neckGeo = new THREE.CylinderGeometry(0.2, 0.25, 0.7, 16);
     const neckMesh = new THREE.Mesh(neckGeo, amphoraMat);
     neckMesh.position.set(0, 1.1, 0);
     this.currentMeshGroup.add(neckMesh);
 
-    // Dual handles
     const handleMat = new THREE.MeshStandardMaterial({ color: 0xba8c60, roughness: 0.7 });
     const handleGeo = new THREE.TorusGeometry(0.35, 0.06, 12, 24, Math.PI);
     handleGeo.rotateZ(Math.PI / 2);
@@ -526,22 +489,17 @@ export class ArtefactViewer3DComponent implements OnInit, OnChanges, OnDestroy {
     this.currentMeshGroup.add(rightHandle);
   }
 
-  /**
-   * Mohenjo-daro Dancing Girl Lost-Wax Cast Bronze
-   */
   private createBronzeFigurineModel(): void {
     const bronzeMat = new THREE.MeshStandardMaterial({
-      color: 0x475549, // Dark antique bronze patina with green verdigris undertones
+      color: 0x475549,
       metalness: 0.8,
       roughness: 0.35
     });
 
-    // Slender torso
     const torsoGeo = new THREE.CylinderGeometry(0.14, 0.18, 1.2, 16);
     const torsoMesh = new THREE.Mesh(torsoGeo, bronzeMat);
     this.currentMeshGroup.add(torsoMesh);
 
-    // Head with characteristic heavy side chignon
     const headGeo = new THREE.SphereGeometry(0.18, 16, 16);
     const headMesh = new THREE.Mesh(headGeo, bronzeMat);
     headMesh.position.set(0, 0.8, 0);
@@ -553,7 +511,6 @@ export class ArtefactViewer3DComponent implements OnInit, OnChanges, OnDestroy {
     bunMesh.position.set(0.22, 0.82, -0.05);
     this.currentMeshGroup.add(bunMesh);
 
-    // Left arm loaded with 24 bangles
     const bangleArmGeo = new THREE.CylinderGeometry(0.12, 0.08, 0.9, 12);
     bangleArmGeo.rotateZ(-Math.PI / 6);
     const armMesh = new THREE.Mesh(bangleArmGeo, bronzeMat);
@@ -561,25 +518,13 @@ export class ArtefactViewer3DComponent implements OnInit, OnChanges, OnDestroy {
     this.currentMeshGroup.add(armMesh);
   }
 
-  /**
-   * Bhimbetka Prehistoric Zoo Rock Slab
-   */
   private createBhimbetkaCaveSlabModel(): void {
-    const rockMat = new THREE.MeshStandardMaterial({
-      color: 0xb58a63, // Natural Vindhyan sandstone
-      roughness: 0.9
-    });
-
+    const rockMat = new THREE.MeshStandardMaterial({ color: 0xb58a63, roughness: 0.9 });
     const slabGeo = new THREE.BoxGeometry(2.4, 1.8, 0.35);
     const slabMesh = new THREE.Mesh(slabGeo, rockMat);
     this.currentMeshGroup.add(slabMesh);
 
-    // Stylized Bison in Red Hematite Pigment
-    const paintMat = new THREE.MeshStandardMaterial({
-      color: 0x8b1e0f, // Deep mineral hematite red
-      roughness: 0.95
-    });
-
+    const paintMat = new THREE.MeshStandardMaterial({ color: 0x8b1e0f, roughness: 0.95 });
     const bisonGeo = new THREE.CylinderGeometry(0.35, 0.45, 0.9, 12);
     bisonGeo.rotateZ(Math.PI / 2);
     const bisonMesh = new THREE.Mesh(bisonGeo, paintMat);
@@ -595,7 +540,6 @@ export class ArtefactViewer3DComponent implements OnInit, OnChanges, OnDestroy {
         this.targetRotation.y += 0.008;
       }
 
-      // Smooth spherical interpolation
       if (this.currentMeshGroup) {
         this.currentMeshGroup.rotation.y += (this.targetRotation.y - this.currentMeshGroup.rotation.y) * 0.08;
         this.currentMeshGroup.rotation.x += (this.targetRotation.x - this.currentMeshGroup.rotation.x) * 0.08;

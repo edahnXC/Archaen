@@ -20,7 +20,7 @@ export interface HorizonPreset {
     <div class="priority-bar-container">
       <div class="priority-label">
         <span class="flag-icon">🇮🇳</span>
-        <span class="priority-title">Indian Archaeology Priority:</span>
+        <span class="priority-title font-display">Indian Archaeological Horizons:</span>
       </div>
 
       <div class="presets-scroll">
@@ -28,7 +28,6 @@ export interface HorizonPreset {
           *ngFor="let p of presets"
           class="preset-chip"
           [class.active]="activePreset() === p.id"
-          [style.--chip-color]="p.highlightColor"
           (click)="selectPreset(p)"
         >
           <span class="chip-badge">{{ p.badge }}</span>
@@ -41,11 +40,11 @@ export interface HorizonPreset {
     .priority-bar-container {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 8px 18px;
-      background: rgba(18, 21, 30, 0.92);
-      border-bottom: 1px solid rgba(212, 175, 55, 0.25);
-      backdrop-filter: blur(12px);
+      gap: 14px;
+      padding: 8px 24px;
+      background: rgba(255, 255, 255, 0.94);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      backdrop-filter: blur(16px);
       z-index: 850;
       overflow-x: auto;
     }
@@ -62,11 +61,10 @@ export interface HorizonPreset {
     }
 
     .priority-title {
-      font-family: var(--font-display, serif);
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 700;
-      color: #ffd166;
-      letter-spacing: 0.05em;
+      color: var(--accent-terracotta);
+      letter-spacing: 0.06em;
       text-transform: uppercase;
       white-space: nowrap;
     }
@@ -83,35 +81,40 @@ export interface HorizonPreset {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
       border-radius: 20px;
-      padding: 5px 12px;
+      padding: 5px 14px;
       cursor: pointer;
       white-space: nowrap;
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .preset-chip:hover {
-      background: rgba(212, 175, 55, 0.15);
-      border-color: var(--chip-color, #d4af37);
+      background: #e5e7eb;
+      border-color: #cbd5e1;
       transform: translateY(-1px);
     }
 
     .preset-chip.active {
-      background: rgba(212, 175, 55, 0.22);
-      border-color: var(--chip-color, #ffd166);
-      box-shadow: 0 0 12px rgba(212, 175, 55, 0.3);
+      background: #111827;
+      border-color: #111827;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .preset-chip.active .chip-name {
+      color: #ffffff;
     }
 
     .chip-badge {
-      font-size: 12px;
+      font-size: 13px;
     }
 
     .chip-name {
       font-size: 11.5px;
       font-weight: 600;
-      color: #f1f5f9;
+      color: #374151;
+      transition: color 0.2s ease;
     }
   `]
 })
@@ -123,11 +126,11 @@ export class IndiaPriorityBarComponent {
   protected readonly presets: HorizonPreset[] = [
     {
       id: 'all-india',
-      name: 'All Indian Sites',
+      name: 'All Indian Sites (12)',
       badge: '🇮🇳',
       description: 'Comprehensive view of all 12 prioritized Indian archaeological sites across all horizons.',
       region: 'India',
-      highlightColor: '#ffd166'
+      highlightColor: '#c25e2e'
     },
     {
       id: 'indus-valley',
@@ -145,7 +148,7 @@ export class IndiaPriorityBarComponent {
       description: 'Sinauli royal warrior burials, 3 solid-wheeled chariots, Inamgaon',
       search: 'Sinauli',
       targetYear: -1900,
-      highlightColor: '#b5838d'
+      highlightColor: '#9d4edd'
     },
     {
       id: 'mauryan-empire',
@@ -154,7 +157,7 @@ export class IndiaPriorityBarComponent {
       description: 'Ashokan rock edicts, 80-pillared hypostyle hall, inscribed royal portrait',
       search: 'Mauryan',
       targetYear: -250,
-      highlightColor: '#d90429'
+      highlightColor: '#b91c1c'
     },
     {
       id: 'sangam-maritime',
@@ -163,7 +166,7 @@ export class IndiaPriorityBarComponent {
       description: '6th century BCE urban Keeladi with Tamil-Brahmi script, Roman amphorae port',
       search: 'Sangam',
       targetYear: -100,
-      highlightColor: '#2a9d8f'
+      highlightColor: '#0f766e'
     },
     {
       id: 'rock-art',
@@ -172,14 +175,14 @@ export class IndiaPriorityBarComponent {
       description: 'UNESCO World Heritage sandstone rock shelters with hematite paintings',
       search: 'Bhimbetka',
       targetYear: -8000,
-      highlightColor: '#6d597a'
+      highlightColor: '#c25e2e'
     },
     {
       id: 'global-view',
       name: 'Global Ancient Horizons',
       badge: '🌍',
       description: 'Mesopotamia, Nile Valley, Minoan Crete, Classical Rome',
-      highlightColor: '#457b9d'
+      highlightColor: '#1d4ed8'
     }
   ];
 

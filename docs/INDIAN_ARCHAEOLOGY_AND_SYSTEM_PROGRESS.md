@@ -318,13 +318,18 @@ The Indian subcontinent possesses one of the deepest, richest, and most continuo
 - **2026-09-28 [Database Engine]**: Expanded `DatabaseSeeder.cs` with full records for Rakhigarhi, Kalibangan, Sinauli, Bhimbetka, Pataliputra, Keeladi, Arikamedu, Sannati, Surkotada, and Inamgaon.
 - **2026-09-28 [Documentation]**: Created live side-by-side technical & archaeological knowledge base (`INDIAN_ARCHAEOLOGY_AND_SYSTEM_PROGRESS.md`).
 - **2026-09-28 [Frontend]**: Successfully built Angular 21 interactive GIS interface (`http://localhost:4200`) with Leaflet, continuous BCE/CE time machine scrubber, Three.js 3D WebGL PBR Artefact Lab, Analytical Comparator, and Indian Archaeology Priority presets. Both backend and frontend compiling and verified.
+- **2026-09-28 [Design System & Interactive UI Overhaul]**: Redesigned UI to a museum-grade **White / Light Theme** with **Google Sans** typography (inspired by Google Arts & Culture's *Pyramids of Meroë*) and a floating **Zoom Earth interactive GIS HUD**:
+  - **100% Free Architecture**: Zero subscriptions or paid API keys. Utilizes free public Esri World Imagery (satellite), CartoDB Voyager (cartography), OpenTopoMap (terrain), OpenStreetMap, and Three.js WebGL.
+  - **Multi-Layer Switcher**: 1-click toggle between Carto Map 🗺️, Satellite Aerial 🛰️ (Esri), and Topographic Relief 🏔️.
+  - **Zoom Earth HUD Controls**: Live mouse coordinate tracker (`Lat/Lng`), zoom level indicator, floating search pill, and clean floating player pill.
+  - **Meroë 3D Gallery Studio**: Studio gallery lighting with bright soft key and ambient fill for Three.js 3D artefacts (seals, war chariots, stelae, potsherds).
 
 ---
 
 ## 5. Checkpoint & Break State
 
-> **Checkpoint Timestamp**: September 28, 2026, 15:49 IST  
-> **Status**: Paused for comprehensive break. All work saved, compiled, and verified.
+> **Checkpoint Timestamp**: September 28, 2026, 16:50 IST  
+> **Status**: Active & Fully Operational. White theme & Zoom Earth HUD live.
 
 ### 5.1 Current System State
 1. **ASP.NET Core 10 Backend API**: Running live on `http://localhost:5032` (PID daemon active).
@@ -332,12 +337,12 @@ The Indian subcontinent possesses one of the deepest, richest, and most continuo
    - 9 Civilizations, 8 Historical Epochs, 12 Diagnostic Artefacts with 3D models.
    - All 16 Unit Tests passing cleanly.
 2. **Angular 21 GIS Frontend**: Running live on `http://localhost:4200` (Daemon active).
-   - Leaflet interactive map with custom archaeological pins & popups.
-   - Continuous BCE/CE Time Machine Scrubber (-3500 BCE to 500 CE) with playback and historical keyframe chips.
-   - Indian Archaeology Priority bar with 1-click horizon filters.
-   - Comprehensive Site Details Drawer with Stratigraphy visualizer and Three.js 3D Artefact Lab.
-   - Side-by-Side Analytical Comparator with geodesic distance calculation.
-   - Production bundle passing with zero compile errors (`ng build` complete).
+   - **Theme**: Museum White Ivory (`#ffffff` / `#f8f9fa`) with deep slate text and terracotta/gold accents.
+   - **Typography**: `Google Sans Display` & `Google Sans Text` from the Meroë project.
+   - **Map Layers**: 100% Free Carto Voyager, Esri Satellite, and OpenTopoMap with Zoom Earth HUD.
+   - **Time Scrubber**: Zoom Earth floating player pill with playback and keyframes.
+   - **Indian Priority Bar**: 1-click presets for Indus Valley, Sinauli Chariots, Mauryan Empire, Sangam Keeladi, Prehistoric Rock Art.
+   - **Production Bundle**: Passing with zero errors (`ng build` complete).
 3. **Documentation**:
    - `docs/INDIAN_ARCHAEOLOGY_AND_SYSTEM_PROGRESS.md`: Full compendium and live progress tracker.
    - `docs/TASK_PROMPT_LOG.md`: Milestone logs and acceptance criteria checkpoints.

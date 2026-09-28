@@ -21,202 +21,209 @@ export interface HorizonKeyframe {
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
-    <div class="time-machine-bar">
-      <!-- Year Counter & Playback Indicator -->
-      <div class="time-readout-section">
-        <div class="time-label">Active Horizon</div>
-        <div class="current-year font-mono" [class.bce]="currentYear() < 0" [class.ce]="currentYear() >= 0">
-          {{ formattedCurrentYear() }}
-        </div>
-        <div class="epoch-descriptor">{{ activeEpoch() }}</div>
-      </div>
-
-      <!-- Main Controls (Play/Pause, Step, Speed) -->
-      <div class="playback-controls">
-        <button class="icon-btn" (click)="stepYear(-100)" title="Step -100 Years">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <polyline points="11 17 6 12 11 7"/><polyline points="18 17 13 12 18 7"/>
-          </svg>
-        </button>
-
-        <button class="play-btn" [class.playing]="isPlaying()" (click)="togglePlay()" title="Toggle Temporal Playback">
-          <svg *ngIf="!isPlaying()" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-            <polygon points="5 3 19 12 5 21 5 3"/>
-          </svg>
-          <svg *ngIf="isPlaying()" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-            <rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>
-          </svg>
-        </button>
-
-        <button class="icon-btn" (click)="stepYear(100)" title="Step +100 Years">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/>
-          </svg>
-        </button>
-
-        <!-- Playback Speed Multiplier -->
-        <button class="speed-badge" (click)="cycleSpeed()" title="Playback Speed Multiplier">
-          {{ playbackSpeed() }}x
-        </button>
-      </div>
-
-      <!-- Scrubber Slider & Historical Milestones -->
-      <div class="slider-track-container">
-        <div class="slider-wrapper">
-          <input
-            type="range"
-            class="time-range-slider"
-            [min]="minYear"
-            [max]="maxYear"
-            [step]="25"
-            [ngModel]="currentYear()"
-            (ngModelChange)="onSliderInput($event)"
-          />
+    <div class="time-machine-hud-container">
+      <div class="time-machine-floating-pill">
+        <!-- Year Readout (Google Sans Display Typography) -->
+        <div class="year-readout-col">
+          <div class="year-badge-top">Temporal Horizon</div>
+          <div class="current-year-display font-display" [class.bce]="currentYear() < 0" [class.ce]="currentYear() >= 0">
+            {{ formattedCurrentYear() }}
+          </div>
+          <div class="epoch-label">{{ activeEpoch() }}</div>
         </div>
 
-        <!-- Key Historical Horizons -->
-        <div class="milestones-bar">
-          <button
-            *ngFor="let kf of keyframes"
-            class="milestone-chip"
-            [class.active]="isNearKeyframe(kf.year)"
-            (click)="jumpToYear(kf.year)"
-          >
-            <span class="ms-year">{{ formatYear(kf.year) }}</span>
-            <span class="ms-label">{{ kf.label }}</span>
+        <!-- Playback Controls (Zoom Earth Player Inspired) -->
+        <div class="player-controls-group">
+          <button class="step-btn" (click)="stepYear(-100)" title="Step -100 Years">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="11 17 6 12 11 7"/><polyline points="18 17 13 12 18 7"/>
+            </svg>
           </button>
+
+          <button class="play-pause-circle" [class.playing]="isPlaying()" (click)="togglePlay()" title="Auto Timeline Playback">
+            <svg *ngIf="!isPlaying()" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+            <svg *ngIf="isPlaying()" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>
+            </svg>
+          </button>
+
+          <button class="step-btn" (click)="stepYear(100)" title="Step +100 Years">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/>
+            </svg>
+          </button>
+
+          <!-- Speed Pill -->
+          <button class="speed-pill" (click)="cycleSpeed()" title="Playback Speed Multiplier">
+            {{ playbackSpeed() }}x
+          </button>
+        </div>
+
+        <!-- Timeline Scrubber Track & Milestone Pills -->
+        <div class="scrubber-track-area">
+          <div class="slider-wrapper">
+            <input
+              type="range"
+              class="zoom-time-slider"
+              [min]="minYear"
+              [max]="maxYear"
+              [step]="25"
+              [ngModel]="currentYear()"
+              (ngModelChange)="onSliderInput($event)"
+            />
+          </div>
+
+          <!-- Landmark Milestone Horizon Chips -->
+          <div class="milestones-row">
+            <button
+              *ngFor="let kf of keyframes"
+              class="ms-chip"
+              [class.active]="isNearKeyframe(kf.year)"
+              (click)="jumpToYear(kf.year)"
+            >
+              <span class="ms-year font-mono">{{ formatYear(kf.year) }}</span>
+              <span class="ms-name">{{ kf.label }}</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
   `,
   styles: [`
-    .time-machine-bar {
+    .time-machine-hud-container {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 850;
+      width: calc(100% - 48px);
+      max-width: 1080px;
+      pointer-events: none;
+    }
+
+    .time-machine-floating-pill {
+      pointer-events: auto;
       display: flex;
       align-items: center;
       gap: 20px;
       padding: 12px 24px;
-      background: rgba(14, 16, 22, 0.94);
-      border-top: 1px solid rgba(212, 175, 55, 0.28);
-      backdrop-filter: blur(16px);
-      box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.7);
-      width: 100%;
-      height: 90px;
-      z-index: 900;
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 24px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.04);
     }
 
-    .time-readout-section {
-      min-width: 145px;
+    .year-readout-col {
+      min-width: 155px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      border-right: 1px solid rgba(0, 0, 0, 0.08);
       padding-right: 18px;
     }
 
-    .time-label {
+    .year-badge-top {
       font-size: 10px;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: #94a3b8;
-      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: #6b7280;
+      font-weight: 700;
     }
 
-    .current-year {
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
+    .current-year-display {
+      font-size: 24px;
+      font-weight: 700;
       line-height: 1.1;
       margin: 2px 0;
     }
 
-    .current-year.bce {
-      color: #f4a261;
-      text-shadow: 0 0 16px rgba(244, 162, 97, 0.4);
+    .current-year-display.bce {
+      color: var(--accent-terracotta);
     }
 
-    .current-year.ce {
-      color: #48cae4;
-      text-shadow: 0 0 16px rgba(72, 202, 228, 0.4);
+    .current-year-display.ce {
+      color: var(--accent-emerald);
     }
 
-    .epoch-descriptor {
+    .epoch-label {
       font-size: 11px;
-      color: #cbd5e1;
+      color: #4b5563;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
       font-weight: 500;
     }
 
-    .playback-controls {
+    .player-controls-group {
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
-    .icon-btn {
+    .step-btn {
       width: 32px;
       height: 32px;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: #cbd5e1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .icon-btn:hover {
-      background: rgba(212, 175, 55, 0.2);
-      border-color: #d4af37;
-      color: #ffd166;
-    }
-
-    .play-btn {
-      width: 42px;
-      height: 42px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #e06a3b, #d4af37);
-      border: none;
-      color: #0c0e14;
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      color: #374151;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 0 18px rgba(224, 106, 59, 0.4);
       transition: all 0.2s ease;
     }
 
-    .play-btn:hover {
+    .step-btn:hover {
+      background: #111827;
+      color: #ffffff;
+    }
+
+    .play-pause-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #111827;
+      border: none;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+      transition: all 0.2s ease;
+    }
+
+    .play-pause-circle:hover {
       transform: scale(1.08);
-      box-shadow: 0 0 25px rgba(212, 175, 55, 0.6);
+      background: var(--accent-terracotta);
     }
 
-    .play-btn.playing {
-      background: linear-gradient(135deg, #2a9d8f, #48cae4);
-      box-shadow: 0 0 20px rgba(42, 157, 143, 0.5);
+    .play-pause-circle.playing {
+      background: var(--accent-emerald);
     }
 
-    .speed-badge {
-      font-family: var(--font-mono, monospace);
+    .speed-pill {
+      font-family: var(--font-mono);
       font-size: 11px;
       font-weight: 700;
-      color: #e9c46a;
-      background: rgba(233, 196, 106, 0.12);
-      border: 1px solid rgba(233, 196, 106, 0.3);
-      padding: 5px 8px;
-      border-radius: 6px;
+      color: #374151;
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      padding: 5px 9px;
+      border-radius: 12px;
       cursor: pointer;
       transition: all 0.2s ease;
     }
 
-    .speed-badge:hover {
-      background: rgba(233, 196, 106, 0.25);
+    .speed-pill:hover {
+      background: #e5e7eb;
+      color: #111827;
     }
 
-    .slider-track-container {
+    .scrubber-track-area {
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -228,46 +235,47 @@ export interface HorizonKeyframe {
       width: 100%;
     }
 
-    .time-range-slider {
+    .zoom-time-slider {
       -webkit-appearance: none;
       appearance: none;
       width: 100%;
-      height: 8px;
-      border-radius: 4px;
-      background: linear-gradient(90deg, #6d597a 0%, #e06a3b 35%, #b5838d 60%, #d90429 75%, #2a9d8f 88%, #457b9d 100%);
+      height: 7px;
+      border-radius: 10px;
+      background: linear-gradient(90deg, #c25e2e 0%, #e06a3b 35%, #b5838d 60%, #b91c1c 75%, #0f766e 88%, #1d4ed8 100%);
       outline: none;
       cursor: pointer;
-      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.6);
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
     }
 
-    .time-range-slider::-webkit-slider-thumb {
+    .zoom-time-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
       width: 22px;
       height: 22px;
       border-radius: 50%;
-      background: #f8fafc;
-      border: 3px solid #d4af37;
+      background: #ffffff;
+      border: 3px solid #111827;
       cursor: pointer;
-      box-shadow: 0 0 12px rgba(212, 175, 55, 0.8);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
       transition: transform 0.15s ease;
     }
 
-    .time-range-slider::-webkit-slider-thumb:hover {
+    .zoom-time-slider::-webkit-slider-thumb:hover {
       transform: scale(1.2);
+      border-color: var(--accent-terracotta);
     }
 
-    .milestones-bar {
+    .milestones-row {
       display: flex;
       justify-content: space-between;
       gap: 6px;
       overflow-x: auto;
     }
 
-    .milestone-chip {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 4px;
+    .ms-chip {
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 6px;
       padding: 3px 8px;
       cursor: pointer;
       display: flex;
@@ -277,21 +285,20 @@ export interface HorizonKeyframe {
       white-space: nowrap;
     }
 
-    .milestone-chip:hover, .milestone-chip.active {
-      background: rgba(212, 175, 55, 0.18);
-      border-color: #d4af37;
+    .ms-chip:hover, .ms-chip.active {
+      background: #fef8e7;
+      border-color: #d4a373;
     }
 
     .ms-year {
-      font-family: var(--font-mono, monospace);
       font-size: 10px;
       font-weight: 700;
-      color: #ffd166;
+      color: var(--accent-terracotta);
     }
 
-    .ms-label {
+    .ms-name {
       font-size: 9.5px;
-      color: #94a3b8;
+      color: #6b7280;
     }
   `]
 })
@@ -308,7 +315,6 @@ export class TimelineScrubberComponent implements OnInit, OnDestroy {
 
   private playbackTimerId: any = null;
 
-  // Curated landmark historical milestones focusing on Indian Archaeological Horizons
   protected readonly keyframes: HorizonKeyframe[] = [
     { year: -3300, label: 'Early Indus / Mehrgarh', civilization: 'Early Harappan' },
     { year: -2500, label: 'Peak Mature Indus (Dholavira/Lothal)', civilization: 'Mature Harappan' },

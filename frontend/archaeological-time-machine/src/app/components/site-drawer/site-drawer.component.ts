@@ -48,7 +48,7 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
             </svg>
           </button>
 
-          <h2 class="site-title">{{ site.name }}</h2>
+          <h2 class="site-title font-display">{{ site.name }}</h2>
           <div class="site-ancient" *ngIf="site.ancientName">Ancient / Indigenous Designation: <em>{{ site.ancientName }}</em></div>
           
           <div class="site-meta-bar">
@@ -125,12 +125,12 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
             </div>
 
             <div class="info-card">
-              <h4 class="card-title">Architectural & Settlement Highlights</h4>
+              <h4 class="card-title font-display">Architectural & Settlement Highlights</h4>
               <p class="highlight-text">{{ site.architecturalHighlights || 'Documented masonry, fortifications and settlement structures.' }}</p>
             </div>
 
             <div class="info-card">
-              <h4 class="card-title">Archaeological Synopsis</h4>
+              <h4 class="card-title font-display">Archaeological Synopsis</h4>
               <p class="body-text">{{ site.description }}</p>
             </div>
 
@@ -163,7 +163,7 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
             <div *ngFor="let exc of site.excavations" class="excavation-block">
               <div class="excavation-header">
                 <div>
-                  <h4 class="excavation-name">{{ exc.expeditionName }}</h4>
+                  <h4 class="excavation-name font-display">{{ exc.expeditionName }}</h4>
                   <div class="excavator-meta">
                     Director: <strong>{{ exc.leadArchaeologist }}</strong> • {{ exc.organization }} ({{ exc.startYear }}-{{ exc.endYear || 'Present' }})
                   </div>
@@ -174,13 +174,13 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
               <div class="strata-sequence">
                 <div *ngFor="let layer of exc.layers" class="stratum-card">
                   <div class="stratum-depth-indicator">
-                    <span class="depth-val">{{ layer.depthMeters }}m</span>
+                    <span class="depth-val font-mono">{{ layer.depthMeters }}m</span>
                     <span class="depth-label">Depth</span>
                   </div>
 
                   <div class="stratum-info">
                     <div class="stratum-head">
-                      <h5 class="stratum-name">{{ layer.layerName }}</h5>
+                      <h5 class="stratum-name font-display">{{ layer.layerName }}</h5>
                       <span class="stratum-culture" *ngIf="layer.culturalAffiliation">{{ layer.culturalAffiliation }}</span>
                     </div>
 
@@ -224,7 +224,7 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
                   [class.active]="selectedArtefact()?.id === art.id"
                   (click)="selectArtefact(art)"
                 >
-                  <span class="art-num">Find #{{ i + 1 }}</span>
+                  <span class="art-num font-mono">Find #{{ i + 1 }}</span>
                   <span class="art-name">{{ art.name }}</span>
                 </button>
               </div>
@@ -235,7 +235,7 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
               </div>
 
               <div class="artefact-details-card" *ngIf="selectedArtefact()">
-                <h4 class="card-title">{{ selectedArtefact()!.name }}</h4>
+                <h4 class="card-title font-display">{{ selectedArtefact()!.name }}</h4>
                 <p class="body-text">{{ selectedArtefact()!.description }}</p>
                 <div class="art-meta-grid">
                   <div><strong>Dimensions:</strong> {{ selectedArtefact()!.dimensions || 'N/A' }}</div>
@@ -254,7 +254,7 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
           <div *ngIf="activeTab() === 'spatial'" class="tab-pane">
             <!-- Geodesic Neighbours -->
             <div class="spatial-section">
-              <h4 class="card-title">Geodesic Proximity (Closest Sites)</h4>
+              <h4 class="card-title font-display">Geodesic Proximity (Closest Sites)</h4>
               <p class="section-sub">Calculated via geodesic ellipsoidal spatial distance.</p>
 
               <div class="nearby-list">
@@ -264,7 +264,7 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
                   (click)="onNearbySiteSelected(n.nearbySiteId)"
                 >
                   <div class="nearby-info">
-                    <span class="nearby-name">{{ n.nearbySiteName }}</span>
+                    <span class="nearby-name font-display">{{ n.nearbySiteName }}</span>
                     <span class="nearby-loc">{{ n.region }}, {{ n.country }}</span>
                     <span class="nearby-dates font-mono">{{ n.startYearFormatted }} – {{ n.endYearFormatted }}</span>
                   </div>
@@ -277,7 +277,7 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
 
             <!-- Contemporaneous Sites -->
             <div class="spatial-section">
-              <h4 class="card-title">Contemporaneous Civilizations & Sites</h4>
+              <h4 class="card-title font-display">Contemporaneous Settlements</h4>
               <p class="section-sub">Ancient settlements co-existing during overlapping occupational centuries.</p>
 
               <div class="contemp-grid">
@@ -286,7 +286,7 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
                   class="contemp-card"
                   (click)="onNearbySiteSelected(c.id)"
                 >
-                  <div class="contemp-name">{{ c.name }}</div>
+                  <div class="contemp-name font-display">{{ c.name }}</div>
                   <div class="contemp-loc">{{ c.region }}, {{ c.country }}</div>
                   <div class="contemp-dates font-mono">{{ c.startYearFormatted }} – {{ c.endYearFormatted }}</div>
                 </div>
@@ -296,12 +296,12 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
 
           <!-- 5. BIBLIOGRAPHY TAB -->
           <div *ngIf="activeTab() === 'references'" class="tab-pane">
-            <h4 class="card-title">Academic & Archaeological Citations</h4>
+            <h4 class="card-title font-display">Academic & Archaeological Citations</h4>
             <div class="citations-list">
               <div *ngFor="let ref of site.references" class="citation-card">
                 <div class="citation-key font-mono">[{{ ref.citationKey }}]</div>
                 <div class="citation-content">
-                  <div class="citation-title">{{ ref.title }}</div>
+                  <div class="citation-title font-display">{{ ref.title }}</div>
                   <div class="citation-authors">{{ ref.authors }} ({{ ref.publicationYear }})</div>
                   <div class="citation-publisher"><em>{{ ref.journalOrPublisher }}</em></div>
                   <div class="citation-pages" *ngIf="ref.specificPagesOrPlates">
@@ -322,10 +322,10 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
     .drawer-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.65);
+      background: rgba(0, 0, 0, 0.4);
       backdrop-filter: blur(4px);
       z-index: 950;
-      animation: fadeIn 0.25s ease;
+      animation: fadeIn 0.2s ease;
     }
 
     @keyframes fadeIn {
@@ -340,10 +340,10 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
       width: 580px;
       max-width: 90vw;
       height: 100vh;
-      background: rgba(16, 18, 26, 0.96);
-      border-left: 1px solid rgba(212, 175, 55, 0.35);
-      backdrop-filter: blur(20px);
-      box-shadow: -12px 0 50px rgba(0, 0, 0, 0.85);
+      background: rgba(255, 255, 255, 0.98);
+      border-left: 1px solid rgba(0, 0, 0, 0.12);
+      backdrop-filter: blur(24px);
+      box-shadow: -12px 0 45px rgba(0, 0, 0, 0.15);
       z-index: 1000;
       transform: translateX(100%);
       transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
@@ -362,15 +362,15 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
       align-items: center;
       justify-content: center;
       height: 100%;
-      color: #94a3b8;
+      color: #6b7280;
       gap: 12px;
     }
 
     .loader-spinner {
       width: 40px;
       height: 40px;
-      border: 3px solid rgba(212, 175, 55, 0.2);
-      border-top-color: #d4af37;
+      border: 3px solid rgba(0, 0, 0, 0.1);
+      border-top-color: var(--accent-terracotta);
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
     }
@@ -389,8 +389,8 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
     .drawer-header {
       position: relative;
       padding: 24px 28px 16px;
-      background: linear-gradient(180deg, rgba(26, 30, 42, 0.95) 0%, rgba(16, 18, 26, 0.95) 100%);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: #ffffff;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
       flex-shrink: 0;
     }
 
@@ -401,31 +401,13 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
       margin-bottom: 8px;
     }
 
-    .badge-country {
-      background: rgba(224, 106, 59, 0.2);
-      color: #f4a261;
-      border: 1px solid rgba(224, 106, 59, 0.4);
-      padding: 2px 7px;
-      border-radius: 4px;
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .badge-period {
-      background: rgba(255, 255, 255, 0.06);
-      color: #cbd5e1;
-      padding: 2px 7px;
-      border-radius: 4px;
-      font-size: 11px;
-    }
-
     .close-btn {
       position: absolute;
       top: 20px;
       right: 20px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #cbd5e1;
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      color: #4b5563;
       width: 34px;
       height: 34px;
       border-radius: 50%;
@@ -437,22 +419,21 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
     }
 
     .close-btn:hover {
-      background: rgba(217, 4, 41, 0.25);
-      border-color: #d90429;
-      color: #ff4d6d;
+      background: #fee2e2;
+      border-color: #ef4444;
+      color: #b91c1c;
     }
 
     .site-title {
-      font-family: var(--font-display, serif);
       font-size: 24px;
-      color: #f8fafc;
       font-weight: 700;
+      color: #111827;
       margin-bottom: 4px;
     }
 
     .site-ancient {
       font-size: 13px;
-      color: #e9c46a;
+      color: var(--accent-terracotta);
       margin-bottom: 10px;
     }
 
@@ -461,7 +442,7 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
       flex-wrap: wrap;
       gap: 16px;
       font-size: 12px;
-      color: #94a3b8;
+      color: #4b5563;
       margin-bottom: 14px;
     }
 
@@ -472,7 +453,11 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
     }
 
     .date-highlight {
-      color: #ffd166;
+      color: #92400e;
+      background: #fef8e7;
+      padding: 2px 7px;
+      border-radius: 4px;
+      border: 1px solid #fef3c7;
       font-weight: 600;
     }
 
@@ -485,19 +470,20 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(212, 175, 55, 0.15);
-      border: 1px solid rgba(212, 175, 55, 0.4);
-      color: #ffd166;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      color: #0f172a;
       font-size: 12px;
       font-weight: 600;
-      padding: 6px 12px;
-      border-radius: 6px;
+      padding: 7px 14px;
+      border-radius: 8px;
       cursor: pointer;
       transition: all 0.2s ease;
     }
 
     .action-btn:hover {
-      background: rgba(212, 175, 55, 0.3);
+      background: #111827;
+      border-color: #111827;
       color: #ffffff;
       transform: translateY(-1px);
     }
@@ -505,8 +491,8 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
     /* Tabs Navigation */
     .drawer-tabs {
       display: flex;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(14, 16, 23, 0.98);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      background: #f9fafb;
       overflow-x: auto;
       flex-shrink: 0;
     }
@@ -516,7 +502,7 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
       background: none;
       border: none;
       border-bottom: 2px solid transparent;
-      color: #94a3b8;
+      color: #6b7280;
       font-size: 12.5px;
       font-weight: 600;
       cursor: pointer;
@@ -525,13 +511,13 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
     }
 
     .tab-btn:hover {
-      color: #f1f5f9;
+      color: #111827;
     }
 
     .tab-btn.active {
-      color: #ffd166;
-      border-bottom-color: #d4af37;
-      background: rgba(212, 175, 55, 0.08);
+      color: var(--accent-terracotta);
+      border-bottom-color: var(--accent-terracotta);
+      background: #ffffff;
     }
 
     /* Tab Body Scrollable */
@@ -539,13 +525,15 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
       flex: 1;
       overflow-y: auto;
       padding: 24px;
+      background: #ffffff;
     }
 
     .site-image-card {
-      border-radius: 10px;
+      border-radius: 12px;
       overflow: hidden;
       margin-bottom: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
     }
 
     .site-image-card img {
@@ -557,44 +545,46 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
 
     .image-caption {
       font-size: 11px;
-      color: #94a3b8;
+      color: #6b7280;
       padding: 6px 12px;
-      background: rgba(0, 0, 0, 0.6);
+      background: #f9fafb;
       font-style: italic;
+      border-top: 1px solid #f3f4f6;
     }
 
     .info-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 8px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
       padding: 16px;
       margin-bottom: 16px;
     }
 
     .card-title {
-      font-family: var(--font-display, serif);
-      font-size: 14px;
-      color: #e9c46a;
+      font-size: 14.5px;
+      color: #111827;
       margin-bottom: 8px;
     }
 
     .sub-title {
-      font-size: 12.5px;
-      color: #cbd5e1;
+      font-size: 12px;
+      color: #4b5563;
       margin-bottom: 6px;
-      font-weight: 600;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
     .body-text {
       font-size: 13px;
       line-height: 1.6;
-      color: #cbd5e1;
+      color: #374151;
     }
 
     .highlight-text {
       font-size: 13.5px;
       line-height: 1.6;
-      color: #f1f5f9;
+      color: #111827;
     }
 
     .info-grid {
@@ -606,7 +596,7 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
     /* Stratigraphy Styling */
     .stratigraphy-intro {
       font-size: 12.5px;
-      color: #94a3b8;
+      color: #6b7280;
       margin-bottom: 16px;
       font-style: italic;
     }
@@ -616,28 +606,28 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
     }
 
     .excavation-header {
-      background: rgba(212, 175, 55, 0.1);
-      border: 1px solid rgba(212, 175, 55, 0.25);
-      padding: 12px 16px;
-      border-radius: 8px 8px 0 0;
+      background: #fef8e7;
+      border: 1px solid #fef3c7;
+      padding: 14px 18px;
+      border-radius: 10px 10px 0 0;
     }
 
     .excavation-name {
-      font-family: var(--font-display, serif);
       font-size: 15px;
-      color: #ffd166;
+      color: #92400e;
+      font-weight: 700;
     }
 
     .excavator-meta {
       font-size: 11.5px;
-      color: #94a3b8;
+      color: #78350f;
       margin-top: 2px;
     }
 
     .strata-sequence {
       display: flex;
       flex-direction: column;
-      border-left: 2px solid rgba(212, 175, 55, 0.4);
+      border-left: 2px solid var(--accent-terracotta);
       margin-left: 16px;
       padding-left: 16px;
       gap: 14px;
@@ -646,9 +636,9 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
 
     .stratum-card {
       position: relative;
-      background: rgba(22, 26, 36, 0.8);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 8px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
       padding: 14px;
       display: flex;
       gap: 14px;
@@ -659,23 +649,23 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-width: 50px;
-      background: rgba(0, 0, 0, 0.4);
-      border-radius: 6px;
+      min-width: 52px;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
       padding: 6px;
     }
 
     .depth-val {
-      font-family: var(--font-mono, monospace);
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 700;
-      color: #f4a261;
+      color: var(--accent-terracotta);
     }
 
     .depth-label {
-      font-size: 9.5px;
+      font-size: 9px;
       text-transform: uppercase;
-      color: #64748b;
+      color: #9ca3af;
     }
 
     .stratum-info {
@@ -690,57 +680,57 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
     }
 
     .stratum-name {
-      font-size: 13.5px;
+      font-size: 14px;
       font-weight: 700;
-      color: #f8fafc;
+      color: #111827;
     }
 
     .stratum-culture {
       font-size: 11px;
-      color: #2a9d8f;
+      color: var(--accent-emerald);
       font-weight: 600;
     }
 
     .stratum-dates {
       font-size: 11.5px;
-      color: #ffd166;
+      color: #92400e;
       margin-bottom: 6px;
     }
 
     .stratum-desc {
       font-size: 12px;
-      color: #cbd5e1;
+      color: #4b5563;
       line-height: 1.5;
       margin-bottom: 6px;
     }
 
     .stratum-soil {
       font-size: 11px;
-      color: #94a3b8;
+      color: #6b7280;
     }
 
     .layer-findings {
       margin-top: 10px;
       padding-top: 8px;
-      border-top: 1px dashed rgba(255, 255, 255, 0.1);
+      border-top: 1px dashed #e5e7eb;
     }
 
     .findings-header {
       font-size: 11px;
       font-weight: 700;
-      color: #e9c46a;
+      color: var(--accent-terracotta);
       margin-bottom: 4px;
     }
 
     .finding-pill {
       font-size: 11px;
-      color: #cbd5e1;
+      color: #374151;
       margin-bottom: 2px;
     }
 
     .finding-type {
-      color: #f4a261;
-      font-family: var(--font-mono, monospace);
+      color: #92400e;
+      font-family: var(--font-mono);
       margin-right: 4px;
     }
 
@@ -753,9 +743,9 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
     }
 
     .art-chip {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 6px;
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
       padding: 6px 12px;
       cursor: pointer;
       display: flex;
@@ -765,20 +755,20 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
     }
 
     .art-chip:hover, .art-chip.active {
-      background: rgba(212, 175, 55, 0.2);
-      border-color: #d4af37;
+      background: #fef8e7;
+      border-color: #d4a373;
     }
 
     .art-num {
       font-size: 9.5px;
-      color: #ffd166;
+      color: var(--accent-terracotta);
       text-transform: uppercase;
       font-weight: 700;
     }
 
     .art-name {
       font-size: 12px;
-      color: #f1f5f9;
+      color: #111827;
       font-weight: 600;
     }
 
@@ -787,9 +777,9 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
     }
 
     .artefact-details-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 8px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
       padding: 16px;
     }
 
@@ -798,7 +788,7 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
       grid-template-columns: 1fr 1fr;
       gap: 8px;
       font-size: 12px;
-      color: #94a3b8;
+      color: #4b5563;
       margin-top: 10px;
     }
 
@@ -809,7 +799,7 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
 
     .section-sub {
       font-size: 11.5px;
-      color: #94a3b8;
+      color: #6b7280;
       margin-bottom: 10px;
     }
 
@@ -823,17 +813,18 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 8px;
-      padding: 10px 14px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 12px 16px;
       cursor: pointer;
       transition: all 0.2s ease;
     }
 
     .nearby-card:hover {
-      background: rgba(212, 175, 55, 0.15);
-      border-color: #d4af37;
+      background: #ffffff;
+      border-color: var(--accent-terracotta);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
       transform: translateX(4px);
     }
 
@@ -843,28 +834,29 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
     }
 
     .nearby-name {
-      font-size: 13.5px;
+      font-size: 14px;
       font-weight: 700;
-      color: #f8fafc;
+      color: #111827;
     }
 
     .nearby-loc {
       font-size: 11.5px;
-      color: #94a3b8;
+      color: #6b7280;
     }
 
     .nearby-dates {
       font-size: 11px;
-      color: #ffd166;
+      color: #92400e;
     }
 
     .nearby-distance {
       font-size: 13px;
       font-weight: 700;
-      color: #48cae4;
-      background: rgba(72, 202, 228, 0.12);
-      padding: 4px 8px;
-      border-radius: 6px;
+      color: #0369a1;
+      background: #f0f9ff;
+      border: 1px solid #bae6fd;
+      padding: 4px 10px;
+      border-radius: 8px;
     }
 
     .contemp-grid {
@@ -874,8 +866,8 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
     }
 
     .contemp-card {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
       border-radius: 8px;
       padding: 10px;
       cursor: pointer;
@@ -883,25 +875,25 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
     }
 
     .contemp-card:hover {
-      background: rgba(224, 106, 59, 0.15);
-      border-color: #e06a3b;
+      background: #ffffff;
+      border-color: var(--accent-terracotta);
       transform: translateY(-2px);
     }
 
     .contemp-name {
-      font-size: 12.5px;
+      font-size: 13px;
       font-weight: 700;
-      color: #f1f5f9;
+      color: #111827;
     }
 
     .contemp-loc {
       font-size: 11px;
-      color: #94a3b8;
+      color: #6b7280;
     }
 
     .contemp-dates {
       font-size: 10.5px;
-      color: #ffd166;
+      color: #92400e;
       margin-top: 2px;
     }
 
@@ -914,16 +906,16 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
     }
 
     .citation-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      border-radius: 8px;
-      padding: 14px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 16px;
       display: flex;
       gap: 12px;
     }
 
     .citation-key {
-      color: #d4af37;
+      color: var(--accent-terracotta);
       font-size: 12px;
       font-weight: 700;
       flex-shrink: 0;
@@ -936,28 +928,28 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
 
     .citation-title {
       font-weight: 700;
-      color: #f8fafc;
-      font-size: 13px;
+      color: #111827;
+      font-size: 13.5px;
       margin-bottom: 2px;
     }
 
     .citation-authors {
-      color: #cbd5e1;
+      color: #4b5563;
     }
 
     .citation-publisher {
-      color: #94a3b8;
+      color: #6b7280;
     }
 
     .citation-pages {
-      color: #e9c46a;
+      color: #92400e;
       margin-top: 4px;
     }
 
     .citation-link {
       display: inline-block;
       margin-top: 6px;
-      color: #48cae4;
+      color: #0284c7;
       text-decoration: none;
       font-weight: 600;
     }
@@ -969,7 +961,7 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
     .empty-state {
       padding: 30px;
       text-align: center;
-      color: #64748b;
+      color: #9ca3af;
       font-size: 13px;
     }
   `]
@@ -1038,13 +1030,11 @@ export class SiteDrawerComponent implements OnChanges {
           this.selectedArtefact.set(detail.artefacts[0]);
         }
 
-        // Load nearby neighbours
         this.api.getNearbySites(id, 800).subscribe({
           next: (nearby) => this.nearbySites = nearby,
           error: () => this.nearbySites = []
         });
 
-        // Load contemporaneous sites
         this.api.getContemporaneousSites(id).subscribe({
           next: (contemp) => this.contemporaneousSites = contemp,
           error: () => this.contemporaneousSites = []

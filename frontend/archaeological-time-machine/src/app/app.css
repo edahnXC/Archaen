@@ -1,5 +1,5 @@
 /* ==========================================================================
-   APP COMPONENT LAYOUT & AESTHETICS
+   APP COMPONENT - MUSEUM WHITE THEME & ZOOM EARTH GIS HUD LAYOUT
    ========================================================================== */
 
 .app-layout {
@@ -9,7 +9,7 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background-color: var(--bg-deep, #0a0b0e);
+  background-color: var(--bg-canvas, #f8f9fa);
 }
 
 /* ==========================================================================
@@ -20,14 +20,15 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 20px;
-  background: rgba(14, 17, 24, 0.95);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(16px);
+  padding: 10px 24px;
+  background: rgba(255, 255, 255, 0.96);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(20px);
   z-index: 900;
   gap: 16px;
   flex-shrink: 0;
   height: 64px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
 .brand-section {
@@ -38,32 +39,31 @@
 }
 
 .brand-icon {
-  font-size: 26px;
-  background: rgba(212, 175, 55, 0.12);
-  border: 1px solid rgba(212, 175, 55, 0.35);
-  width: 44px;
-  height: 44px;
+  font-size: 24px;
+  background: #fef8e7;
+  border: 1px solid #fef3c7;
+  width: 42px;
+  height: 42px;
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 16px rgba(212, 175, 55, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .brand-name {
-  font-family: var(--font-display, serif);
+  font-family: var(--font-display);
   font-size: 16px;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  color: #f8fafc;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #111827;
   line-height: 1.1;
-  text-shadow: 0 0 20px rgba(212, 175, 55, 0.35);
 }
 
 .brand-subtitle {
   font-size: 11px;
-  color: #94a3b8;
-  letter-spacing: 0.02em;
+  color: #6b7280;
+  letter-spacing: 0.01em;
   margin-top: 2px;
 }
 
@@ -85,44 +85,45 @@
 
 .search-icon {
   position: absolute;
-  left: 12px;
-  color: #64748b;
+  left: 14px;
+  color: #9ca3af;
   pointer-events: none;
 }
 
 .search-input {
   width: 100%;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 8px;
-  padding: 8px 36px 8px 36px;
-  color: #f1f5f9;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  padding: 8px 36px 8px 38px;
+  color: #111827;
   font-size: 13px;
+  font-family: inherit;
   outline: none;
   transition: all 0.2s ease;
 }
 
 .search-input:focus {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: #d4af37;
-  box-shadow: 0 0 14px rgba(212, 175, 55, 0.25);
+  background: #ffffff;
+  border-color: #111827;
+  box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.08);
 }
 
 .clear-search-btn {
   position: absolute;
-  right: 10px;
+  right: 12px;
   background: none;
   border: none;
-  color: #94a3b8;
+  color: #9ca3af;
   font-size: 13px;
   cursor: pointer;
 }
 
 .region-selector {
   display: flex;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 8px;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
   padding: 2px;
   flex-shrink: 0;
 }
@@ -130,28 +131,30 @@
 .region-btn {
   background: none;
   border: none;
-  color: #94a3b8;
+  color: #4b5563;
   font-size: 12px;
   font-weight: 600;
-  padding: 6px 12px;
-  border-radius: 6px;
+  font-family: inherit;
+  padding: 5px 12px;
+  border-radius: 18px;
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
 }
 
 .region-btn:hover {
-  color: #f1f5f9;
+  color: #111827;
 }
 
 .region-btn.active {
-  background: rgba(212, 175, 55, 0.2);
-  color: #ffd166;
+  background: #ffffff;
+  color: #111827;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
 .region-btn.india-btn.active {
-  background: rgba(224, 106, 59, 0.25);
-  color: #ff9e79;
+  background: var(--accent-terracotta);
+  color: #ffffff;
 }
 
 /* Header Actions */
@@ -166,37 +169,40 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #cbd5e1;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  color: #374151;
   font-size: 12px;
   font-weight: 600;
-  padding: 8px 14px;
-  border-radius: 8px;
+  font-family: inherit;
+  padding: 7px 14px;
+  border-radius: 20px;
   cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
   transition: all 0.2s ease;
   white-space: nowrap;
 }
 
 .toggle-mode-btn:hover, .sidebar-toggle-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
+  background: #f9fafb;
+  border-color: #d1d5db;
+  color: #111827;
 }
 
 .toggle-mode-btn.active {
-  background: rgba(42, 157, 143, 0.2);
-  border-color: rgba(42, 157, 143, 0.4);
-  color: #48cae4;
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+  color: #065f46;
 }
 
 .sidebar-toggle-btn.active {
-  background: rgba(212, 175, 55, 0.18);
-  border-color: #d4af37;
-  color: #ffd166;
+  background: #111827;
+  border-color: #111827;
+  color: #ffffff;
 }
 
 /* ==========================================================================
-   MAIN WORKSPACE & FLOATING SITES SIDEBAR
+   MAIN WORKSPACE & FLOATING SITES SIDEBAR (Zoom Earth style)
    ========================================================================== */
 
 .main-workspace {
@@ -209,15 +215,15 @@
 
 .active-sites-sidebar {
   position: absolute;
-  top: 16px;
-  left: 16px;
+  top: 18px;
+  left: 18px;
   width: 320px;
-  max-height: calc(100% - 32px);
-  background: rgba(16, 19, 27, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  backdrop-filter: blur(16px);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.65);
+  max-height: calc(100% - 130px);
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.04);
   z-index: 850;
   display: flex;
   flex-direction: column;
@@ -226,7 +232,7 @@
 }
 
 .active-sites-sidebar.collapsed {
-  transform: translateX(-350px);
+  transform: translateX(-360px);
   opacity: 0;
   pointer-events: none;
 }
@@ -235,116 +241,124 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 16px;
-  background: rgba(22, 26, 36, 0.95);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 14px 18px;
+  background: #fafafa;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .sidebar-title {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-family: var(--font-display, serif);
-  font-size: 13px;
+  font-family: var(--font-display);
+  font-size: 13.5px;
   font-weight: 700;
-  color: #e9c46a;
+  color: #111827;
 }
 
 .site-counter {
-  background: rgba(212, 175, 55, 0.2);
-  color: #ffd166;
+  background: #fef8e7;
+  color: var(--accent-terracotta);
+  border: 1px solid #fef3c7;
   font-size: 11px;
-  padding: 2px 6px;
-  border-radius: 4px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 10px;
 }
 
 .minimize-btn {
   background: none;
   border: none;
-  color: #94a3b8;
-  font-size: 13px;
+  color: #9ca3af;
+  font-size: 14px;
   cursor: pointer;
 }
 
 .minimize-btn:hover {
-  color: #f1f5f9;
+  color: #111827;
 }
 
 .sites-scroll-list {
   flex: 1;
   overflow-y: auto;
-  padding: 10px;
+  padding: 12px;
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
 .site-item-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 8px;
-  padding: 10px 12px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 12px 14px;
   cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
   transition: all 0.2s ease;
 }
 
 .site-item-card:hover {
-  background: rgba(212, 175, 55, 0.12);
-  border-color: rgba(212, 175, 55, 0.35);
+  background: #fdfaf7;
+  border-color: var(--accent-terracotta);
   transform: translateX(3px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
 }
 
 .site-item-card.is-india {
-  border-left: 3px solid #e06a3b;
+  border-left: 3.5px solid var(--accent-terracotta);
 }
 
 .site-item-card.selected {
-  background: rgba(212, 175, 55, 0.2);
-  border-color: #ffd166;
-  box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+  background: #fff8f5;
+  border-color: var(--accent-terracotta);
+  box-shadow: 0 0 0 1.5px var(--accent-terracotta);
 }
 
 .site-item-top {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  margin-bottom: 2px;
+  margin-bottom: 3px;
 }
 
 .site-item-name {
   font-size: 13.5px;
-  color: #f8fafc;
+  color: #111827;
   display: flex;
   align-items: center;
   gap: 5px;
 }
 
 .unesco-star {
-  color: #48cae4;
-  font-size: 14px;
+  color: #15803d;
+  font-size: 13px;
 }
 
 .site-item-ancient {
-  font-size: 11px;
-  color: #e9c46a;
+  font-size: 11.5px;
+  color: var(--accent-terracotta);
   margin-bottom: 4px;
 }
 
 .site-item-dates {
   font-size: 11px;
-  color: #ffd166;
+  color: #92400e;
+  background: #fef8e7;
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: 4px;
   margin-bottom: 4px;
 }
 
 .site-item-region {
-  font-size: 11px;
-  color: #94a3b8;
+  font-size: 11.5px;
+  color: #6b7280;
   margin-bottom: 2px;
 }
 
 .site-item-type {
-  font-size: 10.5px;
-  color: #64748b;
+  font-size: 11px;
+  color: #9ca3af;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -353,17 +367,17 @@
 .no-sites-notice {
   padding: 30px 16px;
   text-align: center;
-  color: #94a3b8;
+  color: #6b7280;
   font-size: 12.5px;
 }
 
 .reset-time-btn {
   margin-top: 10px;
-  background: rgba(212, 175, 55, 0.2);
-  border: 1px solid #d4af37;
-  color: #ffd166;
-  padding: 6px 12px;
-  border-radius: 6px;
+  background: #111827;
+  border: none;
+  color: #ffffff;
+  padding: 6px 14px;
+  border-radius: 20px;
   font-size: 11.5px;
   cursor: pointer;
 }
