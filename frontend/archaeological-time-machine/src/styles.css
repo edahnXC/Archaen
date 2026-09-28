@@ -1,0 +1,222 @@
+/* ==========================================================================
+   ARCHAEOLOGICAL TIME MACHINE - CORE DESIGN SYSTEM & THEME
+   ========================================================================== */
+
+:root {
+  /* Color Palette: Earth, Basalt, Terracotta, Ancient Gold */
+  --bg-deep: #0a0b0e;
+  --bg-surface: #12141a;
+  --bg-card: rgba(22, 25, 34, 0.85);
+  --bg-elevated: #1a1e28;
+  --bg-glass: rgba(18, 20, 26, 0.75);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-gold: rgba(212, 175, 55, 0.35);
+  --border-terracotta: rgba(224, 106, 59, 0.4);
+
+  /* Signature Historical Accents */
+  --accent-gold: #d4af37;
+  --accent-gold-glow: rgba(212, 175, 55, 0.3);
+  --accent-terracotta: #e06a3b;
+  --accent-sandstone: #d4a373;
+  --accent-crimson: #d90429;
+  --accent-emerald: #2a9d8f;
+  --accent-lapis: #457b9d;
+
+  /* Typography Colors */
+  --text-primary: #f0f2f5;
+  --text-secondary: #9da3b4;
+  --text-muted: #6b7280;
+  --text-gold: #e9c46a;
+
+  /* Typography Font Families */
+  --font-display: 'Cinzel', serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Layout & Shadows */
+  --shadow-lg: 0 16px 40px -8px rgba(0, 0, 0, 0.65);
+  --shadow-gold: 0 0 25px rgba(212, 175, 55, 0.18);
+  --shadow-terracotta: 0 0 25px rgba(224, 106, 59, 0.2);
+  --glass-blur: blur(14px);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-deep);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==========================================================================
+   TYPOGRAPHY UTILITIES
+   ========================================================================== */
+
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0.04em;
+  font-weight: 700;
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* ==========================================================================
+   LEAFLET GIS MAP CUSTOMIZATIONS
+   ========================================================================== */
+
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  background: #090a0d !important;
+  font-family: var(--font-body) !important;
+}
+
+/* Dark mode aesthetic for map tiles */
+.archaeology-tiles {
+  filter: brightness(0.72) contrast(1.18) saturate(0.85);
+}
+
+/* Custom Pin Markers */
+.arch-marker-pin {
+  width: 32px;
+  height: 32px;
+  border-radius: 50% 50% 50% 0;
+  position: absolute;
+  transform: rotate(-45deg);
+  left: 50%;
+  top: 50%;
+  margin: -16px 0 0 -16px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.8), 0 0 16px currentColor;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arch-marker-pin:hover {
+  transform: rotate(-45deg) scale(1.28);
+  z-index: 1000 !important;
+  box-shadow: 0 0 24px currentColor;
+}
+
+.arch-marker-inner {
+  transform: rotate(45deg);
+  font-size: 13px;
+  line-height: 1;
+}
+
+.arch-marker-pulse {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.75;
+  animation: markerPulse 2.4s infinite cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+
+@keyframes markerPulse {
+  0% { transform: scale(0.6); opacity: 0.8; }
+  50% { transform: scale(2.2); opacity: 0; }
+  100% { transform: scale(0.6); opacity: 0; }
+}
+
+/* Leaflet Custom Popups */
+.leaflet-popup-content-wrapper {
+  background: var(--bg-card) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-gold) !important;
+  backdrop-filter: var(--glass-blur) !important;
+  box-shadow: var(--shadow-lg), var(--shadow-gold) !important;
+  border-radius: 10px !important;
+  padding: 0 !important;
+  overflow: hidden;
+}
+
+.leaflet-popup-content {
+  margin: 0 !important;
+  line-height: 1.4 !important;
+}
+
+.leaflet-popup-tip {
+  background: var(--bg-surface) !important;
+  border: 1px solid var(--border-gold) !important;
+}
+
+.leaflet-container a.leaflet-popup-close-button {
+  color: var(--text-secondary) !important;
+  padding: 8px !important;
+}
+
+.leaflet-container a.leaflet-popup-close-button:hover {
+  color: var(--accent-gold) !important;
+}
+
+/* ==========================================================================
+   SCROLLBAR & GLASSMORPHISM
+   ========================================================================== */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(10, 11, 14, 0.6);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.25);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-gold);
+}
+
+.glass-panel {
+  background: var(--bg-glass);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+}
+
+/* Button & Badge Utility Classes */
+.badge-unesco {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: rgba(42, 157, 143, 0.2);
+  color: #48cae4;
+  border: 1px solid rgba(72, 202, 228, 0.35);
+}
+
+.badge-civ {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid currentColor;
+}

@@ -1,0 +1,159 @@
+<div class="app-layout">
+  <!-- Top Application Header -->
+  <header class="top-nav-bar">
+    <div class="brand-section">
+      <div class="brand-icon">🏛️</div>
+      <div class="brand-titles">
+        <h1 class="brand-name">ARCHAEOLOGICAL TIME MACHINE</h1>
+        <p class="brand-subtitle">4D Spatio-Temporal GIS • Global & Indian Ancient Landscapes</p>
+      </div>
+    </div>
+
+    <!-- Center Search & Exploration Filter -->
+    <div class="search-section">
+      <div class="search-input-wrapper">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Search site, artefact, script (e.g. Dholavira, chariot, seal, Brahmi)..."
+          [ngModel]="searchQuery()"
+          (ngModelChange)="searchQuery.set($event); onSearchChange()"
+        />
+        <button *ngIf="searchQuery()" class="clear-search-btn" (click)="searchQuery.set(''); onSearchChange()">✕</button>
+      </div>
+
+      <!-- Quick Region Selector -->
+      <div class="region-selector">
+        <button
+          class="region-btn"
+          [class.active]="selectedRegionFilter() === 'All'"
+          (click)="onRegionFilterChange('All')"
+        >
+          All Continents
+        </button>
+        <button
+          class="region-btn india-btn"
+          [class.active]="selectedRegionFilter() === 'India'"
+          (click)="onRegionFilterChange('India')"
+        >
+          🇮🇳 India Only ({{ indianSitesCount() }})
+        </button>
+      </div>
+    </div>
+
+    <!-- Right Quick Controls -->
+    <div class="header-actions">
+      <!-- Active Horizon Mode Toggle -->
+      <button
+        class="toggle-mode-btn"
+        [class.active]="isTimeFilterEnabled()"
+        (click)="toggleTimeFilter()"
+        title="Toggle between filtering by active year vs showing all historical sites"
+      >
+        <span class="mode-icon">{{ isTimeFilterEnabled() ? '⏳' : '🌐' }}</span>
+        <span class="mode-text">{{ isTimeFilterEnabled() ? 'Time Scrubbing ON' : 'Show All Sites' }}</span>
+      </button>
+
+      <button
+        class="sidebar-toggle-btn"
+        [class.active]="isSidebarVisible()"
+        (click)="toggleSidebar()"
+        title="Toggle Active Sites Directory"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/>
+        </svg>
+        <span>Sites ({{ filteredSites().length }})</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Priority Quick-Focus Bar for Indian Archaeology -->
+  <app-india-priority-bar (presetSelected)="onPresetSelected($event)"></app-india-priority-bar>
+
+  <!-- Main Map & Left Floating Explorer Sidebar -->
+  <main class="main-workspace">
+    <!-- Interactive Leaflet GIS Map -->
+    <app-map
+      [sites]="filteredSites()"
+      [selectedSiteId]="selectedSiteId()"
+      (siteSelected)="onSiteClicked($event)"
+    ></app-map>
+
+    <!-- Floating Active Sites Directory Sidebar -->
+    <aside class="active-sites-sidebar" [class.collapsed]="!isSidebarVisible()">
+      <div class="sidebar-header">
+        <div class="sidebar-title">
+          <span>Active Archaeological Sites</span>
+          <span class="site-counter font-mono">{{ filteredSites().length }}</span>
+        </div>
+        <button class="minimize-btn" (click)="toggleSidebar()" title="Collapse Directory">✕</button>
+      </div>
+
+      <div class="sites-scroll-list">
+        <div
+          *ngFor="let site of filteredSites()"
+          class="site-item-card"
+          [class.selected]="selectedSiteId() === site.id"
+          [class.is-india]="site.country.toLowerCase() === 'india'"
+          (click)="onSiteClicked(site.id)"
+        >
+          <div class="site-item-top">
+            <div class="site-item-name">
+              <span class="flag" *ngIf="site.country.toLowerCase() === 'india'">🇮🇳</span>
+              <strong>{{ site.name }}</strong>
+            </div>
+            <span class="unesco-star" *ngIf="site.isUnescoWorldHeritage" title="UNESCO World Heritage">★</span>
+          </div>
+
+          <div class="site-item-ancient" *ngIf="site.ancientName">
+            <em>{{ site.ancientName }}</em>
+          </div>
+
+          <div class="site-item-dates font-mono">
+            {{ site.startYearFormatted }} – {{ site.endYearFormatted }}
+          </div>
+
+          <div class="site-item-region">
+            📍 {{ site.region }}
+          </div>
+
+          <div class="site-item-type">
+            {{ site.siteType }}
+          </div>
+        </div>
+
+        <div *ngIf="filteredSites().length === 0" class="no-sites-notice">
+          <p>No active archaeological settlements documented at this horizon.</p>
+          <button class="reset-time-btn" (click)="isTimeFilterEnabled.set(false); fetchSites()">Show All Sites</button>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Chronological Time Machine Scrubber (Bottom) -->
+  <app-timeline-scrubber
+    [initialYear]="currentYear()"
+    (yearChanged)="onYearChanged($event)"
+  ></app-timeline-scrubber>
+
+  <!-- Detailed Archaeological Site Drawer (Right) -->
+  <app-site-drawer
+    [siteId]="selectedSiteId()"
+    [isOpen]="isDrawerOpen()"
+    (closeDrawer)="closeDrawer()"
+    (compareSite)="openCompareModal($event)"
+    (navigateToSite)="onSiteClicked($event)"
+  ></app-site-drawer>
+
+  <!-- Side-by-Side Comparison Modal -->
+  <app-comparison-modal
+    [site1]="comparisonSourceSite()"
+    [allSites]="allSites()"
+    [isOpen]="isComparisonModalOpen()"
+    (closeModal)="closeCompareModal()"
+  ></app-comparison-modal>
+</div>
