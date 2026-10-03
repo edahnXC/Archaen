@@ -1,18 +1,18 @@
 import {
   Component,
   EventEmitter,
-  Input,
-  OnChanges,
   Output,
-  SimpleChanges,
+  computed,
+  effect,
   inject,
+  input,
   signal
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   SiteDetail,
   NearbySiteResult,
-  SiteSummary,
+  ContemporaneousSiteResult,
   Artefact
 } from '../../models/archaeology.models';
 import { ArchaeologyApiService } from '../../services/archaeology-api.service';
@@ -23,51 +23,87 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
   standalone: true,
   imports: [CommonModule, ArtefactViewer3DComponent],
   template: `
-    <div class="drawer-backdrop" *ngIf="isOpen" (click)="close()"></div>
+    <!-- Backdrop for drawer -->
+    <div
+      class="drawer-backdrop"
+      *ngIf="isOpen()"
+      (click)="close()"
+      aria-hidden="true"
+    ></div>
 
-    <aside class="site-drawer" [class.open]="isOpen">
-      <!-- Loading Skeleton -->
-      <div *ngIf="isLoading" class="drawer-loading">
+    <aside
+      class="site-drawer"
+      [class.open]="isOpen()"
+      role="dialog"
+      aria-label="Archaeological Site Detail Record"
+    >
+      <!-- 1. LOADING STATE -->
+      <div *ngIf="isLoading()" class="drawer-loading" role="status">
         <div class="loader-spinner"></div>
-        <p>Loading Archaeological Strata & Artefacts...</p>
+        <p class="loading-label">Loading Stratigraphy, Excavations & Artefacts...</p>
       </div>
 
-      <!-- Main Drawer Content -->
-      <div *ngIf="!isLoading && site" class="drawer-content">
-        <!-- Drawer Header -->
+      <!-- 2. ERROR STATE -->
+      <div *ngIf="!isLoading() && errorMessage()" class="drawer-error" role="alert">
+        <div class="error-icon">⚠️</div>
+        <h3 class="error-title">Unable to Load Archaeological Profile</h3>
+        <p class="error-desc">{{ errorMessage() }}</p>
+        <button
+          *ngIf="siteId()"
+          class="retry-btn"
+          (click)="retryLoad()"
+        >
+          ↻ Retry Archaeological Load
+        </button>
+      </div>
+
+      <!-- 3. EMPTY STATE (When no site is selected or record is blank) -->
+      <div *ngIf="!isLoading() && !errorMessage() && !site()" class="drawer-error">
+        <div class="error-icon">🏛️</div>
+        <h3 class="error-title">No Site Selected</h3>
+        <p class="error-desc">
+          Select an archaeological site on the map, featured sites list, or discoveries catalogue to inspect its excavation records, stratigraphy, and 3D artefacts.
+        </p>
+      </div>
+
+      <!-- 4. SUCCESS STATE -->
+      <div *ngIf="!isLoading() && !errorMessage() && site() as currentSite" class="drawer-content">
+        <!-- Header -->
         <header class="drawer-header">
           <div class="header-badges">
-            <span class="badge-unesco" *ngIf="site.isUnescoWorldHeritage">★ UNESCO World Heritage</span>
-            <span class="badge-country">{{ site.country }}</span>
-            <span class="badge-period" *ngFor="let p of site.periods">{{ p.periodName }}</span>
+            <span class="badge-unesco" *ngIf="currentSite.isUnescoWorldHeritage">★ UNESCO World Heritage</span>
+            <span class="badge-country">{{ currentSite.country }}</span>
+            <span class="badge-period" *ngFor="let p of currentSite.periods">{{ p.name || p.periodName }}</span>
           </div>
 
-          <button class="close-btn" (click)="close()" title="Close Drawer">
+          <button class="close-btn" (click)="close()" title="Close Archaeological Profile" aria-label="Close Profile">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
             </svg>
           </button>
 
-          <h2 class="site-title font-display">{{ site.name }}</h2>
-          <div class="site-ancient" *ngIf="site.ancientName">Ancient / Indigenous Designation: <em>{{ site.ancientName }}</em></div>
-          
+          <h2 class="site-title font-display">{{ currentSite.name }}</h2>
+          <div class="site-ancient" *ngIf="currentSite.ancientName">
+            Ancient / Indigenous Designation: <em>{{ currentSite.ancientName }}</em>
+          </div>
+
           <div class="site-meta-bar">
             <div class="meta-item">
               <span class="meta-icon">📍</span>
-              <span>{{ site.region }}</span>
+              <span>{{ currentSite.region }}</span>
             </div>
             <div class="meta-item font-mono date-highlight">
               <span class="meta-icon">⏳</span>
-              <span>{{ site.startYearFormatted }} – {{ site.endYearFormatted }}</span>
+              <span>{{ currentSite.startYearFormatted }} – {{ currentSite.endYearFormatted }}</span>
             </div>
             <div class="meta-item font-mono">
               <span class="meta-icon">🌐</span>
-              <span>{{ site.latitude | number:'1.4-4' }}°, {{ site.longitude | number:'1.4-4' }}°</span>
+              <span>{{ currentSite.latitude | number:'1.4-4' }}°, {{ currentSite.longitude | number:'1.4-4' }}°</span>
             </div>
           </div>
 
           <div class="header-actions">
-            <button class="action-btn compare-btn" (click)="onCompareClicked()">
+            <button class="action-btn compare-btn" (click)="onCompareClicked(currentSite)">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/>
               </svg>
@@ -90,14 +126,14 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
             [class.active]="activeTab() === 'stratigraphy'"
             (click)="setTab('stratigraphy')"
           >
-            Stratigraphy ({{ countLayers() }})
+            Stratigraphy ({{ layerCount() }})
           </button>
           <button
             class="tab-btn"
             [class.active]="activeTab() === 'artefacts'"
             (click)="setTab('artefacts')"
           >
-            3D Artefacts ({{ site.artefacts.length }})
+            Diagnostic Artefacts ({{ currentSite.artefacts.length }})
           </button>
           <button
             class="tab-btn"
@@ -111,7 +147,7 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
             [class.active]="activeTab() === 'references'"
             (click)="setTab('references')"
           >
-            Bibliography ({{ site.references.length }})
+            Bibliography ({{ currentSite.references.length }})
           </button>
         </nav>
 
@@ -119,37 +155,37 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
         <div class="tab-body">
           <!-- 1. OVERVIEW TAB -->
           <div *ngIf="activeTab() === 'overview'" class="tab-pane">
-            <div class="site-image-card" *ngIf="site.imageUrl">
-              <img [src]="site.imageUrl" [alt]="site.name" loading="lazy" />
-              <div class="image-caption">{{ site.name }} archaeological excavation horizon</div>
+            <div class="site-image-card" *ngIf="currentSite.imageUrl">
+              <img [src]="currentSite.imageUrl" [alt]="currentSite.name" loading="lazy" (error)="onSiteImageError($event)" />
+              <div class="image-caption">{{ currentSite.name }} excavation landscape</div>
             </div>
 
             <div class="info-card">
-              <h4 class="card-title font-display">Architectural & Settlement Highlights</h4>
-              <p class="highlight-text">{{ site.architecturalHighlights || 'Documented masonry, fortifications and settlement structures.' }}</p>
+              <h4 class="card-title font-display">Archaeological Significance</h4>
+              <p class="body-text">{{ currentSite.description }}</p>
             </div>
 
-            <div class="info-card">
-              <h4 class="card-title font-display">Archaeological Synopsis</h4>
-              <p class="body-text">{{ site.description }}</p>
+            <div class="info-card" *ngIf="currentSite.architecturalHighlights">
+              <h4 class="card-title font-display">Architectural & Structural Highlights</h4>
+              <p class="highlight-text">{{ currentSite.architecturalHighlights }}</p>
             </div>
 
             <div class="info-grid">
-              <div class="info-card">
+              <div class="info-card" *ngIf="currentSite.waterSource">
                 <h5 class="sub-title">Hydraulic & Water Engineering</h5>
-                <p class="body-text">{{ site.waterSource || 'Seasonal water collection channels.' }}</p>
+                <p class="body-text">{{ currentSite.waterSource }}</p>
               </div>
-              <div class="info-card">
-                <h5 class="sub-title">Excavation & Conservation Status</h5>
-                <p class="body-text">{{ site.excavationStatus || 'Protected archaeological monument.' }}</p>
+              <div class="info-card" *ngIf="currentSite.excavationStatus">
+                <h5 class="sub-title">Excavation & Conservation</h5>
+                <p class="body-text">{{ currentSite.excavationStatus }}</p>
               </div>
-              <div class="info-card" *ngIf="site.discoveryInformation">
+              <div class="info-card" *ngIf="currentSite.discoveryInformation">
                 <h5 class="sub-title">Discovery History</h5>
-                <p class="body-text">{{ site.discoveryInformation }}</p>
+                <p class="body-text">{{ currentSite.discoveryInformation }}</p>
               </div>
-              <div class="info-card" *ngIf="site.datingPrecision">
+              <div class="info-card" *ngIf="currentSite.datingPrecision">
                 <h5 class="sub-title">Scientific Chronology & Dating</h5>
-                <p class="body-text font-mono">{{ site.datingPrecision }}</p>
+                <p class="body-text font-mono">{{ currentSite.datingPrecision }}</p>
               </div>
             </div>
           </div>
@@ -160,7 +196,7 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
               Vertical geological cutaway of archaeological strata documented through scientific stratigraphic soundings.
             </div>
 
-            <div *ngFor="let exc of site.excavations" class="excavation-block">
+            <div *ngFor="let exc of currentSite.excavations" class="excavation-block">
               <div class="excavation-header">
                 <div>
                   <h4 class="excavation-name font-display">{{ exc.expeditionName }}</h4>
@@ -184,12 +220,12 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
                       <span class="stratum-culture" *ngIf="layer.culturalAffiliation">{{ layer.culturalAffiliation }}</span>
                     </div>
 
-                    <div class="stratum-dates font-mono" *ngIf="layer.estimatedStartYearFormatted">
-                      Horizon: {{ layer.estimatedStartYearFormatted }} – {{ layer.estimatedEndYearFormatted }}
+                    <div class="stratum-dates font-mono" *ngIf="layer.chronologicalSpan">
+                      Horizon: {{ layer.chronologicalSpan }}
                     </div>
 
                     <p class="stratum-desc">{{ layer.description }}</p>
-                    
+
                     <div class="stratum-soil" *ngIf="layer.soilComposition">
                       <em>Matrix:</em> {{ layer.soilComposition }}
                     </div>
@@ -208,18 +244,18 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
               </div>
             </div>
 
-            <div *ngIf="!site.excavations || site.excavations.length === 0" class="empty-state">
+            <div *ngIf="!currentSite.excavations || currentSite.excavations.length === 0" class="empty-state">
               No detailed stratigraphic profiles currently cataloged for this site.
             </div>
           </div>
 
-          <!-- 3. 3D ARTEFACTS TAB -->
+          <!-- 3. DIAGNOSTIC ARTEFACTS TAB -->
           <div *ngIf="activeTab() === 'artefacts'" class="tab-pane">
-            <div *ngIf="site.artefacts && site.artefacts.length > 0">
+            <div *ngIf="currentSite.artefacts && currentSite.artefacts.length > 0">
               <!-- Artefact Selection Chips -->
               <div class="artefact-selector">
                 <button
-                  *ngFor="let art of site.artefacts; let i = index"
+                  *ngFor="let art of currentSite.artefacts; let i = index"
                   class="art-chip"
                   [class.active]="selectedArtefact()?.id === art.id"
                   (click)="selectArtefact(art)"
@@ -238,14 +274,15 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
                 <h4 class="card-title font-display">{{ selectedArtefact()!.name }}</h4>
                 <p class="body-text">{{ selectedArtefact()!.description }}</p>
                 <div class="art-meta-grid">
-                  <div><strong>Dimensions:</strong> {{ selectedArtefact()!.dimensions || 'N/A' }}</div>
+                  <div><strong>Dimensions:</strong> {{ selectedArtefact()!.dimensions || 'Documented Diagnostic Specimen' }}</div>
                   <div><strong>Material:</strong> {{ selectedArtefact()!.material }}</div>
-                  <div><strong>Museum Location:</strong> {{ selectedArtefact()!.currentLocation || 'On-site Museum' }}</div>
+                  <div><strong>Museum Location:</strong> {{ selectedArtefact()!.currentLocation || 'On-site Museum Collection' }}</div>
+                  <div><strong>Stratigraphic Layer:</strong> {{ selectedArtefact()!.discoveryContext || 'Controlled Excavation Horizon' }}</div>
                 </div>
               </div>
             </div>
 
-            <div *ngIf="!site.artefacts || site.artefacts.length === 0" class="empty-state">
+            <div *ngIf="!currentSite.artefacts || currentSite.artefacts.length === 0" class="empty-state">
               No diagnostic 3D artefacts cataloged for this site.
             </div>
           </div>
@@ -259,19 +296,23 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
 
               <div class="nearby-list">
                 <div
-                  *ngFor="let n of nearbySites"
+                  *ngFor="let n of nearbySites()"
                   class="nearby-card"
-                  (click)="onNearbySiteSelected(n.nearbySiteId)"
+                  (click)="onNearbySiteSelected(n.id)"
                 >
                   <div class="nearby-info">
-                    <span class="nearby-name font-display">{{ n.nearbySiteName }}</span>
+                    <span class="nearby-name font-display">{{ n.name }}</span>
                     <span class="nearby-loc">{{ n.region }}, {{ n.country }}</span>
-                    <span class="nearby-dates font-mono">{{ n.startYearFormatted }} – {{ n.endYearFormatted }}</span>
+                    <span class="nearby-dates font-mono">{{ n.chronologicalSpan }}</span>
                   </div>
                   <div class="nearby-distance font-mono">
                     {{ n.distanceKm | number:'1.1-1' }} km
                   </div>
                 </div>
+              </div>
+
+              <div *ngIf="nearbySites().length === 0" class="empty-state">
+                No nearby settlements within 1000 km radius.
               </div>
             </div>
 
@@ -282,14 +323,19 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
 
               <div class="contemp-grid">
                 <div
-                  *ngFor="let c of contemporaneousSites"
+                  *ngFor="let c of contemporaneousSites()"
                   class="contemp-card"
                   (click)="onNearbySiteSelected(c.id)"
                 >
                   <div class="contemp-name font-display">{{ c.name }}</div>
                   <div class="contemp-loc">{{ c.region }}, {{ c.country }}</div>
-                  <div class="contemp-dates font-mono">{{ c.startYearFormatted }} – {{ c.endYearFormatted }}</div>
+                  <div class="contemp-dates font-mono">{{ c.chronologicalSpan }}</div>
+                  <div class="contemp-overlap font-mono">⏳ {{ c.overlapYears }} yrs synchronous</div>
                 </div>
+              </div>
+
+              <div *ngIf="contemporaneousSites().length === 0" class="empty-state">
+                No overlapping contemporaneous settlements cataloged.
               </div>
             </div>
           </div>
@@ -298,7 +344,7 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
           <div *ngIf="activeTab() === 'references'" class="tab-pane">
             <h4 class="card-title font-display">Academic & Archaeological Citations</h4>
             <div class="citations-list">
-              <div *ngFor="let ref of site.references" class="citation-card">
+              <div *ngFor="let ref of currentSite.references" class="citation-card">
                 <div class="citation-key font-mono">[{{ ref.citationKey }}]</div>
                 <div class="citation-content">
                   <div class="citation-title font-display">{{ ref.title }}</div>
@@ -313,6 +359,10 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
                 </div>
               </div>
             </div>
+
+            <div *ngIf="!currentSite.references || currentSite.references.length === 0" class="empty-state">
+              No academic citations registered for this excavation yet.
+            </div>
           </div>
         </div>
       </div>
@@ -322,7 +372,7 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
     .drawer-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(0, 0, 0, 0.45);
       backdrop-filter: blur(4px);
       z-index: 950;
       animation: fadeIn 0.2s ease;
@@ -337,8 +387,8 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
       position: fixed;
       top: 0;
       right: 0;
-      width: 580px;
-      max-width: 90vw;
+      width: 620px;
+      max-width: 92vw;
       height: 100vh;
       background: rgba(255, 255, 255, 0.98);
       border-left: 1px solid rgba(0, 0, 0, 0.12);
@@ -346,7 +396,7 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
       box-shadow: -12px 0 45px rgba(0, 0, 0, 0.15);
       z-index: 1000;
       transform: translateX(100%);
-      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
       display: flex;
       flex-direction: column;
       overflow: hidden;
@@ -363,14 +413,72 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
       justify-content: center;
       height: 100%;
       color: #6b7280;
-      gap: 12px;
+      gap: 16px;
+      padding: 32px;
+      text-align: center;
+    }
+
+    .loading-label {
+      font-size: 13.5px;
+      color: #4b5563;
+      font-weight: 500;
+    }
+
+    .drawer-error {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      padding: 40px;
+      text-align: center;
+      color: #4b5563;
+    }
+
+    .drawer-error .error-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .drawer-error .error-title {
+      font-family: var(--font-display, 'Google Sans Display', sans-serif);
+      font-size: 18px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 8px;
+    }
+
+    .drawer-error .error-desc {
+      font-size: 13px;
+      line-height: 1.5;
+      color: #6b7280;
+      max-width: 360px;
+      margin-bottom: 20px;
+    }
+
+    .drawer-error .retry-btn {
+      background: var(--accent-terracotta, #c25e2e);
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(194, 94, 46, 0.25);
+    }
+
+    .drawer-error .retry-btn:hover {
+      background: #a94b20;
+      transform: translateY(-1px);
     }
 
     .loader-spinner {
-      width: 40px;
-      height: 40px;
+      width: 44px;
+      height: 44px;
       border: 3px solid rgba(0, 0, 0, 0.1);
-      border-top-color: var(--accent-terracotta);
+      border-top-color: var(--accent-terracotta, #c25e2e);
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
     }
@@ -408,8 +516,8 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
       background: #f3f4f6;
       border: 1px solid #e5e7eb;
       color: #4b5563;
-      width: 34px;
-      height: 34px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -429,11 +537,12 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
       font-weight: 700;
       color: #111827;
       margin-bottom: 4px;
+      line-height: 1.2;
     }
 
     .site-ancient {
       font-size: 13px;
-      color: var(--accent-terracotta);
+      color: var(--accent-terracotta, #c25e2e);
       margin-bottom: 10px;
     }
 
@@ -455,7 +564,7 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
     .date-highlight {
       color: #92400e;
       background: #fef8e7;
-      padding: 2px 7px;
+      padding: 2px 8px;
       border-radius: 4px;
       border: 1px solid #fef3c7;
       font-weight: 600;
@@ -488,7 +597,6 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
       transform: translateY(-1px);
     }
 
-    /* Tabs Navigation */
     .drawer-tabs {
       display: flex;
       border-bottom: 1px solid rgba(0, 0, 0, 0.08);
@@ -515,12 +623,11 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
     }
 
     .tab-btn.active {
-      color: var(--accent-terracotta);
-      border-bottom-color: var(--accent-terracotta);
+      color: var(--accent-terracotta, #c25e2e);
+      border-bottom-color: var(--accent-terracotta, #c25e2e);
       background: #ffffff;
     }
 
-    /* Tab Body Scrollable */
     .tab-body {
       flex: 1;
       overflow-y: auto;
@@ -538,13 +645,13 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
 
     .site-image-card img {
       width: 100%;
-      height: 220px;
+      height: 230px;
       object-fit: cover;
       display: block;
     }
 
     .image-caption {
-      font-size: 11px;
+      font-size: 11.5px;
       color: #6b7280;
       padding: 6px 12px;
       background: #f9fafb;
@@ -593,7 +700,6 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
       gap: 12px;
     }
 
-    /* Stratigraphy Styling */
     .stratigraphy-intro {
       font-size: 12.5px;
       color: #6b7280;
@@ -627,7 +733,7 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
     .strata-sequence {
       display: flex;
       flex-direction: column;
-      border-left: 2px solid var(--accent-terracotta);
+      border-left: 2px solid var(--accent-terracotta, #c25e2e);
       margin-left: 16px;
       padding-left: 16px;
       gap: 14px;
@@ -659,7 +765,7 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
     .depth-val {
       font-size: 15px;
       font-weight: 700;
-      color: var(--accent-terracotta);
+      color: var(--accent-terracotta, #c25e2e);
     }
 
     .depth-label {
@@ -687,7 +793,7 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
 
     .stratum-culture {
       font-size: 11px;
-      color: var(--accent-emerald);
+      color: var(--accent-emerald, #0f766e);
       font-weight: 600;
     }
 
@@ -718,7 +824,7 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
     .findings-header {
       font-size: 11px;
       font-weight: 700;
-      color: var(--accent-terracotta);
+      color: var(--accent-terracotta, #c25e2e);
       margin-bottom: 4px;
     }
 
@@ -730,11 +836,10 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
 
     .finding-type {
       color: #92400e;
-      font-family: var(--font-mono);
+      font-family: var(--font-mono, monospace);
       margin-right: 4px;
     }
 
-    /* Artefacts Tab */
     .artefact-selector {
       display: flex;
       flex-wrap: wrap;
@@ -761,7 +866,7 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
 
     .art-num {
       font-size: 9.5px;
-      color: var(--accent-terracotta);
+      color: var(--accent-terracotta, #c25e2e);
       text-transform: uppercase;
       font-weight: 700;
     }
@@ -792,7 +897,6 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
       margin-top: 10px;
     }
 
-    /* Spatial Section */
     .spatial-section {
       margin-bottom: 24px;
     }
@@ -823,7 +927,7 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
 
     .nearby-card:hover {
       background: #ffffff;
-      border-color: var(--accent-terracotta);
+      border-color: var(--accent-terracotta, #c25e2e);
       box-shadow: 0 4px 14px rgba(0,0,0,0.06);
       transform: translateX(4px);
     }
@@ -876,7 +980,7 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
 
     .contemp-card:hover {
       background: #ffffff;
-      border-color: var(--accent-terracotta);
+      border-color: var(--accent-terracotta, #c25e2e);
       transform: translateY(-2px);
     }
 
@@ -897,7 +1001,13 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
       margin-top: 2px;
     }
 
-    /* Bibliography Section */
+    .contemp-overlap {
+      font-size: 10px;
+      color: #0f766e;
+      margin-top: 2px;
+      font-weight: 600;
+    }
+
     .citations-list {
       display: flex;
       flex-direction: column;
@@ -915,7 +1025,7 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
     }
 
     .citation-key {
-      color: var(--accent-terracotta);
+      color: var(--accent-terracotta, #c25e2e);
       font-size: 12px;
       font-weight: 700;
       flex-shrink: 0;
@@ -966,84 +1076,119 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
     }
   `]
 })
-export class SiteDrawerComponent implements OnChanges {
-  @Input() siteId: number | null = null;
-  @Input() isOpen = false;
+export class SiteDrawerComponent {
+  // Pure modern input signals
+  public readonly siteId = input<number | null>(null);
+  public readonly isOpen = input<boolean>(false);
+
   @Output() closeDrawer = new EventEmitter<void>();
   @Output() compareSite = new EventEmitter<SiteDetail>();
   @Output() navigateToSite = new EventEmitter<number>();
 
   private readonly api = inject(ArchaeologyApiService);
 
-  protected site: SiteDetail | null = null;
-  protected nearbySites: NearbySiteResult[] = [];
-  protected contemporaneousSites: SiteSummary[] = [];
-  protected isLoading = false;
+  // Pure reactive state signals
+  public readonly site = signal<SiteDetail | null>(null);
+  public readonly nearbySites = signal<NearbySiteResult[]>([]);
+  public readonly contemporaneousSites = signal<ContemporaneousSiteResult[]>([]);
+  public readonly isLoading = signal<boolean>(false);
+  public readonly errorMessage = signal<string | null>(null);
 
-  protected readonly activeTab = signal<'overview' | 'stratigraphy' | 'artefacts' | 'spatial' | 'references'>('overview');
-  protected readonly selectedArtefact = signal<Artefact | null>(null);
+  public readonly activeTab = signal<'overview' | 'stratigraphy' | 'artefacts' | 'spatial' | 'references'>('overview');
+  public readonly selectedArtefact = signal<Artefact | null>(null);
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['siteId'] && this.siteId !== null && this.isOpen) {
-      this.loadSiteData(this.siteId);
-    }
+  public readonly layerCount = computed(() => {
+    const s = this.site();
+    if (!s || !s.excavations) return 0;
+    return s.excavations.reduce((sum, exc) => sum + (exc.layers?.length || 0), 0);
+  });
+
+  private lastLoadedId: number | null = null;
+
+  constructor() {
+    // Single predictable reactive effect that triggers data load whenever isOpen and siteId become active
+    effect(() => {
+      const open = this.isOpen();
+      const id = this.siteId();
+
+      if (open && id !== null && id !== undefined) {
+        if (this.lastLoadedId !== id || !this.site()) {
+          this.loadSiteData(id);
+        }
+      }
+    });
   }
 
-  setTab(tab: 'overview' | 'stratigraphy' | 'artefacts' | 'spatial' | 'references'): void {
+  public setTab(tab: 'overview' | 'stratigraphy' | 'artefacts' | 'spatial' | 'references'): void {
     this.activeTab.set(tab);
   }
 
-  selectArtefact(art: Artefact): void {
+  public selectArtefact(art: Artefact): void {
     this.selectedArtefact.set(art);
   }
 
-  close(): void {
+  public close(): void {
     this.closeDrawer.emit();
   }
 
-  onCompareClicked(): void {
-    if (this.site) {
-      this.compareSite.emit(this.site);
-    }
+  public onCompareClicked(site: SiteDetail): void {
+    this.compareSite.emit(site);
   }
 
-  onNearbySiteSelected(targetId: number): void {
+  public onNearbySiteSelected(targetId: number): void {
     this.navigateToSite.emit(targetId);
     this.loadSiteData(targetId);
   }
 
-  countLayers(): number {
-    if (!this.site || !this.site.excavations) return 0;
-    return this.site.excavations.reduce((sum, exc) => sum + (exc.layers?.length || 0), 0);
+  public retryLoad(): void {
+    const id = this.siteId();
+    if (id !== null) {
+      this.loadSiteData(id);
+    }
   }
 
-  private loadSiteData(id: number): void {
-    this.isLoading = true;
-    this.site = null;
+  public loadSiteData(id: number): void {
+    this.lastLoadedId = id;
+    this.isLoading.set(true);
+    this.errorMessage.set(null);
     this.activeTab.set('overview');
 
     this.api.getSiteById(id).subscribe({
       next: (detail) => {
-        this.site = detail;
-        this.isLoading = false;
+        this.site.set(detail);
+        this.isLoading.set(false);
+        this.errorMessage.set(null);
+
         if (detail.artefacts && detail.artefacts.length > 0) {
           this.selectedArtefact.set(detail.artefacts[0]);
+        } else {
+          this.selectedArtefact.set(null);
         }
 
-        this.api.getNearbySites(id, 800).subscribe({
-          next: (nearby) => this.nearbySites = nearby,
-          error: () => this.nearbySites = []
+        // Fetch spatial & temporal neighbours in parallel
+        this.api.getNearbySites(id, 1000).subscribe({
+          next: (nearby) => this.nearbySites.set(nearby),
+          error: () => this.nearbySites.set([])
         });
 
         this.api.getContemporaneousSites(id).subscribe({
-          next: (contemp) => this.contemporaneousSites = contemp,
-          error: () => this.contemporaneousSites = []
+          next: (contemp) => this.contemporaneousSites.set(contemp),
+          error: () => this.contemporaneousSites.set([])
         });
       },
       error: (err) => {
-        console.error('Failed to load site detail', err);
-        this.isLoading = false;
+        console.error('Failed to load archaeological site record:', err);
+        this.isLoading.set(false);
+        this.errorMessage.set('Could not connect to the archaeological database service. Please verify that the API is running.');
       }
     });
+  }
+
+  public onSiteImageError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    if (img && !img.dataset['fallback']) {
+      img.dataset['fallback'] = 'true';
+      img.src = 'https://images.unsplash.com/photo-1599833975787-5c143f373c30?auto=format&fit=crop&w=1200&q=80';
+    }
   }
 }

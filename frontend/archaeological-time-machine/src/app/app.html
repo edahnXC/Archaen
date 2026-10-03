@@ -1,146 +1,1226 @@
+<!-- ==========================================================================
+     ARCHAEOLOGICAL EXPLORATION PLATFORM
+     Interactive Digital Archaeological Laboratory & Field Exploration System
+     ========================================================================== -->
+
 <div class="app-layout">
-  <!-- Top Application Header -->
-  <header class="top-nav-bar">
-    <div class="brand-section">
+  <!-- TOP STICKY APPLICATION HEADER & EDITORIAL NAVIGATION -->
+  <header class="top-nav-bar" role="banner">
+    <!-- Brand identity -->
+    <div class="brand-section" (click)="returnToHome()" style="cursor: pointer;" title="Archaeological Exploration Platform">
       <div class="brand-icon">🏛️</div>
       <div class="brand-titles">
-        <h1 class="brand-name">ARCHAEOLOGICAL TIME MACHINE</h1>
-        <p class="brand-subtitle">4D Spatio-Temporal GIS • Global & Indian Ancient Landscapes</p>
+        <h1 class="brand-name font-display">ARCHAEOLOGICAL EXPLORATION PLATFORM</h1>
+        <p class="brand-subtitle font-mono">Digital Archaeological Field & Laboratory System</p>
       </div>
     </div>
 
-    <!-- Center Search & Exploration Filter -->
-    <div class="search-section">
+    <!-- Editorial Section Navigation Tabs -->
+    <nav class="view-mode-nav" role="navigation" aria-label="Main Navigation">
+      <button
+        class="nav-tab-btn"
+        [class.active]="activePage() === 'home' && activeSection() === 'hero'"
+        (click)="returnToHome()"
+        title="Overview & Platform Introduction"
+      >
+        <span class="tab-label">Overview</span>
+      </button>
+
+      <button
+        class="nav-tab-btn"
+        [class.active]="activePage() === 'sites'"
+        (click)="openSitesDirectory()"
+        title="All 24 Archaeological Sites Directory"
+      >
+        <span class="tab-label">Sites Directory</span>
+        <span class="tab-badge" *ngIf="allSites().length > 0">{{ allSites().length }}</span>
+      </button>
+
+      <button
+        class="nav-tab-btn"
+        [class.active]="activeSection() === 'methodology'"
+        (click)="scrollToSection('methodology')"
+        title="How Archaeologists Study a Site"
+      >
+        <span class="tab-label">Methodology</span>
+      </button>
+
+      <button
+        class="nav-tab-btn"
+        [class.active]="activeSection() === 'map-explorer'"
+        (click)="scrollToSection('map-explorer')"
+        title="Interactive 4D GIS Spatial Exploration"
+      >
+        <span class="tab-label">Interactive GIS</span>
+      </button>
+
+      <button
+        class="nav-tab-btn"
+        [class.active]="activeSection() === 'artefacts'"
+        (click)="scrollToSection('artefacts')"
+        title="Diagnostic Artefacts & Archival Museum Photography"
+      >
+        <span class="tab-label">Artefacts</span>
+        <span class="tab-badge" *ngIf="allArtefacts().length > 0">{{ allArtefacts().length }}</span>
+      </button>
+
+      <button
+        class="nav-tab-btn"
+        [class.active]="activeSection() === 'stories'"
+        (click)="scrollToSection('stories')"
+        title="Site Stories & Excavation Expeditions"
+      >
+        <span class="tab-label">Field Stories</span>
+        <span class="tab-badge">{{ expeditionStories.length }}</span>
+      </button>
+
+      <button
+        class="nav-tab-btn"
+        [class.active]="activeSection() === 'timeline'"
+        (click)="scrollToSection('timeline')"
+        title="Chronological Horizons & Contemporaneous Settlements"
+      >
+        <span class="tab-label">Chronology</span>
+      </button>
+
+      <button
+        class="nav-tab-btn"
+        [class.active]="activeSection() === 'students'"
+        (click)="scrollToSection('students')"
+        title="Student Learning Pathways"
+      >
+        <span class="tab-label">Learn</span>
+      </button>
+    </nav>
+
+    <!-- Header Actions & Connectivity Status -->
+    <div class="header-actions">
+      <!-- Search Input -->
       <div class="search-input-wrapper">
-        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
         </svg>
         <input
           type="text"
           class="search-input"
-          placeholder="Search site, artefact, script (e.g. Dholavira, chariot, seal, Brahmi)..."
+          placeholder="Search site, culture, find..."
           [ngModel]="searchQuery()"
           (ngModelChange)="searchQuery.set($event); onSearchChange()"
         />
         <button *ngIf="searchQuery()" class="clear-search-btn" (click)="searchQuery.set(''); onSearchChange()">✕</button>
       </div>
 
-      <!-- Quick Region Selector -->
-      <div class="region-selector">
-        <button
-          class="region-btn"
-          [class.active]="selectedRegionFilter() === 'All'"
-          (click)="onRegionFilterChange('All')"
-        >
-          All Continents
-        </button>
-        <button
-          class="region-btn india-btn"
-          [class.active]="selectedRegionFilter() === 'India'"
-          (click)="onRegionFilterChange('India')"
-        >
-          🇮🇳 India Only ({{ indianSitesCount() }})
-        </button>
+      <!-- API Connection Status Badge -->
+      <div class="api-status-badge" [class.online]="api.isApiOnline()" [class.offline]="!api.isApiOnline()">
+        <span class="status-dot"></span>
+        <span class="status-text">{{ api.isApiOnline() ? 'API Connected' : 'Offline Mode' }}</span>
       </div>
-    </div>
-
-    <!-- Right Quick Controls -->
-    <div class="header-actions">
-      <!-- Active Horizon Mode Toggle -->
-      <button
-        class="toggle-mode-btn"
-        [class.active]="isTimeFilterEnabled()"
-        (click)="toggleTimeFilter()"
-        title="Toggle between filtering by active year vs showing all historical sites"
-      >
-        <span class="mode-icon">{{ isTimeFilterEnabled() ? '⏳' : '🌐' }}</span>
-        <span class="mode-text">{{ isTimeFilterEnabled() ? 'Time Scrubbing ON' : 'Show All Sites' }}</span>
-      </button>
-
-      <button
-        class="sidebar-toggle-btn"
-        [class.active]="isSidebarVisible()"
-        (click)="toggleSidebar()"
-        title="Toggle Active Sites Directory"
-      >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/>
-        </svg>
-        <span>Sites ({{ filteredSites().length }})</span>
-      </button>
     </div>
   </header>
 
-  <!-- Priority Quick-Focus Bar for Indian Archaeology -->
-  <app-india-priority-bar (presetSelected)="onPresetSelected($event)"></app-india-priority-bar>
+  <!-- ERROR NOTIFICATION BANNER (When API is unreachable) -->
+  <aside *ngIf="loadError()" class="global-error-banner" role="alert">
+    <div class="error-banner-content">
+      <span class="error-banner-icon">⚠️</span>
+      <span class="error-banner-msg">{{ loadError() }}</span>
+      <button class="error-banner-retry" (click)="retryFetchData()">Retry Connection</button>
+    </div>
+  </aside>
 
-  <!-- Main Map & Left Floating Explorer Sidebar -->
-  <main class="main-workspace">
-    <!-- Interactive Leaflet GIS Map -->
-    <app-map
-      [sites]="filteredSites()"
-      [selectedSiteId]="selectedSiteId()"
-      (siteSelected)="onSiteClicked($event)"
-    ></app-map>
-
-    <!-- Floating Active Sites Directory Sidebar -->
-    <aside class="active-sites-sidebar" [class.collapsed]="!isSidebarVisible()">
-      <div class="sidebar-header">
-        <div class="sidebar-title">
-          <span>Active Archaeological Sites</span>
-          <span class="site-counter font-mono">{{ filteredSites().length }}</span>
-        </div>
-        <button class="minimize-btn" (click)="toggleSidebar()" title="Collapse Directory">✕</button>
+  <!-- ====================================================================
+       HOME VIEW (activePage() === 'home')
+       ==================================================================== -->
+  <main *ngIf="activePage() === 'home'" class="home-main-view">
+  <!-- ====================================================================
+       SECTION 0: IMMERSIVE EDITORIAL HERO
+       ==================================================================== -->
+  <section id="hero" class="hero-section">
+    <div class="hero-backdrop-gradient"></div>
+    <div class="hero-container">
+      <div class="hero-editorial-tag font-mono">
+        <span class="tag-pulse"></span>
+        <span>INTERACTIVE ARCHAEOLOGICAL LEARNING PLATFORM</span>
       </div>
 
-      <div class="sites-scroll-list">
-        <div
-          *ngFor="let site of filteredSites()"
-          class="site-item-card"
-          [class.selected]="selectedSiteId() === site.id"
-          [class.is-india]="site.country.toLowerCase() === 'india'"
+      <h1 class="hero-headline font-display">
+        Archaeology, Explored Differently.
+      </h1>
+
+      <p class="hero-subtext">
+        Explore ancient archaeological settlements, discover their stratigraphic evidence, inspect diagnostic artefacts in 3D, and understand how archaeologists decode human history across space and time.
+      </p>
+
+      <div class="hero-cta-group">
+        <button class="hero-btn primary-btn" (click)="scrollToSection('featured')">
+          <span>🏛️</span>
+          <span>Explore Archaeological Sites</span>
+        </button>
+
+        <button class="hero-btn secondary-btn" (click)="scrollToSection('methodology')">
+          <span>🔬</span>
+          <span>How Archaeology Works</span>
+        </button>
+
+        <button class="hero-btn outline-btn" (click)="scrollToSection('map-explorer')">
+          <span>🗺️</span>
+          <span>Open 4D GIS Map</span>
+        </button>
+      </div>
+
+      <!-- Platform Metrics Strip -->
+      <div class="hero-metrics-strip">
+        <div class="metric-block">
+          <span class="metric-num font-mono">{{ allSites().length || '24' }}</span>
+          <span class="metric-lbl">Documented Sites</span>
+        </div>
+        <div class="metric-divider"></div>
+        <div class="metric-block">
+          <span class="metric-num font-mono">5,000+</span>
+          <span class="metric-lbl">Years Continuum</span>
+        </div>
+        <div class="metric-divider"></div>
+        <div class="metric-block">
+          <span class="metric-num font-mono">{{ civilizations().length || '10' }}</span>
+          <span class="metric-lbl">Civilizations</span>
+        </div>
+        <div class="metric-divider"></div>
+        <div class="metric-block">
+          <span class="metric-num font-mono">100%</span>
+          <span class="metric-lbl">Stratigraphic Evidence</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       SECTION 1: PHILOSOPHY - MULTI-DIMENSIONAL EXPLORATION
+       ==================================================================== -->
+  <section class="dimensions-section">
+    <div class="section-container">
+      <div class="section-header-centered">
+        <span class="section-eyebrow font-mono">BEYOND THE TIMELINE SLIDER</span>
+        <h2 class="section-title font-display">Archaeology is Not Just a Line of Dates</h2>
+        <p class="section-description">
+          A true archaeological understanding connects geography, landscapes, soil stratigraphy, diagnostic material culture, excavation field notes, and cross-site trade networks.
+        </p>
+      </div>
+
+      <div class="dimensions-grid">
+        <div class="dimension-card" (click)="scrollToSection('map-explorer')">
+          <div class="dim-icon">📍</div>
+          <h3 class="dim-title font-display">Landscape & Space</h3>
+          <p class="dim-desc">Physical geography, seasonal river courses, floodplains, coastal estuaries, and mountain passes that shaped settlements.</p>
+        </div>
+
+        <div class="dimension-card" (click)="scrollToSection('methodology')">
+          <div class="dim-icon">⛏️</div>
+          <h3 class="dim-title font-display">Stratigraphy & Depth</h3>
+          <p class="dim-desc">The vertical geological Law of Superposition. Uncovering successive human habitations layer by layer.</p>
+        </div>
+
+        <div class="dimension-card" (click)="scrollToSection('artefacts')">
+          <div class="dim-icon">🏺</div>
+          <h3 class="dim-title font-display">Diagnostic Artefacts</h3>
+          <p class="dim-desc">In situ finds, inscribed pottery, steatite seals, and metallurgy that serve as empirical cultural index fossils.</p>
+        </div>
+
+        <div class="dimension-card" (click)="scrollToSection('stories')">
+          <div class="dim-icon">📜</div>
+          <h3 class="dim-title font-display">Excavation Context</h3>
+          <p class="dim-desc">Field notebooks, excavator methodologies, documented architectural complexes, and defensive masonry.</p>
+        </div>
+
+        <div class="dimension-card" (click)="scrollToSection('timeline')">
+          <div class="dim-icon">⏳</div>
+          <h3 class="dim-title font-display">Chronological Horizon</h3>
+          <p class="dim-desc">Radiocarbon (14C) AMS dating and cross-dating synchronizing contemporaneous civilizations across the globe.</p>
+        </div>
+
+        <div class="dimension-card" (click)="scrollToSection('featured')">
+          <div class="dim-icon">🤝</div>
+          <h3 class="dim-title font-display">Inter-Site Relations</h3>
+          <p class="dim-desc">Direct maritime trade corridors, mineral exchange routes, and philosophical diffusion between ancient capitals.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <!-- ====================================================================
+       SECTION 2: SIGNATURE ARCHAEOLOGICAL EXCAVATIONS (6 Curated Sites)
+       ==================================================================== -->
+  <section id="featured" class="featured-section">
+    <div class="section-container">
+      <div class="section-header-row">
+        <div>
+          <span class="section-eyebrow font-mono">01 — SIGNATURE ARCHAEOLOGICAL EXCAVATIONS</span>
+          <h2 class="section-title font-display">6 Landmark Ancient Settlements</h2>
+          <p class="section-description">
+            A curated selection of 6 signature excavations across the Indus Valley, Copper Age, Sangam Era, and Mediterranean Antiquity. Click any site to inspect its archaeological profile, or explore the complete 24-site directory.
+          </p>
+        </div>
+
+        <div class="header-action-col">
+          <button class="view-all-directory-btn" (click)="openSitesDirectory()">
+            <span>View All 24 Sites Directory</span>
+            <span class="btn-arrow">→</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Loading State for Sites -->
+      <div *ngIf="isLoading()" class="section-loading-block">
+        <div class="loader-spinner"></div>
+        <p>Loading archaeological excavations from repository...</p>
+      </div>
+
+      <!-- 6 Signature Sites Grid -->
+      <div *ngIf="!isLoading()" class="sites-editorial-grid">
+        <article
+          *ngFor="let site of signatureSites()"
+          class="site-editorial-card signature-card"
           (click)="onSiteClicked(site.id)"
         >
-          <div class="site-item-top">
-            <div class="site-item-name">
-              <span class="flag" *ngIf="site.country.toLowerCase() === 'india'">🇮🇳</span>
-              <strong>{{ site.name }}</strong>
+          <!-- Site Header Image -->
+          <div class="card-img-wrapper" *ngIf="site.imageUrl">
+            <img [src]="site.imageUrl" [alt]="site.name" loading="lazy" (error)="onImageError($event, site.name)" />
+            <div class="card-unesco-badge" *ngIf="site.isUnescoWorldHeritage">★ UNESCO World Heritage</div>
+            <div class="card-country-tag">{{ site.country }}</div>
+          </div>
+
+          <div class="card-body">
+            <div class="card-type-row">
+              <span class="card-type">{{ site.siteType }}</span>
+              <span class="card-chronology font-mono">⏳ {{ site.startYearFormatted }} – {{ site.endYearFormatted }}</span>
             </div>
-            <span class="unesco-star" *ngIf="site.isUnescoWorldHeritage" title="UNESCO World Heritage">★</span>
-          </div>
 
-          <div class="site-item-ancient" *ngIf="site.ancientName">
-            <em>{{ site.ancientName }}</em>
-          </div>
+            <h3 class="card-title font-display">{{ site.name }}</h3>
+            <div class="card-ancient" *ngIf="site.ancientName">
+              Ancient: <em>{{ site.ancientName }}</em>
+            </div>
 
-          <div class="site-item-dates font-mono">
-            {{ site.startYearFormatted }} – {{ site.endYearFormatted }}
-          </div>
+            <p class="card-desc">{{ site.description }}</p>
 
-          <div class="site-item-region">
-            📍 {{ site.region }}
-          </div>
+            <div class="card-location">
+              📍 {{ site.region }}, <strong>{{ site.country }}</strong>
+            </div>
 
-          <div class="site-item-type">
-            {{ site.siteType }}
+            <!-- Civilization Tags -->
+            <div class="card-civ-tags">
+              <span
+                *ngFor="let c of site.civilizations"
+                class="civ-tag"
+                [style.borderColor]="c.colorHex ? c.colorHex + '50' : '#c25e2e40'"
+                [style.color]="c.colorHex || '#c25e2e'"
+                [style.background]="c.colorHex ? c.colorHex + '12' : '#c25e2e10'"
+              >
+                {{ c.name || c.civilizationName }}
+              </span>
+            </div>
+
+            <!-- Card Interactive Actions -->
+            <div class="card-footer-actions">
+              <button
+                class="card-action-btn view-details-btn"
+                (click)="$event.stopPropagation(); onSiteClicked(site.id)"
+              >
+                <span>📖</span> Inspect Excavation & 3D
+              </button>
+
+              <button
+                class="card-action-btn fly-map-btn"
+                (click)="$event.stopPropagation(); flyToSite(site.latitude, site.longitude, site.id)"
+                title="Locate coordinates on GIS Map"
+              >
+                <span>🗺️</span> View on Map
+              </button>
+            </div>
           </div>
+        </article>
+      </div>
+
+      <!-- Prominent Explore All Sites Banner -->
+      <div class="explore-all-sites-banner">
+        <div class="banner-content">
+          <div class="banner-badge font-mono">COMPLETE ARCHAEOLOGICAL CORPUS • 24 SITES</div>
+          <h3 class="banner-title font-display">Explore the Complete Archaeological Sites Directory</h3>
+          <p class="banner-desc">
+            Browse all 24 systematically documented excavations across India and world civilizations with complete stratigraphic sequences, diagnostic finds, filters, and full-text search.
+          </p>
         </div>
+        <button class="banner-action-btn" (click)="openSitesDirectory()">
+          <span>Open Full 24 Sites Directory</span>
+          <span class="btn-arrow">→</span>
+        </button>
+      </div>
+    </div>
+  </section>
 
-        <div *ngIf="filteredSites().length === 0" class="no-sites-notice">
-          <p>No active archaeological settlements documented at this horizon.</p>
-          <button class="reset-time-btn" (click)="isTimeFilterEnabled.set(false); fetchSites()">Show All Sites</button>
+  <!-- ====================================================================
+       SECTION 3: HOW ARCHAEOLOGISTS STUDY A SITE (Methodological Lab)
+       ==================================================================== -->
+  <section id="methodology" class="methodology-section">
+    <div class="section-container">
+      <div class="section-header-centered">
+        <span class="section-eyebrow font-mono">02 — EDUCATIONAL ARCHAEOLOGY LAB</span>
+        <h2 class="section-title font-display">How Do Archaeologists Study a Site?</h2>
+        <p class="section-description">
+          Archaeological knowledge is not guesswork. It is a systematic, interdisciplinary science connecting surface exploration, geology, material physics, and historical synthesis.
+        </p>
+      </div>
+
+      <!-- Step Navigation Buttons -->
+      <div class="methodology-nav-tabs">
+        <button
+          *ngFor="let step of methodologySteps; let i = index"
+          class="methodology-tab"
+          [class.active]="activeMethodologyStep() === i"
+          (click)="setMethodologyStep(i)"
+        >
+          <span class="step-num font-mono">{{ step.stepNumber }}</span>
+          <span class="step-icon">{{ step.icon }}</span>
+          <span class="step-name">{{ step.title }}</span>
+        </button>
+      </div>
+
+      <!-- Active Step Interactive Showcase -->
+      <div class="methodology-showcase" *ngIf="methodologySteps[activeMethodologyStep()] as activeStep">
+        <div class="methodology-content-grid">
+          <div class="methodology-left-panel">
+            <div class="step-badge font-mono">PHASE {{ activeStep.stepNumber }} OF 05</div>
+            <h3 class="methodology-headline font-display">{{ activeStep.title }}</h3>
+            <h4 class="methodology-subheadline">{{ activeStep.subtitle }}</h4>
+
+            <p class="methodology-summary">{{ activeStep.summary }}</p>
+            <p class="methodology-details">{{ activeStep.details }}</p>
+
+            <div class="key-point-box">
+              <div class="key-point-label font-mono">CORE SCIENTIFIC PRINCIPLE:</div>
+              <p class="key-point-text">{{ activeStep.studentKeyPoint }}</p>
+            </div>
+          </div>
+
+          <div class="methodology-right-panel">
+            <div class="case-study-card">
+              <div class="case-study-badge">FIELD CASE STUDY</div>
+              <h4 class="case-study-title font-display">Archaeological Field Application</h4>
+              <p class="case-study-text">{{ activeStep.realWorldExample }}</p>
+
+              <div class="case-study-links">
+                <span class="hint-text">Test this methodology on real sites:</span>
+                <div class="case-buttons">
+                  <button class="pill-link" (click)="onSiteClicked(1)">Inspect Dholavira Records →</button>
+                  <button class="pill-link" (click)="onSiteClicked(5)">Inspect Sinauli Excavations →</button>
+                  <button class="pill-link" (click)="onSiteClicked(8)">Inspect Keeladi Stratigraphy →</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </aside>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       SECTION 4: INTERACTIVE 4D GIS MAP & SPATIAL EXPLORER
+       ==================================================================== -->
+  <section id="map-explorer" class="map-explorer-section">
+    <div class="map-section-header">
+      <div class="section-container">
+        <div class="map-title-row">
+          <div>
+            <span class="section-eyebrow font-mono">03 — SPATIO-TEMPORAL GIS</span>
+            <h2 class="section-title font-display">Interactive Archaeological Landscape</h2>
+            <p class="section-description">
+              Navigate physical settlements across global coordinates and continuous BCE/CE chronological progression.
+            </p>
+          </div>
+
+          <!-- Quick GIS Tools -->
+          <div class="gis-tools-group">
+            <button
+              class="gis-tool-btn flight-cta-btn"
+              [class.active]="isPlaying4DFlight()"
+              (click)="toggle4DTimeFlight()"
+              title="Automated 4D Spatio-Temporal Flight across Centuries"
+            >
+              <span>{{ isPlaying4DFlight() ? '⏸' : '▶' }}</span>
+              {{ isPlaying4DFlight() ? 'Pause 4D Flight' : '▶ 4D Chrono-Flight' }}
+            </button>
+
+            <button
+              class="gis-tool-btn"
+              [class.active]="showTradeRoutes()"
+              (click)="toggleTradeRoutes()"
+              title="Toggle Ancient Trade Corridors"
+            >
+              <span>⛵</span> {{ showTradeRoutes() ? 'Hide Trade Routes' : 'Show Trade Routes' }}
+            </button>
+
+            <button
+              class="gis-tool-btn"
+              [class.active]="isTimeFilterEnabled()"
+              (click)="toggleTimeFilter()"
+              title="Toggle Temporal Filter"
+            >
+              <span>{{ isTimeFilterEnabled() ? '⏳' : '🌐' }}</span>
+              {{ isTimeFilterEnabled() ? 'Time Filter Active' : 'Showing All Eras' }}
+            </button>
+
+            <button
+              class="gis-tool-btn"
+              [class.active]="isSidebarVisible()"
+              (click)="toggleSidebar()"
+              title="Toggle Active Archaeological Sites Directory"
+            >
+              <span>📋</span>
+              {{ isSidebarVisible() ? 'Hide Directory' : 'Active Sites (' + filteredSites().length + ')' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Horizon Presets Bar -->
+    <app-india-priority-bar (presetSelected)="onPresetSelected($event)"></app-india-priority-bar>
+
+    <!-- 4D Spatio-Temporal Horizon Scrubber & Flight Controller Bar -->
+    <div class="gis-4d-control-bar">
+      <div class="flight-action-cluster">
+        <button
+          class="flight-toggle-btn"
+          [class.playing]="isPlaying4DFlight()"
+          (click)="toggle4DTimeFlight()"
+          title="Play/Pause continuous chronological flight through civilizations"
+        >
+          <span class="flight-btn-icon">{{ isPlaying4DFlight() ? '⏸' : '▶' }}</span>
+          <span class="flight-btn-text">{{ isPlaying4DFlight() ? 'Pause Flight' : 'Start 4D Flight' }}</span>
+        </button>
+
+        <div class="flight-status-badge font-mono">
+          <span class="flight-pulse-dot" [class.active]="isPlaying4DFlight()"></span>
+          <span class="flight-year-readout">{{ formatYear(currentYear()) }}</span>
+          <span class="flight-epoch-label">{{ activeEpochName() }}</span>
+        </div>
+      </div>
+
+      <!-- Interactive 4D Time Horizon Scrubber -->
+      <div class="flight-scrubber-track">
+        <input
+          type="range"
+          min="-3300"
+          max="500"
+          step="50"
+          [ngModel]="currentYear()"
+          (ngModelChange)="onYearChanged($event)"
+          class="flight-range-input"
+          aria-label="4D Spatio-Temporal Time Horizon Scrubber"
+        />
+        <div class="flight-milestone-ticks font-mono">
+          <span (click)="onYearChanged(-3300)" [class.active]="currentYear() <= -3000">3300 BCE</span>
+          <span (click)="onYearChanged(-2500)" [class.active]="currentYear() > -3000 && currentYear() <= -2000">2500 BCE</span>
+          <span (click)="onYearChanged(-1800)" [class.active]="currentYear() > -2000 && currentYear() <= -1200">1800 BCE</span>
+          <span (click)="onYearChanged(-600)" [class.active]="currentYear() > -1200 && currentYear() <= -400">600 BCE</span>
+          <span (click)="onYearChanged(-250)" [class.active]="currentYear() > -400 && currentYear() <= 0">250 BCE</span>
+          <span (click)="onYearChanged(50)" [class.active]="currentYear() > 0 && currentYear() <= 200">50 CE</span>
+          <span (click)="onYearChanged(500)" [class.active]="currentYear() > 200">500 CE</span>
+        </div>
+      </div>
+
+      <!-- Speed Multipliers -->
+      <div class="flight-speed-cluster">
+        <span class="speed-label font-mono">Speed:</span>
+        <button class="speed-btn" [class.active]="flightSpeed() === 1" (click)="setFlightSpeed(1)">1x</button>
+        <button class="speed-btn" [class.active]="flightSpeed() === 2" (click)="setFlightSpeed(2)">2x</button>
+        <button class="speed-btn" [class.active]="flightSpeed() === 4" (click)="setFlightSpeed(4)">4x</button>
+      </div>
+    </div>
+
+    <!-- Map Canvas & HUD Viewport -->
+    <div class="gis-viewport">
+      <app-map
+        [sites]="allSites()"
+        [selectedSiteId]="selectedSiteId()"
+        [showTradeRoutes]="showTradeRoutes()"
+        [currentYear]="currentYear()"
+        [isTimeFilterActive]="isTimeFilterEnabled()"
+        [isPlayingFlight]="isPlaying4DFlight()"
+        (siteSelected)="onSiteClicked($event)"
+        (flightToggle)="toggle4DTimeFlight()"
+      ></app-map>
+
+      <!-- Floating Reopen Handle for Sites Directory (Accessible when minimized) -->
+      <button
+        *ngIf="!isSidebarVisible()"
+        class="gis-docked-open-btn"
+        (click)="toggleSidebar()"
+        title="Open Active Archaeological Sites Directory"
+      >
+        <span class="dock-icon">📋</span>
+        <span class="dock-label">Sites Directory ({{ filteredSites().length }})</span>
+        <span class="dock-arrow">▶</span>
+      </button>
+
+      <!-- Collapsible Floating Active Sites Directory -->
+      <aside class="gis-sidebar" [class.collapsed]="!isSidebarVisible()">
+        <div class="gis-sidebar-header">
+          <div>
+            <span class="sidebar-title">Active Archaeological Sites</span>
+            <span class="sidebar-counter font-mono">{{ filteredSites().length }} / {{ allSites().length }}</span>
+          </div>
+          <button class="minimize-btn" (click)="toggleSidebar()" title="Collapse Directory (Can reopen anytime with the 📋 button)">✕</button>
+        </div>
+
+        <div class="sidebar-scroll-list">
+          <div
+            *ngFor="let site of filteredSites()"
+            class="sidebar-site-item"
+            [class.selected]="selectedSiteId() === site.id"
+            (click)="onSiteClicked(site.id)"
+          >
+            <div class="item-head">
+              <strong>{{ site.name }}</strong>
+              <span class="unesco-star" *ngIf="site.isUnescoWorldHeritage">★</span>
+            </div>
+            <div class="item-dates font-mono">{{ site.startYearFormatted }} – {{ site.endYearFormatted }}</div>
+            <div class="item-location">📍 {{ site.region }}, {{ site.country }}</div>
+            <div class="item-actions">
+              <button class="fly-mini-btn" (click)="$event.stopPropagation(); flyToSite(site.latitude, site.longitude, site.id)">
+                Zoom Map
+              </button>
+            </div>
+          </div>
+
+          <div *ngIf="filteredSites().length === 0" class="no-filtered-sites">
+            <p>No sites recorded at {{ formatYear(currentYear()) }}.</p>
+            <button class="reset-time-btn" (click)="isTimeFilterEnabled.set(false); applyLocalFilters()">View All Sites</button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Bottom Floating Temporal Scrubber -->
+      <app-timeline-scrubber
+        [initialYear]="currentYear()"
+        (yearChanged)="onYearChanged($event)"
+      ></app-timeline-scrubber>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       SECTION 5: DIAGNOSTIC ARTEFACTS & 3D WEBGL LABORATORY
+       ==================================================================== -->
+  <section id="artefacts" class="artefacts-section">
+    <div class="section-container">
+      <div class="section-header-centered">
+        <span class="section-eyebrow font-mono">04 — DIAGNOSTIC MATERIAL CULTURE</span>
+        <h2 class="section-title font-display">Diagnostic Artefact Museum Gallery</h2>
+        <p class="section-description">
+          Inspect genuine archaeological specimens catalogued from in situ excavations across ancient settlements. Zoom in to inspect authentic craftsmanship, epigraphic inscriptions, and stratigraphic context.
+        </p>
+      </div>
+
+      <div class="artefacts-workspace-grid">
+        <!-- Left: Diagnostic Catalogue List -->
+        <div class="artefacts-catalogue-panel">
+          <div class="panel-heading font-display">Diagnostic Finds ({{ allArtefacts().length }})</div>
+          <div class="catalogue-items-list">
+            <div
+              *ngFor="let art of allArtefacts()"
+              class="catalogue-art-item"
+              [class.active]="selectedGalleryArtefact()?.id === art.id"
+              (click)="selectGalleryArtefact(art)"
+            >
+              <div class="art-item-title font-display">{{ art.name }}</div>
+              <div class="art-item-site">📍 {{ art.siteName }}</div>
+              <div class="art-item-meta">
+                <span class="art-mat-pill">{{ art.material }}</span>
+                <span class="art-date-pill font-mono" *ngIf="art.approximateYearFormatted">{{ art.approximateYearFormatted }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Interactive 3D WebGL Stage -->
+        <div class="artefacts-stage-panel" *ngIf="selectedGalleryArtefact() as activeArt">
+          <div class="stage-container">
+            <app-artefact-viewer3d [artefact]="activeArt"></app-artefact-viewer3d>
+          </div>
+
+          <div class="artefact-provenance-box">
+            <div class="prov-header-row">
+              <div>
+                <span class="prov-tag font-mono">CONTROLLED EXCAVATION FIND</span>
+                <h3 class="prov-headline font-display">{{ activeArt.name }}</h3>
+              </div>
+              <button class="open-site-record-btn" (click)="onSiteClicked(activeArt.siteId)">
+                Inspect Full Excavation Record for {{ activeArt.siteName }} →
+              </button>
+            </div>
+
+            <div class="prov-grid-table">
+              <div class="prov-cell">
+                <span class="cell-label">Excavation Context</span>
+                <span class="cell-val">{{ activeArt.discoveryContext || 'Documented In Situ Layer' }}</span>
+              </div>
+              <div class="prov-cell">
+                <span class="cell-label">Material Composition</span>
+                <span class="cell-val">{{ activeArt.material }}</span>
+              </div>
+              <div class="prov-cell">
+                <span class="cell-label">Curating Repository</span>
+                <span class="cell-val">{{ activeArt.currentLocation || 'National Archaeological Archive' }}</span>
+              </div>
+              <div class="prov-cell">
+                <span class="cell-label">Typology / Dimensions</span>
+                <span class="cell-val">{{ activeArt.dimensions || activeArt.artefactType }}</span>
+              </div>
+            </div>
+
+            <p class="prov-narrative">{{ activeArt.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       SECTION 6: ARCHAEOLOGICAL EXPEDITIONS & FIELD STORIES (Multi-Site Architecture)
+       ==================================================================== -->
+  <section id="stories" class="stories-section">
+    <div class="section-container">
+      <div class="section-header-centered">
+        <span class="section-eyebrow font-mono">05 — ARCHAEOLOGICAL EXPEDITIONS</span>
+        <h2 class="section-title font-display">Field Notes & Site Discoveries</h2>
+        <p class="section-description">
+          Step into pivotal archaeological discoveries across India, the Nile Valley, the Levant, and the Mediterranean.
+        </p>
+      </div>
+
+      <!-- Story Chapter Tabs -->
+      <div class="stories-tabs-row">
+        <button
+          *ngFor="let story of expeditionStories; let i = index"
+          class="story-tab-btn"
+          [class.active]="activeStoryIndex() === i"
+          (click)="selectStory(i)"
+        >
+          <span class="tab-index font-mono">0{{ i + 1 }}</span>
+          <span class="tab-site-title">{{ story.title.split(':')[0] }}</span>
+        </button>
+      </div>
+
+      <!-- Active Story Presentation -->
+      <div class="story-presentation-deck" *ngIf="expeditionStories[activeStoryIndex()] as currentStory">
+        <div class="story-grid">
+          <!-- Left: Narrative Column -->
+          <div class="story-narrative-col">
+            <div class="story-badges-row">
+              <span class="badge-epoch font-mono">{{ currentStory.epoch }}</span>
+              <span class="badge-civ">{{ currentStory.civilization }}</span>
+              <span class="badge-geo">📍 {{ currentStory.region }}, {{ currentStory.country }}</span>
+            </div>
+
+            <h3 class="story-title font-display">{{ currentStory.title }}</h3>
+            <div class="story-ancient" *ngIf="currentStory.ancientName">
+              Indigenous Designation: <em>{{ currentStory.ancientName }}</em>
+            </div>
+
+            <div class="story-chronology font-mono">
+              <span>⏳ Horizon Span: <strong>{{ currentStory.dates }}</strong></span>
+              <span>•</span>
+              <span>Coordinates: {{ currentStory.latitude | number:'1.3-3' }}°, {{ currentStory.longitude | number:'1.3-3' }}°</span>
+            </div>
+
+            <div class="story-prose">
+              <p>{{ currentStory.narrative }}</p>
+            </div>
+
+            <div class="story-highlights-box">
+              <h4 class="highlights-title font-display">Archaeological & Excavation Highlights</h4>
+              <ul class="highlights-checklist">
+                <li *ngFor="let h of currentStory.highlights">
+                  <span class="check-icon">✓</span>
+                  <span>{{ h }}</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="excavator-quote-box" *ngIf="currentStory.excavatorQuote">
+              <p class="quote-text">{{ currentStory.excavatorQuote }}</p>
+            </div>
+
+            <div class="story-actions">
+              <button class="primary-action-btn" (click)="onSiteClicked(currentStory.siteId)">
+                Inspect Complete Profile & Stratigraphy →
+              </button>
+
+              <button class="secondary-action-btn" (click)="flyToSite(currentStory.latitude, currentStory.longitude, currentStory.siteId)">
+                Fly Map Camera to Site Coordinates
+              </button>
+            </div>
+
+            <!-- Stepper Controls -->
+            <div class="story-stepper">
+              <button class="stepper-btn" (click)="prevStory()">← Previous Story</button>
+              <span class="stepper-count font-mono">{{ activeStoryIndex() + 1 }} / {{ expeditionStories.length }}</span>
+              <button class="stepper-btn" (click)="nextStory()">Next Story →</button>
+            </div>
+          </div>
+
+          <!-- Right: Diagnostic 3D Artefact Column -->
+          <div class="story-artefact-col">
+            <div class="story-artefact-card">
+              <div class="corner-label font-mono">DIAGNOSTIC EVIDENCE</div>
+              <h4 class="story-art-title font-display">{{ currentStory.artefactName }}</h4>
+              <div class="story-art-material">{{ currentStory.artefactMaterial }}</div>
+              <p class="story-art-summary">{{ currentStory.artefactSummary }}</p>
+
+              <div class="story-3d-box">
+                <app-artefact-viewer3d
+                  [artefact]="{
+                    id: currentStory.siteId,
+                    siteId: currentStory.siteId,
+                    name: currentStory.artefactName,
+                    artefactType: 'Diagnostic Monumental Find',
+                    material: currentStory.artefactMaterial,
+                    approximateYearFormatted: currentStory.dates,
+                    description: currentStory.artefactSummary,
+                    currentLocation: currentStory.country + ' Archaeological Collection',
+                    discoveryContext: 'Excavated at ' + currentStory.title,
+                    imageUrl: currentStory.artefactImageUrl,
+                    model3DType: currentStory.artefactModelType
+                  }"
+                ></app-artefact-viewer3d>
+              </div>
+
+              <div class="card-footer-note">
+                <span class="note-text">Interactive 3D WebGL • Drag to inspect surface craftsmanship</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       SECTION 7: TEMPORAL CHRONOLOGY & COMPARATIVE ANALYSIS
+       ==================================================================== -->
+  <section id="timeline" class="timeline-section">
+    <div class="section-container">
+      <div class="section-header-centered">
+        <span class="section-eyebrow font-mono">06 — ARCHAEOLOGICAL CHRONOLOGY</span>
+        <h2 class="section-title font-display">Synchronous Ancient Horizons</h2>
+        <p class="section-description">
+          What was happening simultaneously across the ancient world? Compare contemporaneous settlements to see how technological, maritime, and political developments unfolded in parallel.
+        </p>
+      </div>
+
+      <!-- Educational Concept Explainer Card -->
+      <div class="horizon-concept-card">
+        <div class="concept-icon-col">
+          <div class="concept-globe-icon">🌐</div>
+          <span class="concept-tag font-mono">CORE PEDAGOGY</span>
+        </div>
+        <div class="concept-content-col">
+          <h3 class="concept-headline font-display">What is a "Temporal Horizon" in Archaeological Science?</h3>
+          <p class="concept-text">
+            Standard history textbooks often present the past as isolated vertical timelines (e.g., India in isolation, Rome in isolation, Egypt in isolation). 
+            A <strong>Temporal Horizon</strong> does the opposite: it takes a <em>horizontal cross-section across the entire planet at one frozen year</em>.
+          </p>
+          <div class="concept-points-row">
+            <div class="concept-point">
+              <span class="point-num">01</span>
+              <div>
+                <strong>Contemporaneity:</strong> Discover which settlements, kings, and craftsmen coexisted on Earth at the exact same moment.
+              </div>
+            </div>
+            <div class="concept-point">
+              <span class="point-num">02</span>
+              <div>
+                <strong>Trade Networks:</strong> Trace direct cargo exchanges (such as Indus carnelian and seals found in Mesopotamian Ur).
+              </div>
+            </div>
+            <div class="concept-point">
+              <span class="point-num">03</span>
+              <div>
+                <strong>Parallel Innovation:</strong> Compare how different civilizations solved water management, writing, and metallurgy in the same era.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Synchronous Horizons Cards Grid with 1-Click Map Activators -->
+      <div class="epochs-overview-grid">
+        <div class="epoch-card" (click)="applyHorizon(-2500)">
+          <div class="epoch-header-row">
+            <div class="epoch-year font-mono">2500 BCE</div>
+            <span class="epoch-active-pill" *ngIf="currentYear() === -2500 && isTimeFilterEnabled()">ACTIVE</span>
+          </div>
+          <h4 class="epoch-title font-display">Early Urban Bronze Age</h4>
+          <p class="epoch-desc">Mature Harappan urban planning at Dholavira and Mohenjo-daro, Old Kingdom pyramid construction at Giza, and Royal Tombs of Ur in Mesopotamia.</p>
+          <div class="epoch-sites-tag">Dholavira • Lothal • Ur • Giza</div>
+          <button class="apply-horizon-btn">
+            <span>🌐</span> Apply Horizon to 4D Map →
+          </button>
+        </div>
+
+        <div class="epoch-card" (click)="applyHorizon(-1900)">
+          <div class="epoch-header-row">
+            <div class="epoch-year font-mono">1900 BCE</div>
+            <span class="epoch-active-pill" *ngIf="currentYear() === -1900 && isTimeFilterEnabled()">ACTIVE</span>
+          </div>
+          <h4 class="epoch-title font-display">Copper Age & Warrior Horizons</h4>
+          <p class="epoch-desc">Sinauli solid-wheeled war chariots and royal coffins in the Yamuna basin, late Harappan decentralization, and Middle Minoan palatial growth at Knossos.</p>
+          <div class="epoch-sites-tag">Sinauli • Inamgaon • Knossos</div>
+          <button class="apply-horizon-btn">
+            <span>🌐</span> Apply Horizon to 4D Map →
+          </button>
+        </div>
+
+        <div class="epoch-card" (click)="applyHorizon(-1000)">
+          <div class="epoch-header-row">
+            <div class="epoch-year font-mono">1000 BCE</div>
+            <span class="epoch-active-pill" *ngIf="currentYear() === -1000 && isTimeFilterEnabled()">ACTIVE</span>
+          </div>
+          <h4 class="epoch-title font-display">Early Iron Age & Pyro-Technology</h4>
+          <p class="epoch-desc">Emergence of iron bloomery smelting across the Gangetic basin (Painted Grey Ware), rise of Nubian Kushite power along the Nile, and Phoenician Mediterranean trade.</p>
+          <div class="epoch-sites-tag">Painted Grey Ware • Meroë / Napata</div>
+          <button class="apply-horizon-btn">
+            <span>🌐</span> Apply Horizon to 4D Map →
+          </button>
+        </div>
+
+        <div class="epoch-card" (click)="applyHorizon(-300)">
+          <div class="epoch-header-row">
+            <div class="epoch-year font-mono">300 BCE</div>
+            <span class="epoch-active-pill" *ngIf="currentYear() === -300 && isTimeFilterEnabled()">ACTIVE</span>
+          </div>
+          <h4 class="epoch-title font-display">Mauryan & Sangam Dawn</h4>
+          <p class="epoch-desc">Imperial unification under Emperor Ashoka (Pataliputra, Kanaganahalli), early urban Sangam literacy at Keeladi, and royal pyramid building at Kushite Meroë.</p>
+          <div class="epoch-sites-tag">Pataliputra • Keeladi • Meroë • Petra</div>
+          <button class="apply-horizon-btn">
+            <span>🌐</span> Apply Horizon to 4D Map →
+          </button>
+        </div>
+
+        <div class="epoch-card" (click)="applyHorizon(50)">
+          <div class="epoch-header-row">
+            <div class="epoch-year font-mono">50 CE</div>
+            <span class="epoch-active-pill" *ngIf="currentYear() === 50 && isTimeFilterEnabled()">ACTIVE</span>
+          </div>
+          <h4 class="epoch-title font-display">Classical Indo-Roman Horizon</h4>
+          <p class="epoch-desc">Thriving maritime spice trade between Roman ports and Arikamedu/Muziris, Nabataean Petra at its architectural zenith, and Pompeii villas prior to 79 CE eruption.</p>
+          <div class="epoch-sites-tag">Pompeii • Arikamedu • Petra</div>
+          <button class="apply-horizon-btn">
+            <span>🌐</span> Apply Horizon to 4D Map →
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       SECTION 8: FOR STUDENTS, RESEARCHERS & ASI FIELD ACTIVITIES
+       ==================================================================== -->
+  <section id="students" class="students-section">
+    <div class="section-container">
+      <div class="students-box">
+        <div class="students-text">
+          <span class="students-eyebrow font-mono">FOR ARCHAEOLOGY STUDENTS & RESEARCHERS</span>
+          <h2 class="students-headline font-display">Study Like an Archaeologist</h2>
+          <p class="students-body">
+            Designed to support university students, field excavators, and history educators. Use the platform to explore stratigraphy cutaways, cross-examine radiocarbon dating records, analyze ancient hydraulic engineering, and compare diagnostic material culture across continents.
+          </p>
+          <div class="students-actions">
+            <button class="student-action-btn" (click)="onSiteClicked(1)">
+              Inspect Dholavira Stratigraphy
+            </button>
+            <button class="student-action-btn" (click)="scrollToSection('methodology')">
+              Review 5-Step Methodology
+            </button>
+            <button class="student-action-btn" (click)="scrollToSection('map-explorer')">
+              Explore Active GIS Horizon
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ASI Field Research, Activities & Antiquity Regulatory Framework -->
+      <div class="asi-research-card">
+        <div class="asi-header-row">
+          <div class="asi-badge font-mono">GOVERNMENT OF INDIA • MINISTRY OF CULTURE</div>
+          <a href="https://asi.nic.in/pages/Antiquity" target="_blank" rel="noopener noreferrer" class="asi-official-link" title="Open Official Archaeological Survey of India Antiquity Portal">
+            <span>🏛️</span> ASI Official Antiquity Portal →
+          </a>
+        </div>
+        <h3 class="asi-title font-display">Archaeological Survey of India (ASI) — Research, Antiquity & Field Activities</h3>
+        <p class="asi-intro">
+          Under the <em>Antiquities and Art Treasures Act, 1972 (Act No. 52 of 1972)</em>, an "Antiquity" includes any coin, sculpture, painting, epigraph or other work of art or craftsmanship that has been in existence for not less than one hundred years. The ASI directs systematic scientific excavations, documentation of stratified finds, and preservation in specialized in situ site museums across India.
+        </p>
+
+        <div class="asi-pillars-grid">
+          <div class="asi-pillar-item">
+            <div class="pillar-icon">🏺</div>
+            <h4 class="pillar-name font-display">Antiquity Registration & CAC</h4>
+            <p class="pillar-desc">
+              The Central Antiquity Collection (CAC) maintains digital registers, provenance archives, and scientific authentication of excavated artefacts across India.
+            </p>
+            <a href="https://asi.nic.in/pages/Antiquity" target="_blank" rel="noopener noreferrer" class="pillar-learn-more">
+              Review Antiquities Act & Rules →
+            </a>
+          </div>
+
+          <div class="asi-pillar-item">
+            <div class="pillar-icon">⛏️</div>
+            <h4 class="pillar-name font-display">Excavation & Exploration</h4>
+            <p class="pillar-desc">
+              Directing systematic scientific soundings at Dholavira, Sinauli, Lothal, Rakhigarhi, and Keeladi, published in <em>Indian Archaeology — A Review (IAR)</em>.
+            </p>
+            <a href="https://asi.nic.in/" target="_blank" rel="noopener noreferrer" class="pillar-learn-more">
+              Explore ASI Field Activities →
+            </a>
+          </div>
+
+          <div class="asi-pillar-item">
+            <div class="pillar-icon">📜</div>
+            <h4 class="pillar-name font-display">Epigraphical Survey</h4>
+            <p class="pillar-desc">
+              Deciphering archaic scripts including Ashokan Brahmi, Tamil-Brahmi, Kharosthi, and Indus pictographs, published continuously in <em>Epigraphia Indica</em>.
+            </p>
+            <a href="https://asi.nic.in/" target="_blank" rel="noopener noreferrer" class="pillar-learn-more">
+              Epigraphy Research Branch →
+            </a>
+          </div>
+
+          <div class="asi-pillar-item">
+            <div class="pillar-icon">🏛️</div>
+            <h4 class="pillar-name font-display">In Situ Site Museums</h4>
+            <p class="pillar-desc">
+              Protecting artefacts within their original discovery landscape, from the Lothal Dockyard Museum to Dholavira and Kanaganahalli stupa collections.
+            </p>
+            <a href="https://asi.nic.in/" target="_blank" rel="noopener noreferrer" class="pillar-learn-more">
+              Site Museums Directory →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   </main>
 
-  <!-- Chronological Time Machine Scrubber (Bottom) -->
-  <app-timeline-scrubber
-    [initialYear]="currentYear()"
-    (yearChanged)="onYearChanged($event)"
-  ></app-timeline-scrubber>
+  <!-- ====================================================================
+       DEDICATED SITES DIRECTORY PAGE (activePage() === 'sites')
+       ==================================================================== -->
+  <main *ngIf="activePage() === 'sites'" class="sites-directory-page">
+    <div class="section-container">
+      <!-- Breadcrumb Bar -->
+      <nav class="directory-breadcrumb-bar">
+        <button class="breadcrumb-back-btn" (click)="returnToHome()">
+          <span class="btn-back-arrow">←</span>
+          <span>Back to Home & Interactive Map</span>
+        </button>
+        <div class="directory-stats-summary font-mono">
+          <span>{{ allSites().length }} Total Sites</span>
+          <span class="dot">•</span>
+          <span>{{ indianSitesCount() }} Subcontinent Horizons</span>
+          <span class="dot">•</span>
+          <span>{{ worldSitesCount() }} World Counterparts</span>
+        </div>
+      </nav>
 
-  <!-- Detailed Archaeological Site Drawer (Right) -->
+      <!-- Directory Header -->
+      <header class="directory-page-header">
+        <div class="directory-eyebrow font-mono">ARCHAEOLOGICAL EXCAVATION REPOSITORY</div>
+        <h1 class="directory-title font-display">Global Archaeological Sites Directory</h1>
+        <p class="directory-subtitle">
+          Comprehensive scientific catalog of 24 systematically documented archaeological settlements, citadels, necropolises, and monumental rock-cut complexes. Inspect stratigraphy, diagnostic artefacts, excavator notes, and spatial coordinates.
+        </p>
+      </header>
+
+      <!-- Search & Filter Controls -->
+      <div class="directory-controls-card">
+        <div class="directory-search-row">
+          <div class="directory-search-box">
+            <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input
+              type="text"
+              class="directory-search-input"
+              placeholder="Search 24 sites by name, ancient name, region, culture, find..."
+              [ngModel]="searchQuery()"
+              (ngModelChange)="searchQuery.set($event); onSearchChange()"
+            />
+            <button *ngIf="searchQuery()" class="clear-search-btn" (click)="searchQuery.set(''); onSearchChange()">✕</button>
+          </div>
+
+          <div class="directory-results-count font-mono">
+            Showing <strong>{{ discoverySites().length }}</strong> of {{ allSites().length }} sites
+          </div>
+        </div>
+
+        <!-- Category Filters -->
+        <div class="directory-filter-pills">
+          <button
+            class="cat-pill"
+            [class.active]="selectedCategory() === 'all'"
+            (click)="setCategoryFilter('all')"
+          >
+            All Sites ({{ allSites().length }})
+          </button>
+          <button
+            class="cat-pill"
+            [class.active]="selectedCategory() === 'indus'"
+            (click)="setCategoryFilter('indus')"
+          >
+            🇮🇳 Indus Valley (Harappan)
+          </button>
+          <button
+            class="cat-pill"
+            [class.active]="selectedCategory() === 'copper-vedic'"
+            (click)="setCategoryFilter('copper-vedic')"
+          >
+            🇮🇳 Copper Age & Sinauli
+          </button>
+          <button
+            class="cat-pill"
+            [class.active]="selectedCategory() === 'sangam'"
+            (click)="setCategoryFilter('sangam')"
+          >
+            🇮🇳 Sangam & Classical India
+          </button>
+          <button
+            class="cat-pill"
+            [class.active]="selectedCategory() === 'world'"
+            (click)="setCategoryFilter('world')"
+          >
+            🌍 Global Heritage ({{ worldSitesCount() }})
+          </button>
+        </div>
+      </div>
+
+      <!-- Sites Grid (All 24 sites filtered) -->
+      <div class="sites-editorial-grid directory-sites-grid">
+        <article
+          *ngFor="let site of discoverySites()"
+          class="site-editorial-card directory-card"
+          (click)="onSiteClicked(site.id)"
+        >
+          <!-- Site Header Image -->
+          <div class="card-img-wrapper" *ngIf="site.imageUrl">
+            <img [src]="site.imageUrl" [alt]="site.name" loading="lazy" (error)="onImageError($event, site.name)" />
+            <div class="card-unesco-badge" *ngIf="site.isUnescoWorldHeritage">★ UNESCO World Heritage</div>
+            <div class="card-country-tag">{{ site.country }}</div>
+          </div>
+
+          <div class="card-body">
+            <div class="card-type-row">
+              <span class="card-type">{{ site.siteType }}</span>
+              <span class="card-chronology font-mono">⏳ {{ site.startYearFormatted }} – {{ site.endYearFormatted }}</span>
+            </div>
+
+            <h3 class="card-title font-display">{{ site.name }}</h3>
+            <div class="card-ancient" *ngIf="site.ancientName">
+              Ancient: <em>{{ site.ancientName }}</em>
+            </div>
+
+            <p class="card-desc">{{ site.description }}</p>
+
+            <div class="card-location">
+              📍 {{ site.region }}, <strong>{{ site.country }}</strong>
+            </div>
+
+            <!-- Civilization Tags -->
+            <div class="card-civ-tags">
+              <span
+                *ngFor="let c of site.civilizations"
+                class="civ-tag"
+                [style.borderColor]="c.colorHex ? c.colorHex + '50' : '#c25e2e40'"
+                [style.color]="c.colorHex || '#c25e2e'"
+                [style.background]="c.colorHex ? c.colorHex + '12' : '#c25e2e10'"
+              >
+                {{ c.name || c.civilizationName }}
+              </span>
+            </div>
+
+            <!-- Card Interactive Actions -->
+            <div class="card-footer-actions">
+              <button
+                class="card-action-btn view-details-btn"
+                (click)="$event.stopPropagation(); onSiteClicked(site.id)"
+              >
+                <span>📖</span> Inspect Excavation & 3D
+              </button>
+
+              <button
+                class="card-action-btn fly-map-btn"
+                (click)="$event.stopPropagation(); flyToSite(site.latitude, site.longitude, site.id)"
+                title="Locate coordinates on GIS Map"
+              >
+                <span>🗺️</span> View on Map
+              </button>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div *ngIf="discoverySites().length === 0" class="no-results-box">
+        <p>No archaeological sites matched your search or filter.</p>
+        <button class="reset-filter-btn" (click)="searchQuery.set(''); selectedCategory.set('all'); applyLocalFilters()">Reset Filters</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- ====================================================================
+       SECTION 9: FOOTER & BIBLIOGRAPHY SOURCES
+       ==================================================================== -->
+  <footer class="app-footer" role="contentinfo">
+    <div class="section-container footer-content-grid">
+      <div class="footer-col brand-col">
+        <div class="footer-brand font-display">ARCHAEOLOGICAL EXPLORATION PLATFORM</div>
+        <p class="footer-desc">
+          An open interactive digital laboratory for archaeological exploration, stratigraphic inquiry, and material culture research.
+        </p>
+        <div class="footer-license">Academic & Educational Resource • Research Data via ASI, UNESCO & Academic Journals</div>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading font-display">Explore Horizons</h4>
+        <ul class="footer-links">
+          <li><a (click)="scrollToSection('featured')">Featured Sites</a></li>
+          <li><a (click)="scrollToSection('methodology')">How Archaeology Works</a></li>
+          <li><a (click)="scrollToSection('map-explorer')">Interactive GIS Map</a></li>
+          <li><a (click)="scrollToSection('artefacts')">Diagnostic Artefacts 3D</a></li>
+          <li><a (click)="scrollToSection('stories')">Archaeological Expeditions</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading font-display">Academic References</h4>
+        <ul class="footer-links">
+          <li>Archaeological Survey of India (ASI)</li>
+          <li>UNESCO World Heritage Centre</li>
+          <li>Puratattva: Journal of the Indian Archaeological Society</li>
+          <li>Cell (Ancient Harappan DNA Genome, 2019)</li>
+          <li>British Museum Archaeological Reports</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom-bar">
+      <div class="section-container footer-bottom-inner">
+        <span>© 2026 Archaeological Exploration Platform. All rights reserved.</span>
+        <span>Built for archaeological inquiry, exploration, and education.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ====================================================================
+       MODALS & SLIDING DRAWERS (Overlays)
+       ==================================================================== -->
+  <!-- Detailed Archaeological Site Profile Drawer -->
   <app-site-drawer
     [siteId]="selectedSiteId()"
     [isOpen]="isDrawerOpen()"
@@ -149,7 +1229,7 @@
     (navigateToSite)="onSiteClicked($event)"
   ></app-site-drawer>
 
-  <!-- Side-by-Side Comparison Modal -->
+  <!-- Side-by-Side Archaeological Comparison Modal -->
   <app-comparison-modal
     [site1]="comparisonSourceSite()"
     [allSites]="allSites()"

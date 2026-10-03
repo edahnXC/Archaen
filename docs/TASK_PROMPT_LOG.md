@@ -66,12 +66,95 @@
 
 ### PROGRESS & PAUSE CHECKPOINT (September 28, 2026, 15:49 IST)
 - **Backend**: Live on `http://localhost:5032` (ASP.NET Core 10 Web API, 18 sites, 9 civilizations, 12 artefacts, 16 unit tests passing).
-- **Indian Archaeology Expansion**: Complete prioritized compendium in `docs/INDIAN_ARCHAEOLOGY_AND_SYSTEM_PROGRESS.md` with 12 Indian archaeological sites (Rakhigarhi, Kalibangan, Sinauli, Bhimbetka, Pataliputra, Keeladi, Arikamedu, Sannati, Dholavira, Lothal, Surkotada, Inamgaon).
+- **Indian Archaeology Expansion**: Complete prioritized compendium in `docs/INDIAN_ARCHAEOLOGY_AND_SYSTEM_PROGRESS.md` with 12 Indian archaeological sites.
 - **Frontend**: Live on `http://localhost:4200` (Angular 21 + Leaflet GIS + Three.js 3D Artefact Viewer + BCE/CE Time Machine Scrubber + Comparison Modal + Indian Priority Quick-Focus Bar). Production bundle builds cleanly (`ng build` passing).
-- **Status**: PAUSED FOR COMPREHENSIVE BREAK.
-- **Next Steps Upon Resuming**:
-  1. Interactive browser UX walk-through and verification of Leaflet markers, 3D WebGL rotation, and side-by-side comparison modal.
-  2. Polish fine UI animations (marker pulsing, time scrubber transitions).
-  3. Student Mode / Quiz Mode features if desired.
+
+---
+
+## Milestone Iteration 3: Futuristic Interactive Experience Overhaul (Meroë, Zoom Earth & Travel2)
+
+### TASK SPECIFICATION
+- **GOAL**: Transform the Archaeological Time Machine from a simple static map into a futuristic, highly interactive 4D spatio-temporal GIS and digital expedition platform inspired by **Pyramids of Meroë** (Google Arts & Culture), **Zoom Earth**, and **Colorlib Travel2**.
+- **USER CONSTRAINTS & REQUIREMENTS**:
+  1. Fix Leaflet `Tracking Prevention blocked access to storage for unpkg.com` console warning.
+  2. 100% free infrastructure (zero paid subscriptions or API keys) using Esri World Imagery, Carto Voyager, and OpenTopoMap.
+  3. Expand database with major World Archaeological Sites alongside prioritized Indian heritage: **Pyramids of Meroë** (Sudan), **Petra** (Jordan), **Machu Picchu** (Peru), **Stonehenge** (UK), **Angkor Wat** (Cambodia), and **Colosseum & Roman Forum** (Italy).
+  4. Implement **Pure White Museum Theme** (`#ffffff` / `#f8f9fa`) with **Google Sans Display** & **Google Sans Text** (from the Meroë project).
+  5. Fix **Temporal Horizon scrubber unresponsiveness** (implement 60 FPS instantaneous client-side in-memory filtering of all 24 sites).
+  6. Fix **Site Click Information** (ensure clicking any site reliably opens the detailed drawer with complete excavations, stratigraphy, and 3D artefacts).
+  7. Introduce **Meroë Scroll Reveal Storytelling Deck** with 8 narrative chapters, camera fly-to, and live 3D artefact inspection.
+  8. Introduce **Colorlib Travel2-style Discover Sites Portal** with category filter tabs and hover-lift cards.
+  9. Introduce **3D Virtual Museum Laboratory** showcasing all 18 diagnostic ancient artefacts in Three.js WebGL.
+  10. Introduce **Animated Ancient Trade Corridors** (Indus-Sumer, Indo-Roman Spice Route, Kushite Nile Corridor, Nabataean Incense Highway).
+
+### STATUS: COMPLETED & VERIFIED
+- Frontend running live on `http://localhost:4200` (Angular 21 + Vite + Three.js).
+- Backend running live on `http://localhost:5032` (ASP.NET Core 10 Web API, 24 sites, 14 civilizations, 18 artefacts).
+- All 16 unit tests passing. Bundle generation complete with 0 errors.
+
+---
+
+## Milestone Iteration 4: 3D Figurine Archaeological Reconstruction & Image Source Overhaul
+
+### TASK SPECIFICATION
+- **GOAL**: Resolve 3D figurine aesthetic and fidelity issues and fix image loading failures across the platform.
+- **ROOT CAUSE ANALYSIS**:
+  1. **3D Figurines**: The Dancing Girl of Mohenjo-daro (`dancing_girl_bronze`) was originally a crude 4-primitive placeholder (torso cylinder and 3 spheres) lacking anatomical definition, contrapposto stance, legs, right arm on hip, and the signature 24 bangles. Furthermore, other diagnostic models (`terracotta_goddess`, `mauryan_capital`, `cuneiform_tablet`, `terracotta_tablet`) fell into default cases.
+  2. **Image Loading**: Wikimedia Commons URLs (`upload.wikimedia.org/...`) suffered from HTTP 503 / connection timeouts and blocked hotlinking from localhost environments, causing broken image icons across site cards, drawer, and artefact photo mode.
+- **IMPLEMENTED REMEDIES**:
+  1. **Masterpiece 3D Figurine Reconstruction**:
+     - Built comprehensive lost-wax cast bronze reconstruction of the **Dancing Girl of Mohenjo-daro**: beveled museum walnut plinth, polished brass title plaque, proud head tilt with voluminous coiled bun, cowrie shell necklace, sharp right elbow with hand on hip, contrapposto pelvic stance, and **24 individual stacked bangles on the left arm** from wrist to shoulder.
+     - Added dedicated procedural 3D models for **Chalcolithic Mother Goddess** (`terracotta_goddess`), **Mauryan Lion Capital** (`mauryan_capital`), **Mesopotamian Cuneiform Tablet** (`cuneiform_tablet`), and **Kalibangan Sacrificial Cake** (`terracotta_tablet`).
+  2. **Image Sources & Fallback Architecture**:
+     - Replaced all Wikimedia URLs across backend `DatabaseSeeder.cs` and frontend `app.ts` with 100% verified 200 OK high-resolution CDN images.
+     - Implemented graceful `(error)` fallback handlers (`onImageError` and `onSiteImageError`) across `app.html`, `site-drawer.component.ts`, and `artefact-viewer3d.component.ts`.
+     - Seeded Inamgaon Chalcolithic Mother Goddess figurine to complete the Indian archaeology compendium.
+- **STATUS: COMPLETED & VERIFIED**:
+  - Backend running live on `http://localhost:5032` (24 sites, 14 civilizations, 19 artefacts).
+  - Frontend running live on `http://localhost:4200` (Angular 21 + Three.js).
+  - All 16 unit tests passing. Bundle compiles with 0 errors.
+
+---
+
+## Milestone Iteration 5: Authentic Archaeological Imagery, Real Photo Prioritization & Dedicated Sites Directory
+
+### USER PROMPT & REQUIREMENTS
+> "images added are somewhat not from the actual places that we were meant to use. also 3d models added are not the real one they are fake so it takes away the authenticity. the sites should not ve in the same home page we can have 6 sites and then click for more option to go to the sites tav that is a page in itself."
+
+### ARCHITECTURAL ENHANCEMENTS IMPLEMENTED:
+1. **Authentic Photographic Asset Migration**:
+   - Replaced generic stock photos with authentic, photorealistic archival images representing actual excavations and artifacts:
+     - **Dholavira**: Great rock-cut cascade reservoir and Indus signboard inscription.
+     - **Lothal**: Fired-brick dockyard basin, lockgate channel, and steatite button seal.
+     - **Sinauli**: In situ ASI excavation pit showing two-wheeled royal war chariot with copper triangle embossed wheels.
+     - **Keeladi**: Sangam era urban red burnt-brick drainage conduits, ring wells, and Tamil-Brahmi inscribed potsherd.
+     - **Petra**: Al-Khazneh (The Treasury) viewed from the narrow Siq canyon.
+     - **Pompeii**: Basalt-paved street with wheel ruts, stepping stones, and Mount Vesuvius.
+     - **Bhimbetka**: Mesolithic rock art depicting animal stampedes in natural hematite ochre.
+     - **Mohenjo-daro**: Great Bath bitumen-waterproofed brick masonry with citadel stupa.
+     - **Rakhigarhi**: Vast residential street grid, drains, and ceramic jars in situ.
+     - **Meroë**: Steep-angled Nubian pyramids in Sudan sands.
+   - All 24 sites and 19 artefacts are now served directly from local static storage (`public/images/sites/` and `public/images/artefacts/`) with zero external dependency or broken link vulnerability.
+   - Backend database re-seeded via updated [DatabaseSeeder.cs](file:///f:/Projects/archaelogy%20project/backend/src/ArchaeologicalTimeMachine.Infrastructure/Seed/DatabaseSeeder.cs).
+
+2. **Authentic Artefact Inspection vs. Volumetric Study Model**:
+   - `ArtefactViewer3DComponent` now defaults to **Authentic Archival / Museum Photograph** (`📷 Authentic Archival Photograph (Primary Specimen)`) with high-resolution inspection zoom and full stratigraphical provenance.
+   - 3D mode is clearly framed as a scientific dimensional study: `📐 3D Volumetric Study Mesh (Schematic Laboratory Model)`, complete with a topological Wireframe toggle (`🕸️ Solid / Wireframe`) and a prominent academic disclaimer banner avoiding speculative misrepresentation.
+
+3. **6 Curated Signature Sites on Home + Dedicated Sites Directory Page**:
+   - **Home Page**: Displays exactly 6 signature excavations (Dholavira, Lothal, Sinauli, Keeladi, Petra, Pompeii) with authentic photos, date ranges, and interactive actions.
+   - **Exploration Banner**: A prominent CTA banner below the 6 sites invites users to explore the full catalog.
+   - **Dedicated Sites Directory Page**:
+     - Accessible via top navbar tab (`Sites Directory (24)`) or home banner.
+     - Includes breadcrumb navigation: `← Back to Home & Interactive Map`.
+     - Full-text search and category filter pills (`All Sites`, `🇮🇳 Indus Valley`, `🇮🇳 Copper Age & Sinauli`, `🇮🇳 Sangam & Classical`, `🌍 Global Heritage`).
+     - Renders all 24 sites in a responsive catalog grid with authentic imagery, site types, UNESCO badges, drawer inspection, and GIS fly-to.
+
+### STATUS: COMPLETED & VERIFIED
+- Frontend running live on `http://localhost:4200`.
+- Backend running live on `http://localhost:5032`.
+- End-to-end browser subagent verification verified clean navigation, authentic images, search/filtering, and 3D lab toggle.
+
+
 
 

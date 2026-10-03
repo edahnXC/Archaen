@@ -139,7 +139,72 @@ public static class DatabaseSeeder
             Description = "Classical Mediterranean empire that forged standardized civil law, urban planning, extensive paved road networks, and engineering marvels utilizing the arch, dome, and concrete."
         };
 
-        context.Civilizations.AddRange(harappan, maurya, sangam, copperHoard, prehistoricIndia, mesopotamian, ancientEgyptian, minoan, roman);
+        var kushite = new Civilization
+        {
+            Name = "Kingdom of Kush (Meroitic Civilization)",
+            Slug = "kingdom-of-kush-meroe",
+            Region = "Northeast Africa (Nubia / Sudan)",
+            StartYear = -1070,
+            EndYear = 350,
+            ColorHex = "#C59B27",
+            PrimaryLanguage = "Meroitic (Undeciphered Hieroglyphic & Cursive Scripts)",
+            ArchitecturalTradition = "Steep-angled sandstone Nubian pyramids, royal mortuary chapels, pylon entrances, and blast furnace ironworks",
+            Description = "The formidable Nubian empire of Kush that ruled Egypt as the 25th Dynasty and later transferred its capital south to Meroë, renowned for royal pyramids, matriarchal warrior queens (Candaces), and early African iron-smelting."
+        };
+
+        var nabataean = new Civilization
+        {
+            Name = "Nabataean Civilization",
+            Slug = "nabataean-civilization",
+            Region = "Near East (Levant / Arabia Petraea)",
+            StartYear = -400,
+            EndYear = 106,
+            ColorHex = "#E76F51",
+            PrimaryLanguage = "Nabataean Aramaic & Early Arabic",
+            ArchitecturalTradition = "Monolithic rock-cut facades with Hellenistic pediments, cliff-hewn tombs, and pressurized ceramic water piping",
+            Description = "Master desert nomads and merchants who controlled the ancient frankincense and spice caravan routes between Arabia, India, and the Mediterranean, establishing their rock-cut capital at Petra."
+        };
+
+        var inca = new Civilization
+        {
+            Name = "Inca Civilization (Tawantinsuyu)",
+            Slug = "inca-civilization",
+            Region = "South America (Andes / Peru)",
+            StartYear = 1200,
+            EndYear = 1572,
+            ColorHex = "#F4A261",
+            PrimaryLanguage = "Quechua",
+            ArchitecturalTradition = "Cyclopean dry-stone ashlar masonry, seismic-resistant trapezoidal doorways, agricultural terraces, and royal estates",
+            Description = "The largest pre-Columbian empire in the Americas, renowned for monumental mountain citadels like Machu Picchu, an extensive 40,000 km road network (Qhapaq Ñan), and quipu record-keeping."
+        };
+
+        var megalithic = new Civilization
+        {
+            Name = "Atlantic Megalithic & British Bronze Age",
+            Slug = "atlantic-megalithic",
+            Region = "Western Europe (Britain & Ireland)",
+            StartYear = -4000,
+            EndYear = -1000,
+            ColorHex = "#457B9D",
+            PrimaryLanguage = "Pre-Indo-European / Insular Celtic",
+            ArchitecturalTradition = "Trilithon post-and-lintel stone circles, henges, round barrows, and solstitial alignments",
+            Description = "Neolithic and Bronze Age societies of the Atlantic facade who erected monumental stone circles, earthworks, and astronomically aligned megaliths across Salisbury Plain and Avebury."
+        };
+
+        var khmer = new Civilization
+        {
+            Name = "Khmer Empire (Angkorian Civilization)",
+            Slug = "khmer-empire",
+            Region = "Southeast Asia (Cambodia)",
+            StartYear = 802,
+            EndYear = 1431,
+            ColorHex = "#2A9D8F",
+            PrimaryLanguage = "Khmer & Sanskrit",
+            ArchitecturalTradition = "Sandstone and laterite temple-mountains representing Mount Meru, cruciform galleries, and vast hydraulic reservoirs",
+            Description = "A magnificent Southeast Asian empire renowned for supreme hydraulic engineering, vast artificial lakes (Barays), and the world's largest religious sanctuary at Angkor Wat."
+        };
+
+        context.Civilizations.AddRange(harappan, maurya, sangam, copperHoard, prehistoricIndia, mesopotamian, ancientEgyptian, minoan, roman, kushite, nabataean, inca, megalithic, khmer);
         await context.SaveChangesAsync();
 
         // ==========================================
@@ -225,7 +290,17 @@ public static class DatabaseSeeder
             Description = "Era of Greek city-states, the Persian Empire, Hellenistic kingdoms, and the Roman Republic and Empire."
         };
 
-        context.HistoricalPeriods.AddRange(rockArtEpoch, earlyBronze, matureHarappanPeriod, lateHarappanCopperAge, secondUrbanizationPeriod, mauryanImperialPeriod, sangamAndIndoRomanPeriod, classicalAntiquity);
+        var postClassicalHorizon = new HistoricalPeriod
+        {
+            Name = "Post-Classical & Medieval World Horizons",
+            Slug = "post-classical-medieval",
+            Epoch = "Post-Classical",
+            StartYear = 500,
+            EndYear = 1600,
+            Description = "Flourishing of monumental hydraulic states, medieval empires, and high civilizational monuments across Southeast Asia and the Americas (Angkor Wat, Khmer Empire, Tawantinsuyu Inca)."
+        };
+
+        context.HistoricalPeriods.AddRange(rockArtEpoch, earlyBronze, matureHarappanPeriod, lateHarappanCopperAge, secondUrbanizationPeriod, mauryanImperialPeriod, sangamAndIndoRomanPeriod, classicalAntiquity, postClassicalHorizon);
         await context.SaveChangesAsync();
 
         // ==========================================
@@ -396,7 +471,7 @@ public static class DatabaseSeeder
             ExcavationStatus = "Excavated & Conserved; UNESCO World Heritage Site (2021)",
             WaterSource = "Seasonal streams Mansar and Manhar diverted into deep rock-cut stone masonry reservoirs holding over 250,000 cubic meters",
             ArchitecturalHighlights = "Tri-partite sandstone & limestone masonry fortifications, massive stepped reservoirs, storm-water cascading channels, ceremonial grounds/stadium",
-            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Dholavira_Reservoir.jpg/1280px-Dholavira_Reservoir.jpg",
+            ImageUrl = "/images/sites/dholavira.jpg",
             IsUnescoWorldHeritage = true
         };
 
@@ -419,7 +494,7 @@ public static class DatabaseSeeder
             ExcavationStatus = "Excavated & On-site Archaeological Museum",
             WaterSource = "Ancient river Bhogavo tributary connecting with the Gulf of Cambay tidal reach",
             ArchitecturalHighlights = "Kiln-fired brick dockyard basin (214m x 36m), tidal inlet lockgate, multi-chambered mudbrick acropolis warehouse, shell-working bead factory",
-            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Lothal_dockyard.jpg/1280px-Lothal_dockyard.jpg",
+            ImageUrl = "/images/sites/lothal.jpg",
             IsUnescoWorldHeritage = false
         };
 
@@ -442,7 +517,7 @@ public static class DatabaseSeeder
             ExcavationStatus = "Active Excavation & National Archaeological Site",
             WaterSource = "Ancient Drishadvati and seasonal Ghaggar tributaries",
             ArchitecturalHighlights = "Mudbrick granary with lime plaster aeration vents, burnt-brick street drainage, multi-roomed courtyards, cemetery Mound 7",
-            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Rakhigarhi_excavations.jpg/1280px-Rakhigarhi_excavations.jpg",
+            ImageUrl = "/images/sites/rakhigarhi.jpg",
             IsUnescoWorldHeritage = false
         };
 
@@ -465,7 +540,7 @@ public static class DatabaseSeeder
             ExcavationStatus = "Excavated & Conserved",
             WaterSource = "Ghaggar-Hakra ancient river course",
             ArchitecturalHighlights = "World's earliest criss-cross ploughed field, row of 7 fire altars on brick platform, mudbrick fortification ramparts",
-            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Kalibangan_excavated_structures.jpg/1280px-Kalibangan_excavated_structures.jpg",
+            ImageUrl = "/images/sites/kalibangan.jpg",
             IsUnescoWorldHeritage = false
         };
 
@@ -488,7 +563,7 @@ public static class DatabaseSeeder
             ExcavationStatus = "Excavated; Landmark National Discovery",
             WaterSource = "Yamuna and Hindon river floodplains",
             ArchitecturalHighlights = "Royal warrior burial chambers, eight-legged wooden coffins with copper horned headgear, chariot workshops",
-            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Sinauli_chariot_excavation.jpg/1280px-Sinauli_chariot_excavation.jpg",
+            ImageUrl = "/images/sites/sinauli.jpg",
             IsUnescoWorldHeritage = false
         };
 
@@ -511,7 +586,7 @@ public static class DatabaseSeeder
             ExcavationStatus = "Excavated & Conserved; UNESCO World Heritage Site (2003)",
             WaterSource = "Perennial hill springs and natural rock hollow water catchments",
             ArchitecturalHighlights = "Auditorium Cave, Zoo Rock with 252 animal figures, massive natural sandstone amphitheater shelters",
-            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Bhimbetka_rock_painting.jpg/1280px-Bhimbetka_rock_painting.jpg",
+            ImageUrl = "/images/sites/bhimbetka.jpg",
             IsUnescoWorldHeritage = true
         };
 
@@ -534,7 +609,7 @@ public static class DatabaseSeeder
             ExcavationStatus = "Excavated Archaeological Park & Protected Monument",
             WaterSource = "Confluence of Ganga, Son, and Gandak rivers",
             ArchitecturalHighlights = "80-pillared polished sandstone hypostyle hall, monumental teak-wood defensive palisade walls, Arogya Vihara hospital complex",
-            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Kumrahar_Pataliputra_Hall.jpg/1280px-Kumrahar_Pataliputra_Hall.jpg",
+            ImageUrl = "/images/sites/pataliputra.jpg",
             IsUnescoWorldHeritage = false
         };
 
@@ -557,7 +632,7 @@ public static class DatabaseSeeder
             ExcavationStatus = "Active Scientific Excavations & State-of-the-Art On-site Museum",
             WaterSource = "Ancient course of the holy Vaigai River",
             ArchitecturalHighlights = "Terracotta ring wells, brick industrial water channels, weaving and dye vats, paved brick floors",
-            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Keeladi_Excavation_Site.jpg/1280px-Keeladi_Excavation_Site.jpg",
+            ImageUrl = "/images/sites/keeladi.jpg",
             IsUnescoWorldHeritage = false
         };
 
@@ -580,7 +655,7 @@ public static class DatabaseSeeder
             ExcavationStatus = "Protected Archaeological Site",
             WaterSource = "Ariyankuppam River estuary opening directly to the Bay of Bengal",
             ArchitecturalHighlights = "Brick warehouse platforms, dye vats, wharf drainage canals, glass bead-drawing furnaces",
-            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Arikamedu_ruins.jpg/1280px-Arikamedu_ruins.jpg",
+            ImageUrl = "/images/sites/arikamedu.jpg",
             IsUnescoWorldHeritage = false
         };
 
@@ -603,7 +678,7 @@ public static class DatabaseSeeder
             ExcavationStatus = "Excavated & Conserved; Monument of National Importance",
             WaterSource = "Bhima River (tributary of Krishna)",
             ArchitecturalHighlights = "Adholoka Maha Chaitya stupa, 60 sculptured limestone panels, inscribed Ashokan granite slabs",
-            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Kanaganahalli_Stupa_Ashoka_slab.jpg/1280px-Kanaganahalli_Stupa_Ashoka_slab.jpg",
+            ImageUrl = "/images/sites/sannati-kanaganahalli.jpg",
             IsUnescoWorldHeritage = false
         };
 
@@ -626,7 +701,7 @@ public static class DatabaseSeeder
             ExcavationStatus = "Excavated & Conserved",
             WaterSource = "Seasonal desert rivulets and rock hollow wells",
             ArchitecturalHighlights = "Dressed stone rubble fortification, bastioned entrance ramp, pot burials marked with stone slabs",
-            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Surkotada_ruins.jpg/1280px-Surkotada_ruins.jpg",
+            ImageUrl = "/images/sites/surkotada.jpg",
             IsUnescoWorldHeritage = false
         };
 
@@ -649,7 +724,7 @@ public static class DatabaseSeeder
             ExcavationStatus = "Extensively Excavated Archaeological Type-Site",
             WaterSource = "Ghod River and artificial diversionary irrigation dam",
             ArchitecturalHighlights = "118m long stone-faced diversion dam and canal, multi-roomed chief's house, circular mud granaries",
-            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Inamgaon_site.jpg/1280px-Inamgaon_site.jpg",
+            ImageUrl = "/images/sites/inamgaon.jpg",
             IsUnescoWorldHeritage = false
         };
 
@@ -673,7 +748,7 @@ public static class DatabaseSeeder
             ExcavationStatus = "Excavated; UNESCO World Heritage Site (1980)",
             WaterSource = "Indus River flood plain and over 700 cylindrical brick-lined urban wells",
             ArchitecturalHighlights = "The Great Bath lined with natural bitumen/asphalt waterproofing, College of Priests, Granary/Great Hall, orthogonal baked-brick avenue grid",
-            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Mohenjo-daro.jpg/1280px-Mohenjo-daro.jpg",
+            ImageUrl = "/images/sites/mohenjo-daro.jpg",
             IsUnescoWorldHeritage = true
         };
 
@@ -696,7 +771,7 @@ public static class DatabaseSeeder
             ExcavationStatus = "Excavated & Active Conservation",
             WaterSource = "Ancient bed of the River Ravi",
             ArchitecturalHighlights = "Citadel Mound AB ramparts, Circular Brick Platforms, Great Granary / Warehouse complex, Artisan Quarters",
-            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Harappa_excavated_walls.jpg/1280px-Harappa_excavated_walls.jpg",
+            ImageUrl = "/images/sites/harappa.jpg",
             IsUnescoWorldHeritage = false
         };
 
@@ -719,7 +794,7 @@ public static class DatabaseSeeder
             ExcavationStatus = "Excavated; UNESCO World Heritage Site (2016)",
             WaterSource = "Euphrates River historical course and maritime canals to the Persian Gulf",
             ArchitecturalHighlights = "Ziggurat of Ur-Nammu, Royal Tombs, Gipar-ku temple, baked brick vaults and corbelled burial chambers",
-            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Ziggurat_of_ur.jpg/1280px-Ziggurat_of_ur.jpg",
+            ImageUrl = "/images/sites/ur-tell-el-mukayyar.jpg",
             IsUnescoWorldHeritage = true
         };
 
@@ -742,7 +817,7 @@ public static class DatabaseSeeder
             ExcavationStatus = "Excavated; UNESCO World Heritage Site (1979)",
             WaterSource = "Nile River inundation canal basins and harbour quays",
             ArchitecturalHighlights = "Great Pyramid ashlar limestone masonry, granite King's Chamber, Valley Temples, Great Sphinx",
-            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Kheops-Pyramid.jpg/1280px-Kheops-Pyramid.jpg",
+            ImageUrl = "/images/sites/giza-necropolis.jpg",
             IsUnescoWorldHeritage = true
         };
 
@@ -765,7 +840,7 @@ public static class DatabaseSeeder
             ExcavationStatus = "Excavated & Reconstituted",
             WaterSource = "Kairatos River valley spring channels and terracotta pressure aqueducts",
             ArchitecturalHighlights = "Central Court, Throne Room with alabaster throne, Grand Staircase, West Magazines",
-            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Palace_of_Knossos.jpg/1280px-Palace_of_Knossos.jpg",
+            ImageUrl = "/images/sites/knossos.jpg",
             IsUnescoWorldHeritage = false
         };
 
@@ -788,14 +863,153 @@ public static class DatabaseSeeder
             ExcavationStatus = "Extensively Excavated; UNESCO World Heritage Site (1997)",
             WaterSource = "Aqua Augusta feeding castellum aquae water towers and lead pressure pipes",
             ArchitecturalHighlights = "Forum Civic Complex, Villa of the Mysteries, House of the Faun with Indian ivory statuette, Amphitheatre",
-            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Pompeii_Forum_facing_Vesuvius.jpg/1280px-Pompeii_Forum_facing_Vesuvius.jpg",
+            ImageUrl = "/images/sites/pompeii.jpg",
+            IsUnescoWorldHeritage = true
+        };
+
+        // Site 19: Pyramids of Meroë (Sudan)
+        var meroe = new Site
+        {
+            Name = "Pyramids of Meroë",
+            AncientName = "Medewi / Meroë",
+            Slug = "pyramids-of-meroe",
+            Description = "The breathtaking royal necropolis of the Kushite Kingdom rising from the red desert sands of Sudan, featuring over 200 steep-angled sandstone pyramids where royal Candaces (warrior queens) and kings were entombed alongside golden treasures, iron blast furnaces, and Meroitic inscriptions.",
+            Region = "River Nile State (Begrawiya)",
+            Country = "Sudan",
+            SiteType = "Royal Necropolis & Industrial Iron Metropolis",
+            Latitude = 16.938333,
+            Longitude = 33.749167,
+            StartYear = -300,
+            EndYear = 350,
+            DatingPrecision = "Radiocarbon AMS dating & Kushite royal stelae",
+            DiscoveryInformation = "Documented by Frédéric Cailliaud in 1821; excavated systematically by John Garstang and George Reisner.",
+            ExcavationStatus = "UNESCO World Heritage Site (Archaeological Sites of the Island of Meroë, 2011)",
+            WaterSource = "Seasonal seasonal wadis and ancient Hafirs (water storage reservoirs)",
+            ArchitecturalHighlights = "North and South Cemeteries with 40+ steep Nubian pyramids, pylon mortuary chapels with bas-reliefs, royal palace, and ancient iron smelting slag heaps",
+            ImageUrl = "/images/sites/pyramids-of-meroe.jpg",
+            IsUnescoWorldHeritage = true
+        };
+
+        // Site 20: Petra (Jordan)
+        var petra = new Site
+        {
+            Name = "Petra",
+            AncientName = "Raqmu",
+            Slug = "petra",
+            Description = "The legendary rose-red rock-cut capital of the Nabataean Kingdom carved directly into vertical sandstone cliffs, celebrated for the Treasury (Al-Khazneh), the Monastery, and an ingenious desert water-conduit network controlling ancient incense trade with India and the Mediterranean.",
+            Region = "Ma'an Governorate",
+            Country = "Jordan",
+            SiteType = "Rock-Cut Desert Capital & Caravan Metropolis",
+            Latitude = 30.3285,
+            Longitude = 35.4444,
+            StartYear = -400,
+            EndYear = 106,
+            DatingPrecision = "Epigraphic Aramaic inscriptions & ceramic typologies",
+            DiscoveryInformation = "Introduced to the Western world by Swiss explorer Johann Ludwig Burckhardt in 1812.",
+            ExcavationStatus = "UNESCO World Heritage Site (1985); One of the New7Wonders of the World",
+            WaterSource = "Engineered terracotta pipe conduits, pressurized cisterns, and flash-flood dams in the Siq canyon",
+            ArchitecturalHighlights = "Al-Khazneh (The Treasury) carved out of sandstone cliff, Ad-Deir (The Monastery), Great Temple, and Roman Colonnaded Street",
+            ImageUrl = "/images/sites/petra.jpg",
+            IsUnescoWorldHeritage = true
+        };
+
+        // Site 21: Machu Picchu (Peru)
+        var machuPicchu = new Site
+        {
+            Name = "Machu Picchu",
+            AncientName = "Machu Pikchu",
+            Slug = "machu-picchu",
+            Description = "A masterpiece of 15th-century Inca royal architecture nestled on a cloud-forest mountain ridge 2,430 meters above sea level, constructed with polished mortarless dry-stone walls (ashlar) engineered to withstand severe seismic activity.",
+            Region = "Cusco Region (Urubamba Province)",
+            Country = "Peru",
+            SiteType = "Royal Inca Estate & Mountain Sanctuary",
+            Latitude = -13.163056,
+            Longitude = -72.545000,
+            StartYear = 1450,
+            EndYear = 1572,
+            DatingPrecision = "Carbon-14 dating of human remains and ceramics (Inca Imperial Horizon)",
+            DiscoveryInformation = "Brought to international scientific attention by Hiram Bingham in 1911.",
+            ExcavationStatus = "UNESCO World Heritage Site (1983); Historic Sanctuary of Machu Picchu",
+            WaterSource = "Perennial mountain spring canal delivering water through 16 stone liturgical fountains",
+            ArchitecturalHighlights = "Intihuatana solar hitching stone, Temple of the Sun (Torreón), Room of the Three Windows, and agricultural terraces",
+            ImageUrl = "/images/sites/machu-picchu.jpg",
+            IsUnescoWorldHeritage = true
+        };
+
+        // Site 22: Stonehenge & Avebury (United Kingdom)
+        var stonehenge = new Site
+        {
+            Name = "Stonehenge & Avebury",
+            AncientName = "Stanenges / Salisbury Megalithic Complex",
+            Slug = "stonehenge",
+            Description = "The iconic prehistoric megalithic stone circle engineered with massive sarsen stones and Welsh Preseli bluestones, precisely aligned with the summer solstice sunrise and winter solstice sunset.",
+            Region = "Wiltshire (Salisbury Plain)",
+            Country = "United Kingdom",
+            SiteType = "Prehistoric Megalithic Ceremonial Sanctuary",
+            Latitude = 51.178889,
+            Longitude = -1.826111,
+            StartYear = -3000,
+            EndYear = -1500,
+            DatingPrecision = "Multi-phase radiocarbon dates of antler picks and cremated human remains",
+            DiscoveryInformation = "Recorded since medieval times; systematic excavations by William Gowland (1901) and Mike Parker Pearson.",
+            ExcavationStatus = "UNESCO World Heritage Site (1986)",
+            WaterSource = "River Avon connected via the prehistoric ceremonial Avenue earthwork",
+            ArchitecturalHighlights = "Outer sarsen circle with horizontal lintel joints, inner horseshoe of five monumental trilithons, Heel Stone, and Aubrey holes",
+            ImageUrl = "/images/sites/stonehenge.jpg",
+            IsUnescoWorldHeritage = true
+        };
+
+        // Site 23: Angkor Wat (Cambodia)
+        var angkorWat = new Site
+        {
+            Name = "Angkor Wat",
+            AncientName = "Vrah Vishnuloka",
+            Slug = "angkor-wat",
+            Description = "The largest religious monument in the world, constructed by Khmer King Suryavarman II as a state temple and funerary shrine dedicated to Vishnu, symbolizing the cosmic Mount Meru with concentric galleries and towering lotus-bud prasats.",
+            Region = "Siem Reap Province",
+            Country = "Cambodia",
+            SiteType = "Monumental Hydraulic Temple-City",
+            Latitude = 13.4125,
+            Longitude = 103.866667,
+            StartYear = 802,
+            EndYear = 1431,
+            DatingPrecision = "Inscriptions of Suryavarman II & epigraphic chronologies",
+            DiscoveryInformation = "Popularized internationally by French naturalist Henri Mouhot in 1860.",
+            ExcavationStatus = "UNESCO World Heritage Site (Angkor, 1992)",
+            WaterSource = "Massive 190-meter wide moat, West and East Barays connected to the Siem Reap River",
+            ArchitecturalHighlights = "Central quincunx of lotus towers rising 65 meters, 800-meter bas-relief galleries depicting the Churning of the Ocean of Milk",
+            ImageUrl = "/images/sites/angkor-wat.jpg",
+            IsUnescoWorldHeritage = true
+        };
+
+        // Site 24: Colosseum & Roman Forum (Italy)
+        var colosseum = new Site
+        {
+            Name = "Colosseum & Roman Forum",
+            AncientName = "Amphitheatrum Flavium & Forum Romanum",
+            Slug = "colosseum-roman-forum",
+            Description = "The monumental political and architectural heart of the Roman Empire, featuring the Flavian Amphitheatre (Colosseum) holding 50,000 spectators, the Curia Julia senate house, and the triumphal arches along the sacred Via Sacra.",
+            Region = "Lazio (Rome)",
+            Country = "Italy",
+            SiteType = "Imperial Capital Civic & Gladiatorial Arena Complex",
+            Latitude = 41.8902,
+            Longitude = 12.4922,
+            StartYear = -509,
+            EndYear = 476,
+            DatingPrecision = "Extensive epigraphy, classical historical records (Tacitus, Suetonius, Cassius Dio)",
+            DiscoveryInformation = "Continually occupied and excavated since the Renaissance and early 19th century.",
+            ExcavationStatus = "UNESCO World Heritage Site (Historic Centre of Rome, 1980)",
+            WaterSource = "Aqua Claudia and Aqua Marcia aqueduct spurs feeding hypogeum lifting machines",
+            ArchitecturalHighlights = "Four-tiered travertine facade with Tuscan, Ionic, and Corinthian superposed orders; hypogeum subterranean staging chambers; Arch of Constantine",
+            ImageUrl = "/images/sites/colosseum-roman-forum.jpg",
             IsUnescoWorldHeritage = true
         };
 
         context.Sites.AddRange(
             dholavira, lothal, rakhigarhi, kalibangan, sinauli, bhimbetka,
             pataliputra, keeladi, arikamedu, sannati, surkotada, inamgaon,
-            mohenjodaro, harappa, ur, giza, knossos, pompeii
+            mohenjodaro, harappa, ur, giza, knossos, pompeii,
+            meroe, petra, machuPicchu, stonehenge, angkorWat, colosseum
         );
         await context.SaveChangesAsync();
 
@@ -823,7 +1037,14 @@ public static class DatabaseSeeder
             new SiteCivilization { SiteId = ur.Id, CivilizationId = mesopotamian.Id, IsPrimary = true },
             new SiteCivilization { SiteId = giza.Id, CivilizationId = ancientEgyptian.Id, IsPrimary = true },
             new SiteCivilization { SiteId = knossos.Id, CivilizationId = minoan.Id, IsPrimary = true },
-            new SiteCivilization { SiteId = pompeii.Id, CivilizationId = roman.Id, IsPrimary = true }
+            new SiteCivilization { SiteId = pompeii.Id, CivilizationId = roman.Id, IsPrimary = true },
+            // World Sites
+            new SiteCivilization { SiteId = meroe.Id, CivilizationId = kushite.Id, IsPrimary = true },
+            new SiteCivilization { SiteId = petra.Id, CivilizationId = nabataean.Id, IsPrimary = true },
+            new SiteCivilization { SiteId = machuPicchu.Id, CivilizationId = inca.Id, IsPrimary = true },
+            new SiteCivilization { SiteId = stonehenge.Id, CivilizationId = megalithic.Id, IsPrimary = true },
+            new SiteCivilization { SiteId = angkorWat.Id, CivilizationId = khmer.Id, IsPrimary = true },
+            new SiteCivilization { SiteId = colosseum.Id, CivilizationId = roman.Id, IsPrimary = true }
         );
 
         context.SitePeriods.AddRange(
@@ -849,7 +1070,13 @@ public static class DatabaseSeeder
             new SitePeriod { SiteId = ur.Id, HistoricalPeriodId = earlyBronze.Id },
             new SitePeriod { SiteId = giza.Id, HistoricalPeriodId = earlyBronze.Id },
             new SitePeriod { SiteId = knossos.Id, HistoricalPeriodId = matureHarappanPeriod.Id },
-            new SitePeriod { SiteId = pompeii.Id, HistoricalPeriodId = classicalAntiquity.Id }
+            new SitePeriod { SiteId = pompeii.Id, HistoricalPeriodId = classicalAntiquity.Id },
+            new SitePeriod { SiteId = meroe.Id, HistoricalPeriodId = classicalAntiquity.Id },
+            new SitePeriod { SiteId = petra.Id, HistoricalPeriodId = classicalAntiquity.Id },
+            new SitePeriod { SiteId = machuPicchu.Id, HistoricalPeriodId = postClassicalHorizon.Id },
+            new SitePeriod { SiteId = stonehenge.Id, HistoricalPeriodId = earlyBronze.Id },
+            new SitePeriod { SiteId = angkorWat.Id, HistoricalPeriodId = postClassicalHorizon.Id },
+            new SitePeriod { SiteId = colosseum.Id, HistoricalPeriodId = classicalAntiquity.Id }
         );
 
         // ==========================================
@@ -885,9 +1112,10 @@ public static class DatabaseSeeder
                 Material = "Crystalline White Gypsum inlaid in wooden board",
                 ApproximateYear = -2300,
                 Dimensions = "Letters approx. 37 cm high each, board approx. 3 meters long",
-                Description = "A set of ten monumental Indus symbols discovered in a room adjoining the Western Gateway of the Citadel.",
+                Description = "A set of ten monumental Indus symbols discovered in a room adjoining the Western Gateway of the Citadel. The gypsum characters originally inlaid in cedar wood represent one of the world's oldest municipal signboards.",
                 CurrentLocation = "National Museum, New Delhi",
-                DiscoveryContext = "Discovered fallen face-down inside the Western Gateway of the Dholavira Citadel",
+                DiscoveryContext = "Discovered fallen face-down inside the Western Gateway of the Dholavira Citadel (Trench K-8)",
+                ImageUrl = "/images/artefacts/dholavira-signboard.jpg",
                 Model3DType = "stone_stele"
             },
             new Artefact
@@ -895,12 +1123,13 @@ public static class DatabaseSeeder
                 SiteId = lothal.Id,
                 Name = "Persian Gulf Steatite Button Seal",
                 ArtefactType = "Circular Compartmented Stamp Seal",
-                Material = "Glazed Steatite",
+                Material = "Glazed Steatite with Intaglio Carving",
                 ApproximateYear = -2100,
                 Dimensions = "Diameter 2.25 cm, Thickness 0.6 cm",
-                Description = "A circular steatite seal with two jumping ibexes flanking a sun motif, proving direct maritime trade with Dilmun (Bahrain) and Mesopotamia.",
+                Description = "A circular steatite button seal with two jumping ibexes flanking a sun motif, diagnostic of maritime trade with Dilmun (Bahrain) and Ur in Mesopotamia.",
                 CurrentLocation = "Archaeological Museum, Lothal",
-                DiscoveryContext = "Found in the Warehouse area near the Tidal Dockyard basin",
+                DiscoveryContext = "Found in the Warehouse area near the Tidal Dockyard basin (SR Rao excavation)",
+                ImageUrl = "/images/artefacts/lothal-seal.jpg",
                 Model3DType = "seal_cube"
             },
             new Artefact
@@ -914,6 +1143,7 @@ public static class DatabaseSeeder
                 Description = "Finely carved seal showing a sacred unicorn before a standard/incense burner, accompanied by 5 Indus pictographs, alongside high-precision micro-drilled banded agate beads.",
                 CurrentLocation = "National Museum, New Delhi",
                 DiscoveryContext = "Found in Mound 2 residential workshop area",
+                ImageUrl = "/images/artefacts/rakhigarhi-unicorn-seal.jpg",
                 Model3DType = "seal_cube"
             },
             new Artefact
@@ -927,6 +1157,7 @@ public static class DatabaseSeeder
                 Description = "Triangular and circular terracotta cake incised with a horned deity on one side and an animal being led for sacrificial offering on the other.",
                 CurrentLocation = "Archaeological Museum, Kalibangan",
                 DiscoveryContext = "Found embedded inside a brick-lined fire altar on the southern Citadel platform",
+                ImageUrl = "/images/artefacts/kalibangan-havana-cake.jpg",
                 Model3DType = "terracotta_tablet"
             },
             new Artefact
@@ -937,9 +1168,10 @@ public static class DatabaseSeeder
                 Material = "Wood, Copper Plate Inlays, Bronze Hardware",
                 ApproximateYear = -1900,
                 Dimensions = "Wheel diameter 90 cm; Chassis width 120 cm",
-                Description = "Sensational discovery of a royal war chariot with solid wooden wheels adorned with embossed copper triangles and a high canopy chassis.",
+                Description = "Sensational discovery of a royal war chariot with solid wooden wheels adorned with embossed copper triangles and a high canopy chassis, excavated beside royal warrior burials.",
                 CurrentLocation = "National Museum, New Delhi / ASI Headquarters",
-                DiscoveryContext = "Discovered in situ beside royal warrior coffin burial 8",
+                DiscoveryContext = "Discovered in situ beside royal warrior coffin burial 8 (ASI Excavation 2018)",
+                ImageUrl = "/images/artefacts/sinauli-chariot.jpg",
                 Model3DType = "bronze_chariot"
             },
             new Artefact
@@ -953,6 +1185,7 @@ public static class DatabaseSeeder
                 Description = "Mesolithic rock painting depicting a dynamic stampede of 252 animals, including wild bison, rhinoceros, tigers, and dancing hunter figures.",
                 CurrentLocation = "In situ at Shelter III F-23, Bhimbetka, Madhya Pradesh",
                 DiscoveryContext = "Discovered by Dr. V.S. Wakankar on Zoo Rock",
+                ImageUrl = "/images/artefacts/bhimbetka-zoo-rock.jpg",
                 Model3DType = "cave_art_slab"
             },
             new Artefact
@@ -963,9 +1196,10 @@ public static class DatabaseSeeder
                 Material = "Chunar Sandstone with High Imperial Mauryan Mirror Polish",
                 ApproximateYear = -250,
                 Dimensions = "Height 85 cm, Width 110 cm",
-                Description = "A monumental stone capital featuring Hellenistic and Persian palmette and acanthus leaf motifs, reflecting Mauryan imperial patronage.",
+                Description = "A monumental stone capital featuring Hellenistic and Persian palmette and acanthus leaf motifs, reflecting Mauryan imperial patronage under Ashoka.",
                 CurrentLocation = "Patna Museum, Bihar",
                 DiscoveryContext = "Excavated at Bulandi Bagh / Kumrahar palace complex",
+                ImageUrl = "/images/artefacts/pataliputra-capital.jpg",
                 Model3DType = "mauryan_capital"
             },
             new Artefact
@@ -979,6 +1213,7 @@ public static class DatabaseSeeder
                 Description = "A rim sherd bearing an incised personal name 'Aadhan' in archaic Tamil-Brahmi characters, definitively establishing 6th century BCE vernacular literacy in deep South India.",
                 CurrentLocation = "Keeladi On-site Heritage Museum, Tamil Nadu",
                 DiscoveryContext = "Found in Trench B2, Layer 4 (Depth 2.1 meters) associated with charcoal carbon-dated to 580 BCE",
+                ImageUrl = "/images/artefacts/keeladi-potsherd.jpg",
                 Model3DType = "sangam_potsherd"
             },
             new Artefact
@@ -992,6 +1227,7 @@ public static class DatabaseSeeder
                 Description = "Double-handled Dressel 2-4 type Roman amphora neck and handle bearing maker's stamp from Campania, Italy, imported for high-value Mediterranean wine.",
                 CurrentLocation = "Puducherry Museum, Puducherry",
                 DiscoveryContext = "Excavated from the northern warehouse sector on the Ariyankuppam river bank",
+                ImageUrl = "/images/artefacts/arikamedu-amphora.jpg",
                 Model3DType = "pottery_amphora"
             },
             new Artefact
@@ -1005,7 +1241,22 @@ public static class DatabaseSeeder
                 Description = "The only known surviving portrait of Emperor Ashoka in ancient art, accompanied by royal queens and chauri-bearers, inscribed in Brahmi: 'Ranyo Asoko'.",
                 CurrentLocation = "Kanaganahalli Archaeological Site Museum, Karnataka",
                 DiscoveryContext = "Excavated from the collapsed drum of the Adholoka Maha Chaitya Stupa",
+                ImageUrl = "/images/artefacts/sannati-ashoka-relief.jpg",
                 Model3DType = "ashokan_relief"
+            },
+            new Artefact
+            {
+                SiteId = inamgaon.Id,
+                Name = "Chalcolithic Clay Mother Goddess Figurine",
+                ArtefactType = "Ritual Terracotta Anthropomorphic Figurine",
+                Material = "Low-fired Burnished Terracotta with Red Slip",
+                ApproximateYear = -1300,
+                Dimensions = "Height 9.5 cm, Width 4.2 cm",
+                Description = "Diagnostic Chalcolithic Jorwe culture clay mother goddess figurine with pinched facial features and flared hips, discovered inside a clay receptacle in an in situ mud house floor.",
+                CurrentLocation = "Deccan College Archaeological Museum, Pune",
+                DiscoveryContext = "Found sealed inside a two-tiered clay box beneath the floor of House 13 (Jorwe Period)",
+                ImageUrl = "/images/artefacts/inamgaon-goddess.jpg",
+                Model3DType = "terracotta_goddess"
             },
             new Artefact
             {
@@ -1015,9 +1266,10 @@ public static class DatabaseSeeder
                 Material = "Bronze (Lost-Wax / Cire Perdue Casting)",
                 ApproximateYear = -2300,
                 Dimensions = "Height 10.5 cm, Width 5 cm",
-                Description = "World-famous masterpiece depicting a young girl standing with right hand on hip and left arm adorned with 24 bangles.",
+                Description = "World-famous masterpiece depicting a young girl standing with right hand on hip and left arm adorned with 24 bangles, capturing extraordinary naturalism.",
                 CurrentLocation = "National Museum, New Delhi",
                 DiscoveryContext = "Found in 1926 by Ernest Mackay in the HR Area of Mohenjo-daro",
+                ImageUrl = "/images/artefacts/dancing-girl.jpg",
                 Model3DType = "dancing_girl_bronze"
             },
             new Artefact
@@ -1028,10 +1280,95 @@ public static class DatabaseSeeder
                 Material = "Lapis Lazuli, Red Limestone, and Shell set in Bitumen",
                 ApproximateYear = -2600,
                 Dimensions = "Length 49.5 cm, Height 21.5 cm",
-                Description = "Dual-sided narrative mosaic box depicting 'War' and 'Peace'.",
+                Description = "Dual-sided narrative mosaic box depicting 'War' and 'Peace'. Shows chariot warfare, prisoners, feast banquets, and trade tribute.",
                 CurrentLocation = "The British Museum, London",
                 DiscoveryContext = "Found in the Royal Cemetery of Ur, tomb PG 779",
+                ImageUrl = "/images/artefacts/standard-of-ur.jpg",
                 Model3DType = "cuneiform_tablet"
+            },
+            new Artefact
+            {
+                SiteId = meroe.Id,
+                Name = "Golden Armlet of Queen Amanishakheto",
+                ArtefactType = "Royal Gold Cloisonné Armlet",
+                Material = "Solid Gold with Enamel and Glass Inlay",
+                ApproximateYear = -10,
+                Dimensions = "Height 7.5 cm, Diameter 8.2 cm",
+                Description = "A magnificent royal armlet portraying the winged goddess Hathor or Mut protecting the Candace (Kushite Queen) Amanishakheto, excavated from Pyramid Beg. N. 6.",
+                CurrentLocation = "Egyptian Museum of Berlin & State Museum of Egyptian Art, Munich",
+                DiscoveryContext = "Found in 1834 inside the burial chamber of Pyramid Beg. N. 6 at Meroë",
+                ImageUrl = "/images/artefacts/meroe-armlet.jpg",
+                Model3DType = "gold_armlet"
+            },
+            new Artefact
+            {
+                SiteId = petra.Id,
+                Name = "Nabataean Painted Fine Ware Bowl",
+                ArtefactType = "Eggshell-Thin Painted Ceramic",
+                Material = "Kiln-Fired Terracotta with Natural Mineral Slip",
+                ApproximateYear = 50,
+                Dimensions = "Diameter 18.5 cm, Height 5.2 cm",
+                Description = "Ultra-thin luxury bowl (under 2 mm wall thickness) painted with stylized palmettes and peacock feathers, hallmark of Nabataean ceramic mastery.",
+                CurrentLocation = "Petra Archaeological Museum, Jordan",
+                DiscoveryContext = "Excavated from the residential quarter near the Colonnaded Street",
+                ImageUrl = "/images/artefacts/petra-bowl.jpg",
+                Model3DType = "sangam_potsherd"
+            },
+            new Artefact
+            {
+                SiteId = machuPicchu.Id,
+                Name = "Inca Ceremonial Bronze Tumi Knife",
+                ArtefactType = "Ritual Sacrificial Blade",
+                Material = "Tin Bronze (Andean Alloy)",
+                ApproximateYear = 1470,
+                Dimensions = "Length 16 cm, Width 11 cm",
+                Description = "Crescent-bladed ceremonial knife surmounted by an anthropomorphic solar priest figure, used in Inti Raymi solar festival rituals.",
+                CurrentLocation = "Museo Larco, Lima, Peru",
+                DiscoveryContext = "Recovered from high-status tomb assemblage in the Sacred Plaza sector",
+                ImageUrl = "/images/artefacts/machu-picchu-tumi.jpg",
+                Model3DType = "bronze_chariot"
+            },
+            new Artefact
+            {
+                SiteId = stonehenge.Id,
+                Name = "Bush Barrow Gold Lozenge",
+                ArtefactType = "Ceremonial Hammered Gold Breastplate",
+                Material = "Beaten Sheet Gold with Geometric Tooling",
+                ApproximateYear = -1900,
+                Dimensions = "Length 18.4 cm, Width 15.6 cm",
+                Description = "A diamond-shaped sheet of pure gold adorned with exquisite repeating geometric zigzags and borders, embodying advanced Bronze Age astronomy and geometry.",
+                CurrentLocation = "Wiltshire Museum, Devizes, UK",
+                DiscoveryContext = "Found in 1808 resting on the chest of a Bronze Age chieftain in Bush Barrow",
+                ImageUrl = "/images/artefacts/stonehenge-lozenge.jpg",
+                Model3DType = "ashokan_relief"
+            },
+            new Artefact
+            {
+                SiteId = angkorWat.Id,
+                Name = "Khmer Bronze Avalokiteshvara with Silver Eyes",
+                ArtefactType = "Lost-Wax Cast Bronze Icon",
+                Material = "Bronze with Inlaid Silver Eyes",
+                ApproximateYear = 1150,
+                Dimensions = "Height 42 cm, Width 18 cm",
+                Description = "Graceful eight-armed deity embodying compassion, wearing an intricate cylindrical sampot and jatamukuta headdress bearing Amitabha Buddha.",
+                CurrentLocation = "National Museum of Cambodia, Phnom Penh",
+                DiscoveryContext = "Discovered during gallery clearance near the Northern Library",
+                ImageUrl = "/images/artefacts/angkor-wat-avalokiteshvara.jpg",
+                Model3DType = "dancing_girl_bronze"
+            },
+            new Artefact
+            {
+                SiteId = colosseum.Id,
+                Name = "Imperial Gladiatorial Murmillo Helmet & Sica",
+                ArtefactType = "Embossed Bronze Ceremonial Armor & Curved Blade",
+                Material = "Tinned Bronze & Forged Iron",
+                ApproximateYear = 80,
+                Dimensions = "Helmet Height 48 cm, Weight 3.8 kg",
+                Description = "Heavy ceremonial helmet with a broad brim, perforated visor grates, and crest embossed with a marine monster, alongside a curved sica blade.",
+                CurrentLocation = "National Roman Museum, Palazzo Massimo, Rome",
+                DiscoveryContext = "Excavated from the gladiator barracks (Ludus Magnus) adjacent to the Colosseum",
+                ImageUrl = "/images/artefacts/gladiator-helmet.jpg",
+                Model3DType = "bronze_chariot"
             }
         );
 
@@ -1189,6 +1526,27 @@ public static class DatabaseSeeder
                 TargetSiteId = ur.Id,
                 RelationshipType = "Direct Long-Distance Maritime Commerce (Meluhha-Mesopotamia)",
                 Description = "Documented by Persian Gulf seals and cuneiform trade records referencing seafaring merchants of Meluhha bringing carnelian beads and copper ingots into the port of Ur."
+            },
+            new SiteRelationship
+            {
+                SourceSiteId = meroe.Id,
+                TargetSiteId = giza.Id,
+                RelationshipType = "Nile River Valley Kushite-Egyptian Cultural & Imperial Corridor",
+                Description = "Meroë's royal kings and Candaces maintained deep spiritual reverence for Egyptian religious traditions while developing their own distinct pyramid architecture and Meroitic script."
+            },
+            new SiteRelationship
+            {
+                SourceSiteId = petra.Id,
+                TargetSiteId = arikamedu.Id,
+                RelationshipType = "Nabataean-Indian Ocean Maritime & Overland Incense Highway",
+                Description = "Nabataean merchants controlled the Arabian caravan nodes that met trans-oceanic Indian merchant vessels arriving with pepper, cinnamon, and malabathrum."
+            },
+            new SiteRelationship
+            {
+                SourceSiteId = arikamedu.Id,
+                TargetSiteId = colosseum.Id,
+                RelationshipType = "Direct Indo-Roman Imperial Luxury Maritime Silk & Spice Network",
+                Description = "Documented by the Periplus of the Erythraean Sea, linking southern Indian ports with the Roman capital where pepper, silk, and exotic animals were consumed in vast quantities."
             }
         );
 

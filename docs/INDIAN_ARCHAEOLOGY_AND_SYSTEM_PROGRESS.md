@@ -314,47 +314,32 @@ The Indian subcontinent possesses one of the deepest, richest, and most continuo
 ## 4. Changelog & System Updates
 
 - **2026-09-28 [Backend]**: Implemented ASP.NET Core 10 Web API with NetTopologySuite, EF Core, REST controllers, and 16 passing unit tests.
-- **2026-09-28 [Archaeology Research]**: Compiled comprehensive Indian regional compendium prioritizing 12 premier Indian archaeological sites spanning Paleolithic to Sangam horizons.
-- **2026-09-28 [Database Engine]**: Expanded `DatabaseSeeder.cs` with full records for Rakhigarhi, Kalibangan, Sinauli, Bhimbetka, Pataliputra, Keeladi, Arikamedu, Sannati, Surkotada, and Inamgaon.
-- **2026-09-28 [Documentation]**: Created live side-by-side technical & archaeological knowledge base (`INDIAN_ARCHAEOLOGY_AND_SYSTEM_PROGRESS.md`).
-- **2026-09-28 [Frontend]**: Successfully built Angular 21 interactive GIS interface (`http://localhost:4200`) with Leaflet, continuous BCE/CE time machine scrubber, Three.js 3D WebGL PBR Artefact Lab, Analytical Comparator, and Indian Archaeology Priority presets. Both backend and frontend compiling and verified.
-- **2026-09-28 [Design System & Interactive UI Overhaul]**: Redesigned UI to a museum-grade **White / Light Theme** with **Google Sans** typography (inspired by Google Arts & Culture's *Pyramids of Meroë*) and a floating **Zoom Earth interactive GIS HUD**:
-  - **100% Free Architecture**: Zero subscriptions or paid API keys. Utilizes free public Esri World Imagery (satellite), CartoDB Voyager (cartography), OpenTopoMap (terrain), OpenStreetMap, and Three.js WebGL.
-  - **Multi-Layer Switcher**: 1-click toggle between Carto Map 🗺️, Satellite Aerial 🛰️ (Esri), and Topographic Relief 🏔️.
-  - **Zoom Earth HUD Controls**: Live mouse coordinate tracker (`Lat/Lng`), zoom level indicator, floating search pill, and clean floating player pill.
-  - **Meroë 3D Gallery Studio**: Studio gallery lighting with bright soft key and ambient fill for Three.js 3D artefacts (seals, war chariots, stelae, potsherds).
+- **2026-09-28 [Archaeology Research]**: Compiled comprehensive Indian regional compendium prioritizing 18 premier Indian archaeological sites spanning Paleolithic to Sangam and Medieval horizons.
+- **2026-09-28 [World Archaeological Expansion]**: Expanded database to 24 sites, 14 civilizations, and 18 diagnostic 3D artefacts:
+  - **Pyramids of Meroë (Sudan)**: Kushite royal necropolis, steep Nubian pyramids, iron blast furnaces, and the Golden Armlet of Queen Amanishakheto.
+  - **Petra (Jordan)**: Rose-red Nabataean rock-cut capital, Al-Khazneh, Siq hydraulic dams, and eggshell-thin painted fine-ware pottery.
+  - **Machu Picchu (Peru)**: Mountain sanctuary of the Incas, mortarless ashlar masonry, Intihuatana solar hitching stone, and ceremonial bronze Tumi knife.
+  - **Stonehenge (United Kingdom)**: Sarsen circle & Welsh bluestones, solstice solar axis, and Bush Barrow gold lozenge.
+  - **Angkor Wat (Cambodia)**: Monumental Khmer temple-city, cosmic Meru lotus towers, and bronze Avalokiteshvara.
+  - **Colosseum & Roman Forum (Italy)**: Imperial amphitheatre, hypogeum engineering, and Murmillo gladiatorial helmet.
+- **2026-09-28 [Frontend Interactive Overhaul - Meroë, Zoom Earth & Travel2 Concept]**:
+  - **Leaflet Unpkg Warning Fix**: Removed unpkg CDN link; bundled Leaflet 1.9.4 CSS locally via npm and Vite, eliminating browser tracking prevention errors.
+  - **Temporal Horizon Fix**: Resolved scrubber unresponsiveness by implementing 60 FPS in-memory client-side temporal filtering across all 24 sites (`s.startYear <= currentYear + 60 && s.endYear >= currentYear - 60`).
+  - **Site Information Drawer Fix**: Made `loadSiteData(id)` public with error retry states and automated fetching on marker or card click.
+  - **View Mode Switcher**:
+    1. 🗺️ **GIS Horizon Map**: Edge-to-edge satellite/terrain/cartography switcher (Esri, Carto, Topo), live coordinate & zoom tracker HUD, animated flowing ancient trade corridors, and floating active sites drawer.
+    2. 📜 **Meroë Ancient Expeditions**: Google Arts & Culture inspired 8-chapter scroll-reveal storytelling deck with historical narratives, bulleted excavation highlights, camera fly-to, and live 3D artefact inspection.
+    3. 🧭 **Discover Sites (Colorlib Travel2 Style)**: Modern destination card grid with category filter tabs (All, Indus Valley, Copper & Vedic, Sangam & Classical, World Wonders), hover-lift micro-animations, civilization stripes, and direct excavation links.
+    4. 🏺 **3D Virtual Museum Lab**: Dedicated WebGL exhibition showcasing all 18 diagnostic ancient artefacts in 3D with procedural PBR materials, orbit controls, rotation toggle, and museum provenance metadata.
+  - **Animated Ancient Trade Corridors**: Added toggleable animated geodesic trade routes (Indus-Sumer, Indo-Roman Spice Route, Kushite Nile Corridor, Nabataean Incense Highway).
+  - **Pure White Museum Theme**: Refined aesthetic with Google Sans Display and Google Sans Text, high-contrast dark slate typography, and terracotta & gold accents.
 
 ---
 
-## 5. Checkpoint & Break State
+## 5. Live Architecture & Runtime State
 
-> **Checkpoint Timestamp**: September 28, 2026, 16:50 IST  
-> **Status**: Active & Fully Operational. White theme & Zoom Earth HUD live.
-
-### 5.1 Current System State
-1. **ASP.NET Core 10 Backend API**: Running live on `http://localhost:5032` (PID daemon active).
-   - 18 Archaeological Sites (12 prioritized Indian sites across all major horizons + 6 global comparative sites).
-   - 9 Civilizations, 8 Historical Epochs, 12 Diagnostic Artefacts with 3D models.
-   - All 16 Unit Tests passing cleanly.
-2. **Angular 21 GIS Frontend**: Running live on `http://localhost:4200` (Daemon active).
-   - **Theme**: Museum White Ivory (`#ffffff` / `#f8f9fa`) with deep slate text and terracotta/gold accents.
-   - **Typography**: `Google Sans Display` & `Google Sans Text` from the Meroë project.
-   - **Map Layers**: 100% Free Carto Voyager, Esri Satellite, and OpenTopoMap with Zoom Earth HUD.
-   - **Time Scrubber**: Zoom Earth floating player pill with playback and keyframes.
-   - **Indian Priority Bar**: 1-click presets for Indus Valley, Sinauli Chariots, Mauryan Empire, Sangam Keeladi, Prehistoric Rock Art.
-   - **Production Bundle**: Passing with zero errors (`ng build` complete).
-3. **Documentation**:
-   - `docs/INDIAN_ARCHAEOLOGY_AND_SYSTEM_PROGRESS.md`: Full compendium and live progress tracker.
-   - `docs/TASK_PROMPT_LOG.md`: Milestone logs and acceptance criteria checkpoints.
-   - `docs/ARCHITECTURE.md` & `docs/DATABASE_SCHEMA.md`: System architecture and ER models.
-
-### 5.2 Resumption Checklist (When Returning)
-1. **Verify Services**:
-   - Backend API: `http://localhost:5032` (or launch with `dotnet run --project backend/src/ArchaeologicalTimeMachine.Api --urls "http://localhost:5032"`)
-   - Frontend UI: `http://localhost:4200` (or launch with `npx ng serve --port 4200` inside `frontend/archaeological-time-machine`)
-2. **Interactive UI Walkthrough**:
-   - Run browser testing / visual demo of map markers, 3D artefact inspection, and side-by-side comparison.
-3. **Next Feature Enhancements**:
-   - Fine-tuning micro-animations and soundscapes (ancient wind/ambient tones if desired).
-   - Student Mode / Interactive Archaeological Quiz Mode.
+> **Runtime Verification**: Active & Fully Operational  
+> **Backend API**: `http://localhost:5032` (24 Sites, 14 Civilizations, 18 Artefacts)  
+> **Frontend App**: `http://localhost:4200` (Angular 21 + Three.js + Leaflet 1.9.4)  
+> **License & Cost**: 100% Free Public Services (Zero API keys or subscriptions required)
 

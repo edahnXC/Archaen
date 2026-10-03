@@ -1,14 +1,22 @@
 export interface SiteCivilization {
-  civilizationId: number;
-  civilizationName: string;
+  id: number;
+  name: string;
+  slug?: string;
   colorHex?: string;
-  isPrimary: boolean;
+  isPrimary?: boolean;
+  // Backward compatibility alias helpers
+  civilizationId?: number;
+  civilizationName?: string;
 }
 
 export interface SitePeriod {
-  periodId: number;
-  periodName: string;
+  id: number;
+  name: string;
+  slug?: string;
   epoch?: string;
+  // Backward compatibility alias helpers
+  periodId?: number;
+  periodName?: string;
 }
 
 export interface SiteSummary {
@@ -16,6 +24,7 @@ export interface SiteSummary {
   name: string;
   ancientName?: string;
   slug: string;
+  description?: string;
   region: string;
   country: string;
   siteType: string;
@@ -25,7 +34,11 @@ export interface SiteSummary {
   endYear: number;
   startYearFormatted: string;
   endYearFormatted: string;
+  chronologicalSpan?: string;
   datingPrecision?: string;
+  excavationStatus?: string;
+  waterSource?: string;
+  architecturalHighlights?: string;
   imageUrl?: string;
   isUnescoWorldHeritage: boolean;
   civilizations: SiteCivilization[];
@@ -35,6 +48,7 @@ export interface SiteSummary {
 export interface Artefact {
   id: number;
   siteId: number;
+  siteName?: string;
   name: string;
   artefactType: string;
   material: string;
@@ -64,8 +78,7 @@ export interface ExcavationLayer {
   soilComposition?: string;
   estimatedStartYear?: number;
   estimatedEndYear?: number;
-  estimatedStartYearFormatted?: string;
-  estimatedEndYearFormatted?: string;
+  chronologicalSpan?: string;
   culturalAffiliation?: string;
   description: string;
   findings: Finding[];
@@ -89,18 +102,18 @@ export interface ReferenceCitation {
   publicationYear: number;
   title: string;
   journalOrPublisher: string;
+  doiOrIsbn?: string;
   url?: string;
   specificPagesOrPlates?: string;
 }
 
-export interface SiteRelationshipDetail {
+export interface SiteRelationshipDto {
+  id: number;
   relatedSiteId: number;
   relatedSiteName: string;
-  relatedSiteRegion: string;
-  relatedSiteCountry: string;
+  relatedSiteSlug: string;
   relationshipType: string;
   description: string;
-  direction: string;
 }
 
 export interface SiteDetail extends SiteSummary {
@@ -112,34 +125,65 @@ export interface SiteDetail extends SiteSummary {
   artefacts: Artefact[];
   excavations: Excavation[];
   references: ReferenceCitation[];
-  relationships: SiteRelationshipDetail[];
+  outgoingRelationships: SiteRelationshipDto[];
+  incomingRelationships: SiteRelationshipDto[];
+  // Unified alias for UI templates
+  relationships?: SiteRelationshipDto[];
 }
 
 export interface NearbySiteResult {
-  sourceSiteId: number;
-  sourceSiteName: string;
-  nearbySiteId: number;
-  nearbySiteName: string;
+  id: number;
+  name: string;
+  slug: string;
   region: string;
   country: string;
+  siteType: string;
   distanceKm: number;
-  startYear: number;
-  endYear: number;
-  startYearFormatted: string;
-  endYearFormatted: string;
+  latitude: number;
+  longitude: number;
+  chronologicalSpan: string;
+  imageUrl?: string;
+  // Aliases for template compatibility
+  nearbySiteId?: number;
+  nearbySiteName?: string;
+  startYearFormatted?: string;
+  endYearFormatted?: string;
+}
+
+export interface ContemporaneousSiteResult {
+  id: number;
+  name: string;
+  slug: string;
+  region: string;
+  country: string;
+  siteType: string;
+  overlapYears: number;
+  chronologicalSpan: string;
+  latitude: number;
+  longitude: number;
+  imageUrl?: string;
+  // Aliases for template compatibility
+  startYearFormatted?: string;
+  endYearFormatted?: string;
 }
 
 export interface SiteComparisonResult {
   site1: SiteDetail;
   site2: SiteDetail;
-  geodesicDistanceKm: number;
-  temporalOverlapYears: number;
-  hasTemporalOverlap: boolean;
-  overlapSpanText: string;
-  directRelationships: {
+  distanceKm: number;
+  chronologicalOverlapYears: number;
+  isContemporaneous: boolean;
+  sharedCivilizations: string[];
+  sharedPeriods: string[];
+  // Aliases for compatibility
+  geodesicDistanceKm?: number;
+  temporalOverlapYears?: number;
+  hasTemporalOverlap?: boolean;
+  overlapSpanText?: string;
+  directRelationships?: {
     relationshipType: string;
     description: string;
-    direction: string;
+    direction?: string;
   }[];
 }
 
@@ -150,12 +194,14 @@ export interface Civilization {
   region: string;
   startYear: number;
   endYear: number;
-  startYearFormatted: string;
-  endYearFormatted: string;
+  chronologicalSpan?: string;
+  startYearFormatted?: string;
+  endYearFormatted?: string;
   colorHex: string;
   primaryLanguage?: string;
   architecturalTradition?: string;
   description: string;
+  siteCount?: number;
 }
 
 export interface HistoricalPeriod {
@@ -165,9 +211,9 @@ export interface HistoricalPeriod {
   epoch: string;
   startYear: number;
   endYear: number;
-  startYearFormatted: string;
-  endYearFormatted: string;
+  chronologicalSpan?: string;
   description: string;
+  siteCount?: number;
 }
 
 export interface PagedResult<T> {
@@ -176,3 +222,4 @@ export interface PagedResult<T> {
   page: number;
   pageSize: number;
 }
+

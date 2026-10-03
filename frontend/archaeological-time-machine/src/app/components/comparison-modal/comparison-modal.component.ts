@@ -76,9 +76,9 @@ import { ArchaeologyApiService } from '../../services/archaeology-api.service';
           <div class="metric-card">
             <span class="metric-label">Documented Inter-Site Relation</span>
             <span class="metric-val relation-text">
-              {{ comparison.directRelationships.length > 0 ? comparison.directRelationships[0].relationshipType : 'Independent Horizons' }}
+              {{ (comparison.directRelationships && comparison.directRelationships.length > 0) ? comparison.directRelationships[0].relationshipType : 'Independent Horizons' }}
             </span>
-            <span class="metric-sub" *ngIf="comparison.directRelationships.length > 0">
+            <span class="metric-sub" *ngIf="comparison.directRelationships && comparison.directRelationships.length > 0">
               {{ comparison.directRelationships[0].description }}
             </span>
           </div>

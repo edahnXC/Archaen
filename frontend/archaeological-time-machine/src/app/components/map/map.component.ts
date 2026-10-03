@@ -27,13 +27,13 @@ export type MapTileStyle = 'voyager' | 'satellite' | 'topo';
       
       <!-- Zoom Earth Style Floating HUD: Map Style Switcher & Controls -->
       <div class="map-floating-hud-top-right">
-        <!-- Layer Switcher Pills (Free Esri Satellite / Carto Voyager / Topo) -->
+        <!-- Layer Switcher Pills (100% Free OpenStreetMap / Esri Satellite / Topo - Zero Watermarks) -->
         <div class="layer-switcher-pill">
           <button
             class="layer-toggle-btn"
             [class.active]="activeTileStyle() === 'voyager'"
             (click)="setTileStyle('voyager')"
-            title="Clean Archaeological Cartography"
+            title="Clean OpenStreetMap Cartography (Free & Open)"
           >
             <span class="btn-icon">🗺️</span> Map
           </button>
@@ -41,7 +41,7 @@ export type MapTileStyle = 'voyager' | 'satellite' | 'topo';
             class="layer-toggle-btn"
             [class.active]="activeTileStyle() === 'satellite'"
             (click)="setTileStyle('satellite')"
-            title="Satellite Aerial Imagery (Esri Free)"
+            title="High-Resolution Satellite Aerial Imagery (Esri Free)"
           >
             <span class="btn-icon">🛰️</span> Satellite
           </button>
@@ -49,7 +49,7 @@ export type MapTileStyle = 'voyager' | 'satellite' | 'topo';
             class="layer-toggle-btn"
             [class.active]="activeTileStyle() === 'topo'"
             (click)="setTileStyle('topo')"
-            title="Topographic Terrain"
+            title="Topographic Terrain & Contours (Esri Free)"
           >
             <span class="btn-icon">🏔️</span> Terrain
           </button>
@@ -60,10 +60,52 @@ export type MapTileStyle = 'voyager' | 'satellite' | 'topo';
           <button class="nav-pill-btn" (click)="focusIndia()" title="Center on Indian Archaeological Landscape">
             <span class="flag-icon">🇮🇳</span> India Focus
           </button>
+          <button class="nav-pill-btn meroe-pill" (click)="focusMeroe()" title="Fly to Pyramids of Meroë (Sudan)">
+            <span>🔺</span> Pyramids of Meroë
+          </button>
           <button class="nav-pill-btn" (click)="focusGlobal()" title="Global View">
             <span>🌍</span> World
           </button>
+          <button
+            class="nav-pill-btn"
+            [class.active]="showTradeRoutes"
+            (click)="toggleTradeRoutes()"
+            title="Toggle Ancient Trade Corridors"
+          >
+            <span>⛵</span> {{ showTradeRoutes ? 'Hide Routes' : 'Trade Routes' }}
+          </button>
         </div>
+      </div>
+
+      <!-- 4D Spatio-Temporal Dynamic Horizon HUD (Top Center) -->
+      <div class="map-floating-4d-hud" *ngIf="isTimeFilterActive || isPlayingFlight">
+        <div class="hud-4d-header">
+          <span class="hud-4d-pulse-dot" [class.animating]="isPlayingFlight"></span>
+          <span class="hud-4d-tag font-mono">4D ARCHAEOLOGICAL HORIZON</span>
+          <button
+            type="button"
+            class="hud-4d-flight-btn"
+            (click)="flightToggle.emit()"
+            [title]="isPlayingFlight ? 'Pause continuous chronological sweep' : 'Sweep continuously through time'"
+          >
+            {{ isPlayingFlight ? '⏸ Pause' : '▶ 4D Flight' }}
+          </button>
+        </div>
+        <div class="hud-4d-center">
+          <span class="hud-4d-year font-display">{{ formattedYear() }}</span>
+          <span class="hud-4d-epoch">{{ activeEpochName() }}</span>
+        </div>
+        <div class="hud-4d-meta font-mono">
+          <span class="meta-pill">● {{ activeSitesCount() }} Active Settlements</span>
+          <span class="meta-pill" *ngIf="activeTradeRoutesCount() > 0">⛵ {{ activeTradeRoutesCount() }} Active Corridors</span>
+          <span class="meta-pill" *ngIf="activeTradeRoutesCount() === 0">🌐 Inland Regional Exchange</span>
+        </div>
+      </div>
+
+      <!-- Natural Page Scroll Safety Hint (Bottom Left) -->
+      <div class="map-scroll-hint-bar">
+        <span class="scroll-mouse-icon">🖱️</span>
+        <span class="scroll-hint-text">Page scrolls naturally • Use <strong>+ / -</strong> to zoom map</span>
       </div>
 
       <!-- Live Coordinates & Scale Bar (Zoom Earth Style) -->
@@ -86,8 +128,14 @@ export type MapTileStyle = 'voyager' | 'satellite' | 'topo';
           <div class="legend-item"><span class="legend-dot mauryan"></span> Mauryan & Gangetic</div>
           <div class="legend-item"><span class="legend-dot sangam"></span> Sangam Maritime</div>
           <div class="legend-item"><span class="legend-dot copper"></span> Copper Age / Sinauli</div>
-          <div class="legend-item"><span class="legend-dot mesolithic"></span> Prehistoric Rock Art</div>
-          <div class="legend-item"><span class="legend-dot international"></span> Mediterranean / Near East</div>
+          <div class="legend-item"><span class="legend-dot kushite"></span> Kushite / Meroë (Sudan)</div>
+          <div class="legend-item"><span class="legend-dot international"></span> World Heritage Wonders</div>
+        </div>
+        <div *ngIf="showTradeRoutes" class="routes-legend">
+          <span class="routes-label">Active Trade Network:</span>
+          <span class="route-tag meluhha">── Indus-Sumer</span>
+          <span class="route-tag indoroman">── Indo-Roman</span>
+          <span class="route-tag nile">── Kushite Nile</span>
         </div>
       </div>
     </div>
@@ -274,14 +322,202 @@ export type MapTileStyle = 'voyager' | 'satellite' | 'topo';
     .legend-dot.mauryan { background: #b91c1c; }
     .legend-dot.sangam { background: #0f766e; }
     .legend-dot.copper { background: #9d4edd; }
-    .legend-dot.mesolithic { background: #c25e2e; }
-    .legend-dot.international { background: #d4a373; }
+    .legend-dot.kushite { background: #c59b27; }
+    .legend-dot.international { background: #2563eb; }
+
+    .meroe-pill {
+      background: #fef8e7;
+      border-color: #fef3c7;
+      color: #92400e;
+    }
+
+    .meroe-pill:hover {
+      background: #fde68a;
+      color: #78350f;
+    }
+
+    .nav-pill-btn.active {
+      background: #0284c7;
+      color: #ffffff;
+      border-color: #0284c7;
+    }
+
+    .routes-legend {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .routes-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: #111827;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .route-tag {
+      font-size: 10.5px;
+      font-weight: 600;
+    }
+
+    .route-tag.meluhha { color: #c25e2e; }
+    .route-tag.indoroman { color: #1e40af; }
+    .route-tag.nile { color: #b8860b; }
+
+    /* ==========================================================================
+       4D SPATIO-TEMPORAL CHRONOMETER HUD (TOP CENTER OF MAP)
+       ========================================================================== */
+
+    .map-floating-4d-hud {
+      position: absolute;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 850;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid rgba(0, 0, 0, 0.14);
+      border-radius: 20px;
+      padding: 10px 22px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+      backdrop-filter: blur(16px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      pointer-events: auto;
+      text-align: center;
+      min-width: 320px;
+    }
+
+    .hud-4d-header {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hud-4d-flight-btn {
+      background: #0f172a;
+      color: #ffffff;
+      border: none;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    .hud-4d-flight-btn:hover {
+      background: var(--accent-terracotta, #c25e2e);
+      transform: scale(1.04);
+    }
+
+    .hud-4d-pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #16a34a;
+      box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.7);
+      animation: pulseGreen 1.8s infinite;
+    }
+
+    .hud-4d-pulse-dot.animating {
+      background: #c25e2e;
+      box-shadow: 0 0 0 0 rgba(194, 94, 46, 0.8);
+      animation: pulseTerracotta 0.9s infinite;
+    }
+
+    @keyframes pulseGreen {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(22, 163, 74, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(22, 163, 74, 0); }
+    }
+
+    @keyframes pulseTerracotta {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(194, 94, 46, 0.8); }
+      70% { transform: scale(1.2); box-shadow: 0 0 0 10px rgba(194, 94, 46, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(194, 94, 46, 0); }
+    }
+
+    .hud-4d-tag {
+      font-size: 9.5px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      color: #0f766e;
+    }
+
+    .hud-4d-center {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .hud-4d-year {
+      font-size: 22px;
+      font-weight: 800;
+      color: #111827;
+      letter-spacing: -0.02em;
+    }
+
+    .hud-4d-epoch {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--accent-terracotta, #c25e2e);
+    }
+
+    .hud-4d-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10.5px;
+      color: #64748b;
+    }
+
+    .meta-pill {
+      background: #f1f5f9;
+      padding: 1px 7px;
+      border-radius: 10px;
+    }
+
+    /* Natural Page Scroll Safety Hint (Bottom Left) */
+    .map-scroll-hint-bar {
+      position: absolute;
+      bottom: 22px;
+      left: 20px;
+      z-index: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 11px;
+      color: #64748b;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      pointer-events: none;
+    }
   `]
 })
 export class MapComponent implements OnInit, OnChanges, OnDestroy {
   @Input() sites: SiteSummary[] = [];
   @Input() selectedSiteId: number | null = null;
+  @Input() showTradeRoutes = false;
+  @Input() currentYear: number = -2500;
+  @Input() isTimeFilterActive: boolean = false;
+  @Input() isPlayingFlight: boolean = false;
   @Output() siteSelected = new EventEmitter<number>();
+  @Output() flightToggle = new EventEmitter<void>();
 
   @ViewChild('mapContainer', { static: true }) mapContainerRef!: ElementRef<HTMLDivElement>;
 
@@ -292,11 +528,49 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
   private map!: L.Map;
   private currentTileLayer: L.TileLayer | null = null;
   private markerLayerGroup = L.layerGroup();
+  private tradeRoutesLayerGroup = L.layerGroup();
   private markersMap = new Map<number, L.Marker>();
+
+  formattedYear(): string {
+    const y = this.currentYear;
+    if (y < 0) return `${Math.abs(y)} BCE`;
+    return `${y} CE`;
+  }
+
+  activeEpochName(): string {
+    const y = this.currentYear;
+    if (y <= -2600) return 'Early Urban & Mature Indus Integration';
+    if (y <= -1900) return 'Mature Harappan Metropolis Era (Giza & Ur)';
+    if (y <= -1400) return 'Copper Hoard Warrior Horizon (Sinauli Chariots)';
+    if (y <= -600) return 'Early Iron Age & Painted Grey Ware';
+    if (y <= -300) return 'Second Urbanization & Sangam Dawn (Keeladi)';
+    if (y <= -185) return 'Mauryan Imperial Horizon (Ashokan Edicts)';
+    if (y <= 400) return 'Classical Antiquity & Indo-Roman Maritime Horizon';
+    return 'Post-Classical & Medieval World Horizons';
+  }
+
+  activeSitesCount(): number {
+    if (!this.isTimeFilterActive) return this.sites.length;
+    return this.sites.filter(s => (this.currentYear >= s.startYear - 80) && (this.currentYear <= s.endYear + 80)).length;
+  }
+
+  activeTradeRoutesCount(): number {
+    if (!this.showTradeRoutes) return 0;
+    let count = 0;
+    const y = this.currentYear;
+    if (y >= -2500 && y <= -1900) count++;
+    if (y >= -100 && y <= 300) count++;
+    if (y >= -1000 && y <= 350) count++;
+    if (y >= -400 && y <= 106) count++;
+    return count;
+  }
 
   ngOnInit(): void {
     this.initMap();
     this.renderMarkers();
+    if (this.showTradeRoutes) {
+      this.drawTradeRoutes();
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -306,6 +580,19 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
     if (changes['selectedSiteId'] && this.selectedSiteId !== null) {
       this.highlightSelectedSite(this.selectedSiteId);
     }
+    if (changes['showTradeRoutes']) {
+      if (this.showTradeRoutes) {
+        this.drawTradeRoutes();
+      } else {
+        this.clearTradeRoutes();
+      }
+    }
+    if (changes['currentYear'] || changes['isTimeFilterActive'] || changes['isPlayingFlight']) {
+      this.renderMarkers();
+      if (this.showTradeRoutes) {
+        this.drawTradeRoutes();
+      }
+    }
   }
 
   ngOnDestroy(): void {
@@ -314,8 +601,25 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
+  toggleTradeRoutes(): void {
+    this.showTradeRoutes = !this.showTradeRoutes;
+    if (this.showTradeRoutes) {
+      this.drawTradeRoutes();
+    } else {
+      this.clearTradeRoutes();
+    }
+  }
+
+  focusMeroe(): void {
+    if (!this.map) return;
+    this.map.flyTo([16.9383, 33.7492], 6.5, {
+      duration: 1.8,
+      easeLinearity: 0.25
+    });
+  }
+
   /**
-   * Switches map tile layer between Carto Voyager (clean map), Esri Satellite, and Terrain
+   * Switches map tile layer between OpenStreetMap Standard (clean map), Esri Satellite, and Terrain
    */
   setTileStyle(style: MapTileStyle): void {
     if (!this.map) return;
@@ -331,29 +635,29 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
 
     switch (style) {
       case 'satellite':
-        // High-resolution Esri World Imagery (Completely free, no key needed)
+        // High-resolution Esri World Imagery (Completely free, no watermark, no key required)
         url = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
         attribution = '&copy; Esri, Maxar, Earthstar Geographics';
         maxZoom = 18;
         break;
       case 'topo':
-        // OpenTopoMap / Relief terrain (Completely free)
-        url = 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png';
-        attribution = '&copy; OpenTopoMap & OpenStreetMap contributors';
-        maxZoom = 17;
+        // Esri World Topographical Map with archaeological contours (Free, no watermark)
+        url = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}';
+        attribution = '&copy; Esri, DeLorme, NAVTEQ, USGS, Intermap';
+        maxZoom = 18;
         break;
       case 'voyager':
       default:
-        // CartoDB Voyager clean archaeological cartography (Completely free)
-        url = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
-        attribution = '&copy; <a href="https://carto.com/">CARTO</a> & OpenStreetMap';
+        // OpenStreetMap Standard - Clean, universal, 100% free with no watermark or API key
+        url = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+        attribution = '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors';
         maxZoom = 19;
         break;
     }
 
     this.currentTileLayer = L.tileLayer(url, {
       attribution,
-      subdomains: style === 'satellite' ? [] : ['a', 'b', 'c', 'd'],
+      subdomains: style === 'satellite' || style === 'topo' ? [] : ['a', 'b', 'c'],
       maxZoom
     });
 
@@ -381,16 +685,24 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
     this.map.flyTo([latitude, longitude], zoom, { duration: 1.2 });
   }
 
+  invalidateSize(): void {
+    if (this.map) {
+      setTimeout(() => this.map.invalidateSize(), 60);
+    }
+  }
+
   private initMap(): void {
     const container = this.mapContainerRef.nativeElement;
 
     // Centered on the Indian subcontinent by default
+    // scrollWheelZoom: false ensures mouse wheel never hijacks page scrolling
     this.map = L.map(container, {
       center: [23.5, 76.5],
       zoom: 5,
       minZoom: 2,
       maxZoom: 18,
-      zoomControl: false
+      zoomControl: false,
+      scrollWheelZoom: false
     });
 
     L.control.zoom({ position: 'topleft' }).addTo(this.map);
@@ -404,7 +716,7 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
       this.currentZoom.set(this.map.getZoom());
     });
 
-    // Default to clean Voyager map
+    // Default to clean standard map
     this.setTileStyle('voyager');
     this.markerLayerGroup.addTo(this.map);
   }
@@ -414,19 +726,30 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
     this.markerLayerGroup.clearLayers();
     this.markersMap.clear();
 
+    const activeYear = this.currentYear;
+    const isFilterOn = this.isTimeFilterActive;
+
     for (const site of this.sites) {
       const color = site.civilizations[0]?.colorHex || '#c25e2e';
       const isIndia = site.country.toLowerCase() === 'india';
 
-      // Custom Floating Pin SVG icon (Clean White Bordered Pin)
+      // 4D Spatio-Temporal calculation:
+      // Active if within occupation span (+/- 80 yrs buffer for transition phases)
+      const isOccupied = !isFilterOn || (activeYear >= (site.startYear - 80) && activeYear <= (site.endYear + 80));
+      const isFuture = isFilterOn && (activeYear < site.startYear - 80);
+      const isPast = isFilterOn && (activeYear > site.endYear + 80);
+
+      const stateClass = isOccupied ? 'marker-4d-active' : 'marker-4d-dormant';
+
+      // Custom Floating Pin SVG icon with 4D dynamic classes
       const customIcon = L.divIcon({
         className: 'custom-arch-marker',
         html: `
-          <div class="arch-marker-pin ${isIndia ? 'marker-india' : ''}" style="background-color: ${color}; color: ${color}">
+          <div class="arch-marker-pin ${stateClass} ${isIndia ? 'marker-india' : ''}" style="background-color: ${isOccupied ? color : '#94a3b8'}; color: ${isOccupied ? color : '#94a3b8'}">
             <div class="arch-marker-inner" style="color: #ffffff; text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
-              ${isIndia ? '🏛️' : '🏺'}
+              ${isPast ? '🗿' : (isIndia ? '🏛️' : '🏺')}
             </div>
-            <div class="arch-marker-pulse"></div>
+            ${isOccupied ? '<div class="arch-marker-pulse"></div>' : ''}
           </div>
         `,
         iconSize: [34, 34],
@@ -445,9 +768,27 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
         .map(c => `<span style="font-size: 11px; font-weight: 600; padding: 2px 7px; border-radius: 4px; background: rgba(0,0,0,0.05); color: ${c.colorHex}; border: 1px solid ${c.colorHex}30;">${c.civilizationName}</span>`)
         .join(' ');
 
+      let temporalStatusHtml = '';
+      if (isFilterOn) {
+        if (isOccupied) {
+          temporalStatusHtml = `<div style="font-size: 11px; font-weight: 700; color: #15803d; background: #dcfce7; padding: 4px 8px; border-radius: 6px; margin-bottom: 8px; border: 1px solid #bbf7d0;">
+            ● FLOURISHING SETTLEMENT in ${this.formattedYear()}
+          </div>`;
+        } else if (isFuture) {
+          temporalStatusHtml = `<div style="font-size: 11px; font-weight: 600; color: #64748b; background: #f1f5f9; padding: 4px 8px; border-radius: 6px; margin-bottom: 8px; border: 1px solid #e2e8f0;">
+            ⏳ Unfounded in ${this.formattedYear()} • Emerges ${site.startYearFormatted}
+          </div>`;
+        } else {
+          temporalStatusHtml = `<div style="font-size: 11px; font-weight: 600; color: #b45309; background: #fef3c7; padding: 4px 8px; border-radius: 6px; margin-bottom: 8px; border: 1px solid #fde68a;">
+            🗿 Historic Ruin in ${this.formattedYear()} • Declined c. ${site.endYearFormatted}
+          </div>`;
+        }
+      }
+
       const popupHtml = `
         <div style="padding: 16px 18px; min-width: 260px; font-family: 'Google Sans Text', sans-serif;">
           <div style="margin-bottom: 6px;">${unescoBadge}</div>
+          ${temporalStatusHtml}
           <h3 style="font-family: 'Google Sans Display', sans-serif; font-size: 17px; font-weight: 700; color: #111827; margin: 4px 0 2px;">
             ${site.name}
           </h3>
@@ -456,7 +797,7 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
             📍 ${site.region}, <strong>${site.country}</strong>
           </div>
           <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #92400e; background: #fef8e7; padding: 4px 8px; border-radius: 6px; margin-bottom: 10px; border: 1px solid #fef3c7; display: inline-block;">
-            ⏳ ${site.startYearFormatted} – ${site.endYearFormatted}
+            ⏳ Span: ${site.startYearFormatted} – ${site.endYearFormatted}
           </div>
           <div style="margin-bottom: 14px; display: flex; flex-wrap: wrap; gap: 4px;">
             ${civTags}
@@ -496,5 +837,118 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
       this.map.flyTo(latLng, Math.max(this.map.getZoom(), 7), { duration: 1.0 });
       marker.openPopup();
     }
+  }
+
+  private drawTradeRoutes(): void {
+    if (!this.map) return;
+    this.tradeRoutesLayerGroup.clearLayers();
+
+    const activeYear = this.currentYear;
+    const isFilterOn = this.isTimeFilterActive;
+
+    const routes = [
+      {
+        name: 'Meluhha-Mesopotamia Maritime Trade Corridor',
+        era: '2500 – 1900 BCE',
+        startYear: -2500,
+        endYear: -1900,
+        cargo: 'Carnelian etched beads, lapis lazuli, copper ingots, timber, ivory seals',
+        color: '#c25e2e',
+        points: [
+          [22.5233, 72.2494], // Lothal
+          [23.8864, 70.2131], // Dholavira
+          [25.15, 62.32],    // Sutkagen Dor
+          [26.2285, 50.5860], // Dilmun (Bahrain)
+          [29.37, 47.98],    // Failaka
+          [30.9622, 46.1031]  // Ur
+        ] as L.LatLngExpression[]
+      },
+      {
+        name: 'Indo-Roman Trans-Oceanic Maritime Route',
+        era: '100 BCE – 300 CE',
+        startYear: -100,
+        endYear: 300,
+        cargo: 'Malabar black pepper, fine muslins, beryls, pearls, Roman wine amphorae, gold aurei',
+        color: '#1e40af',
+        points: [
+          [11.9028, 79.8183], // Arikamedu
+          [9.8517, 78.1872],  // Keeladi
+          [10.1989, 76.2081], // Muziris
+          [12.5, 54.0],       // Socotra
+          [12.8, 45.0],       // Aden (Eudaemon Arabia)
+          [23.9167, 35.4833], // Berenike (Red Sea)
+          [26.16, 32.72],     // Coptos (Nile)
+          [31.2001, 29.9187], // Alexandria
+          [41.8902, 12.4922]  // Rome (Colosseum)
+        ] as L.LatLngExpression[]
+      },
+      {
+        name: 'Nubian Kushite Nile Trade Corridor',
+        era: '1000 BCE – 350 CE',
+        startYear: -1000,
+        endYear: 350,
+        cargo: 'Kushite iron weapons, Nubian gold, ebony, leopard skins, frankincense, Meroitic ceramics',
+        color: '#b8860b',
+        points: [
+          [16.9383, 33.7492], // Pyramids of Meroë
+          [18.53, 31.83],     // Napata (Jebel Barkal)
+          [24.09, 32.90],     // Aswan / Elephantine
+          [25.6872, 32.6396], // Thebes / Luxor
+          [29.9792, 31.1342]  // Giza / Memphis
+        ] as L.LatLngExpression[]
+      },
+      {
+        name: 'Nabataean Frankincense & Desert Caravan Highway',
+        era: '400 BCE – 106 CE',
+        startYear: -400,
+        endYear: 106,
+        cargo: 'Frankincense, myrrh, Indian spices, bitumen from Dead Sea, Hellenistic glass',
+        color: '#059669',
+        points: [
+          [17.02, 54.09],     // Dhofar (Oman)
+          [24.47, 39.61],     // Hegra (Mada'in Salih)
+          [30.3285, 35.4444], // Petra
+          [31.50, 34.46],     // Gaza
+          [31.2001, 29.9187]  // Alexandria
+        ] as L.LatLngExpression[]
+      }
+    ];
+
+    for (const r of routes) {
+      const isRouteActive = !isFilterOn || (activeYear >= (r.startYear - 50) && activeYear <= (r.endYear + 50));
+      const line = L.polyline(r.points, {
+        color: isRouteActive ? r.color : '#cbd5e1',
+        weight: isRouteActive ? 4 : 1.5,
+        opacity: isRouteActive ? 0.95 : 0.2,
+        dashArray: isRouteActive ? '10, 8' : '4, 8',
+        className: isRouteActive ? 'animated-trade-route route-active-4d' : 'animated-trade-route route-dormant-4d'
+      });
+
+      const popup = `
+        <div style="padding: 14px; min-width: 240px; font-family: 'Google Sans Text', sans-serif;">
+          <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: ${isRouteActive ? r.color : '#64748b'}; letter-spacing: 0.05em; margin-bottom: 2px;">
+            ${isRouteActive ? '● Active Maritime Corridor' : '⏳ Dormant Corridor'} (${this.formattedYear()})
+          </div>
+          <h4 style="font-family: 'Google Sans Display', sans-serif; font-size: 15px; font-weight: 700; color: #111827; margin: 0 0 6px;">
+            ${r.name}
+          </h4>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #92400e; background: #fef8e7; padding: 3px 6px; border-radius: 4px; display: inline-block; margin-bottom: 8px;">
+            ⏳ Historical Era: ${r.era}
+          </div>
+          <div style="font-size: 11.5px; color: #4b5563; line-height: 1.4;">
+            <strong>Documented Cargo:</strong> ${r.cargo}
+          </div>
+        </div>
+      `;
+
+      line.bindPopup(popup);
+      this.tradeRoutesLayerGroup.addLayer(line);
+    }
+
+    this.tradeRoutesLayerGroup.addTo(this.map);
+  }
+
+  private clearTradeRoutes(): void {
+    this.tradeRoutesLayerGroup.clearLayers();
   }
 }
