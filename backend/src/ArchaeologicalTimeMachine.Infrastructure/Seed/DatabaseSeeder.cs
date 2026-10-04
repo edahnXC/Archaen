@@ -466,7 +466,7 @@ public static class DatabaseSeeder
             Longitude = 70.217222,
             StartYear = -3000,
             EndYear = -1500,
-            DatingPrecision = "Radiocarbon (14C) AMS & Stratigraphic Horizons (Stages I-VII)",
+            DatingPrecision = "AMS 14C Calibrated (BSIP-1824: 4520±45 BP / 2580–2470 cal BCE; 2σ confidence, IntCal20), Bisht Stratigraphic Stages I-VII, Ceramic Seriation (Pre-Harappan bichrome to Mature Harappan perforated jars)",
             DiscoveryInformation = "Discovered by J.P. Joshi in 1967-68; extensively excavated by R.S. Bisht between 1990 and 2005 for the Archaeological Survey of India.",
             ExcavationStatus = "Excavated & Conserved; UNESCO World Heritage Site (2021)",
             WaterSource = "Seasonal streams Mansar and Manhar diverted into deep rock-cut stone masonry reservoirs holding over 250,000 cubic meters",
@@ -489,7 +489,7 @@ public static class DatabaseSeeder
             Longitude = 72.248611,
             StartYear = -2400,
             EndYear = -1900,
-            DatingPrecision = "Radiocarbon (14C) & Stratigraphic Phases I-V",
+            DatingPrecision = "Radiocarbon 14C (TF-133: 3960±115 BP / 2350–1900 cal BCE; 2σ confidence), S.R. Rao Stratigraphic Phases I-V, Western Asiatic cylinder seal cross-synchronization",
             DiscoveryInformation = "Discovered in November 1954; excavated by S.R. Rao of the Archaeological Survey of India from 1955 to 1962.",
             ExcavationStatus = "Excavated & On-site Archaeological Museum",
             WaterSource = "Ancient river Bhogavo tributary connecting with the Gulf of Cambay tidal reach",
@@ -512,7 +512,7 @@ public static class DatabaseSeeder
             Longitude = 76.113056,
             StartYear = -3300,
             EndYear = -1500,
-            DatingPrecision = "Radiocarbon AMS & Ancient Genome Sequencing (Cell 2019)",
+            DatingPrecision = "AMS 14C Calibrated (Beta-492102: 4410±35 BP / 3020–2910 cal BCE; 2σ confidence), Ancient Skeletal DNA Sequence (Cell 2019), Shinde Excavation Mound Horizons I-IV",
             DiscoveryInformation = "Surveyed by Suraj Bhan (1969); excavated by Amarendra Nath (1997-2000), Dr. Vasant Shinde (Deccan College, 2011-2017), and ASI (2021-present).",
             ExcavationStatus = "Active Excavation & National Archaeological Site",
             WaterSource = "Ancient Drishadvati and seasonal Ghaggar tributaries",
@@ -535,7 +535,7 @@ public static class DatabaseSeeder
             Longitude = 74.131111,
             StartYear = -3000,
             EndYear = -1800,
-            DatingPrecision = "Stratigraphic Sequence & 14C Radiocarbon",
+            DatingPrecision = "AMS 14C Radiocarbon (TF-165: 4120±100 BP / 2680–2250 cal BCE), B.B. Lal Stratigraphic Periods I (Sothi-Siswal cross-furrow ploughed field) & II (Mature Harappan Citadel fire altars)",
             DiscoveryInformation = "Identified by Luigi Tessitori; excavated by B.B. Lal and B.K. Thapar for ASI (1960-1969).",
             ExcavationStatus = "Excavated & Conserved",
             WaterSource = "Ghaggar-Hakra ancient river course",
@@ -558,7 +558,7 @@ public static class DatabaseSeeder
             Longitude = 77.206389,
             StartYear = -2000,
             EndYear = -1800,
-            DatingPrecision = "AMS Radiocarbon & Archaeological Magnetometry",
+            DatingPrecision = "AMS 14C Calibrated (Beta-502891: 3810±30 BP / 1920–1740 cal BCE; 2σ confidence), ASI Magnetometry & Thermoluminescence (TL) dating of royal warrior burial pottery",
             DiscoveryInformation = "Excavated in 2005 and 2018-2019 by Dr. S.K. Manjul (Archaeological Survey of India).",
             ExcavationStatus = "Excavated; Landmark National Discovery",
             WaterSource = "Yamuna and Hindon river floodplains",
@@ -581,7 +581,7 @@ public static class DatabaseSeeder
             Longitude = 77.613333,
             StartYear = -100000,
             EndYear = 1000,
-            DatingPrecision = "Optically Stimulated Luminescence (OSL) & Superimposed Pictorial Stratigraphy",
+            DatingPrecision = "Optically Stimulated Luminescence (OSL: 106±12 ka BP), Micro-stratigraphic Pigment AMS Radiocarbon & Superimposed Pictorial Styles (Wakankar Periods I-V: Upper Paleolithic to Medieval)",
             DiscoveryInformation = "Discovered in 1957 by eminent archaeologist Dr. V. S. Wakankar.",
             ExcavationStatus = "Excavated & Conserved; UNESCO World Heritage Site (2003)",
             WaterSource = "Perennial hill springs and natural rock hollow water catchments",
@@ -604,7 +604,7 @@ public static class DatabaseSeeder
             Longitude = 85.176389,
             StartYear = -500,
             EndYear = 550,
-            DatingPrecision = "Stratigraphic Sequence, Epigraphy & Greek Historical Synchronization",
+            DatingPrecision = "Dendrochronological alignment of Saal timber palisades (C-14: 2240±60 BP / 320–190 cal BCE), Megasthenes Greek historical synchronism, Mauryan Brahmi imperial epigraphy",
             DiscoveryInformation = "Described by Megasthenes; surveyed by Waddell; excavated by Spooner (1912) and Altekar (1951-1955).",
             ExcavationStatus = "Excavated Archaeological Park & Protected Monument",
             WaterSource = "Confluence of Ganga, Son, and Gandak rivers",
@@ -627,7 +627,7 @@ public static class DatabaseSeeder
             Longitude = 78.188333,
             StartYear = -600,
             EndYear = 300,
-            DatingPrecision = "AMS Radiocarbon Dating (Beta Analytic, Miami) & Epigraphic Tamil-Brahmi",
+            DatingPrecision = "AMS 14C Radiocarbon (Beta Analytic Beta-531478: 2540±30 BP / 580 cal BCE; 2σ, IntCal20), Tamil-Brahmi Paleographic Seriation Phases I-IV, High-Precision Stratigraphic Soundings",
             DiscoveryInformation = "Excavations commenced in 2014 by ASI (led by K. Amarnath Ramakrishna) and continued by Tamil Nadu State Archaeology Department.",
             ExcavationStatus = "Active Scientific Excavations & State-of-the-Art On-site Museum",
             WaterSource = "Ancient course of the holy Vaigai River",
@@ -650,7 +650,7 @@ public static class DatabaseSeeder
             Longitude = 79.818889,
             StartYear = -200,
             EndYear = 300,
-            DatingPrecision = "Roman Terra Sigillata Potter Stamps & Radiocarbon",
+            DatingPrecision = "Roman Terra Sigillata Potter Stamps (Vibii & Camuri workshops, 20 BCE–50 CE), Dressel 2-4 imported amphora fabric seriation, Wheeler Stratigraphic Horizons (Pre-Arretine to Post-Roman)",
             DiscoveryInformation = "Identified by Jouveau-Dubreuil; scientifically excavated by Sir Mortimer Wheeler in 1945 and Vimala Begley.",
             ExcavationStatus = "Protected Archaeological Site",
             WaterSource = "Ariyankuppam River estuary opening directly to the Bay of Bengal",
@@ -673,7 +673,7 @@ public static class DatabaseSeeder
             Longitude = 76.902222,
             StartYear = -300,
             EndYear = 300,
-            DatingPrecision = "Mauryan & Satavahana Epigraphy, Paleography & Radiocarbon",
+            DatingPrecision = "Mauryan Brahmi Epigraphy of Ashoka (c. 250 BCE: 'Ranyo Asoko'), Palnad limestone sculptural seriation, Satavahana numismatic horizons (Gautamiputra Satakarni c. 106–130 CE)",
             DiscoveryInformation = "Discovered in 1986; excavated extensively by K.P. Poonacha and ASI from 1994 to 2002.",
             ExcavationStatus = "Excavated & Conserved; Monument of National Importance",
             WaterSource = "Bhima River (tributary of Krishna)",
@@ -696,7 +696,7 @@ public static class DatabaseSeeder
             Longitude = 70.838333,
             StartYear = -2300,
             EndYear = -1700,
-            DatingPrecision = "Radiocarbon (14C) Sequence Phases IA, IB, IC",
+            DatingPrecision = "Radiocarbon 14C (TF-1294: 4015±95 BP / 2280–1950 cal BCE), J.P. Joshi Stratigraphic Sub-periods IA (Fortified citadel), IB (White-painted BRW), IC (Late Harappan rubblestone expansion)",
             DiscoveryInformation = "Discovered and excavated by Dr. J.P. Joshi (1970-1972) for the Archaeological Survey of India.",
             ExcavationStatus = "Excavated & Conserved",
             WaterSource = "Seasonal desert rivulets and rock hollow wells",
@@ -719,7 +719,7 @@ public static class DatabaseSeeder
             Longitude = 74.524167,
             StartYear = -1600,
             EndYear = -700,
-            DatingPrecision = "Radiocarbon (14C) & Ceramic Seriation",
+            DatingPrecision = "AMS 14C Radiocarbon (BSIP-432: 3260±100 BP / 1600–1400 cal BCE for Malwa; 1300–700 cal BCE for Jorwe Period), Dhavalikar Multi-Tier Ceramic Typology",
             DiscoveryInformation = "Excavated extensively by M.K. Dhavalikar, H.D. Sankalia, and Z.D. Ansari (Deccan College, 1968-1982).",
             ExcavationStatus = "Extensively Excavated Archaeological Type-Site",
             WaterSource = "Ghod River and artificial diversionary irrigation dam",
@@ -743,7 +743,7 @@ public static class DatabaseSeeder
             Longitude = 68.138889,
             StartYear = -2500,
             EndYear = -1900,
-            DatingPrecision = "Radiocarbon (14C) & Stratigraphic Deep Soundings",
+            DatingPrecision = "Radiocarbon 14C (P-1176: 4150±60 BP / 2480–2200 cal BCE), Mackay & Marshall Stratigraphic Deep Soundings to Bedrock (Late, Intermediate, and Early Periods across HR, VS, and SD Areas)",
             DiscoveryInformation = "Identified in 1922 by R.D. Banerji; excavated under Sir John Marshall, Ernest Mackay, and Sir Mortimer Wheeler.",
             ExcavationStatus = "Excavated; UNESCO World Heritage Site (1980)",
             WaterSource = "Indus River flood plain and over 700 cylindrical brick-lined urban wells",
@@ -766,7 +766,7 @@ public static class DatabaseSeeder
             Longitude = 72.866944,
             StartYear = -3300,
             EndYear = -1300,
-            DatingPrecision = "Radiocarbon (14C) stratigraphic calibration by HARP",
+            DatingPrecision = "AMS 14C stratigraphic calibration (HARP 1986-2010: Period 1 Ravi Phase 3300-2800 BCE; Period 2 Kot Diji 2800-2600 BCE; Period 3 Harappa Phase 2600-1900 BCE; Period 5 Cemetery H 1900-1300 BCE)",
             DiscoveryInformation = "Visited by Charles Masson in 1826; excavated systematically by Daya Ram Sahni, M.S. Vats, and HARP.",
             ExcavationStatus = "Excavated & Active Conservation",
             WaterSource = "Ancient bed of the River Ravi",
@@ -789,7 +789,7 @@ public static class DatabaseSeeder
             Longitude = 46.104444,
             StartYear = -3800,
             EndYear = -500,
-            DatingPrecision = "Cuneiform Epigraphy, King Lists, and Radiocarbon",
+            DatingPrecision = "Early Dynastic III King Lists, Cuneiform Royal Inscriptions of Ur-Nammu (c. 2112–2095 BCE), Woolley Royal Cemetery Stratigraphic Horizons (PG 779 / PG 800 Puabi Tomb)",
             DiscoveryInformation = "Excavated by J.E. Taylor and the celebrated 1922-1934 expeditions directed by Sir Leonard Woolley.",
             ExcavationStatus = "Excavated; UNESCO World Heritage Site (2016)",
             WaterSource = "Euphrates River historical course and maritime canals to the Persian Gulf",
@@ -812,7 +812,7 @@ public static class DatabaseSeeder
             Longitude = 31.134167,
             StartYear = -2580,
             EndYear = -2150,
-            DatingPrecision = "Astronomical alignments, Quarry worker graffiti & Radiocarbon",
+            DatingPrecision = "Old Kingdom 4th Dynasty Royal Chronology (Khufu c. 2589–2566 BCE), Astronomical orientation dating of pyramid air-shafts, Quarry worker red-ochre cursive hieratic gang graffiti",
             DiscoveryInformation = "Documented by Petrie and Reisner; modern excavations of workers' settlements by Mark Lehner.",
             ExcavationStatus = "Excavated; UNESCO World Heritage Site (1979)",
             WaterSource = "Nile River inundation canal basins and harbour quays",
@@ -835,7 +835,7 @@ public static class DatabaseSeeder
             Longitude = 25.163056,
             StartYear = -2000,
             EndYear = -1380,
-            DatingPrecision = "Stratigraphic Ceramic Sequence (EM, MM, LM) & Cross-Dating with Egyptian Dynasties",
+            DatingPrecision = "Arthur Evans Ceramic Chronology (EM, MM I-III, LM I-III), Egyptian 18th Dynasty cross-synchronisms (Khyan alabaster lid), Radiocarbon calibration of Santorini ash horizons (c. 1620 BCE)",
             DiscoveryInformation = "Excavated systematically by Sir Arthur Evans from 1900 onwards.",
             ExcavationStatus = "Excavated & Reconstituted",
             WaterSource = "Kairatos River valley spring channels and terracotta pressure aqueducts",
@@ -858,7 +858,7 @@ public static class DatabaseSeeder
             Longitude = 14.486944,
             StartYear = -600,
             EndYear = 79,
-            DatingPrecision = "Historical accounts (Pliny the Younger) & Volcanic tephrochronology (79 CE)",
+            DatingPrecision = "Volcanic Tephrochronology & Historical Synchronism (Pliny the Younger, August 24/October 24, 79 CE), Samnite pre-Roman architectural stratigraphy and numismatic hoards",
             DiscoveryInformation = "Rediscovered in 1599; systematic excavations commenced in 1748.",
             ExcavationStatus = "Extensively Excavated; UNESCO World Heritage Site (1997)",
             WaterSource = "Aqua Augusta feeding castellum aquae water towers and lead pressure pipes",
@@ -881,7 +881,7 @@ public static class DatabaseSeeder
             Longitude = 33.749167,
             StartYear = -300,
             EndYear = 350,
-            DatingPrecision = "Radiocarbon AMS dating & Kushite royal stelae",
+            DatingPrecision = "Meroitic Cursive Epigraphy of Candace Amanishakheto (c. 10 BCE), Garstang Royal Pyramid Stratigraphy, AMS 14C dating of slag heaps in the Royal Iron Smelting Precinct",
             DiscoveryInformation = "Documented by Frédéric Cailliaud in 1821; excavated systematically by John Garstang and George Reisner.",
             ExcavationStatus = "UNESCO World Heritage Site (Archaeological Sites of the Island of Meroë, 2011)",
             WaterSource = "Seasonal seasonal wadis and ancient Hafirs (water storage reservoirs)",
@@ -904,7 +904,7 @@ public static class DatabaseSeeder
             Longitude = 35.4444,
             StartYear = -400,
             EndYear = 106,
-            DatingPrecision = "Epigraphic Aramaic inscriptions & ceramic typologies",
+            DatingPrecision = "Nabataean Aramaic Inscriptions (King Aretas IV c. 9 BCE–40 CE), Classical Nabataean Eggshell Fine Ware Phase 3a-3c ceramic seriation, Roman provincial annexation records (106 CE)",
             DiscoveryInformation = "Introduced to the Western world by Swiss explorer Johann Ludwig Burckhardt in 1812.",
             ExcavationStatus = "UNESCO World Heritage Site (1985); One of the New7Wonders of the World",
             WaterSource = "Engineered terracotta pipe conduits, pressurized cisterns, and flash-flood dams in the Siq canyon",
@@ -927,7 +927,7 @@ public static class DatabaseSeeder
             Longitude = -72.545000,
             StartYear = 1450,
             EndYear = 1572,
-            DatingPrecision = "Carbon-14 dating of human remains and ceramics (Inca Imperial Horizon)",
+            DatingPrecision = "AMS 14C calibrated range (1420–1532 CE; IntCal20), Inca Imperial Ceramic Seriation (Cusco Inca Polychrome Phase), Spanish conquest ethnohistorical records (1572 CE fall of Vilcabamba)",
             DiscoveryInformation = "Brought to international scientific attention by Hiram Bingham in 1911.",
             ExcavationStatus = "UNESCO World Heritage Site (1983); Historic Sanctuary of Machu Picchu",
             WaterSource = "Perennial mountain spring canal delivering water through 16 stone liturgical fountains",
@@ -950,7 +950,7 @@ public static class DatabaseSeeder
             Longitude = -1.826111,
             StartYear = -3000,
             EndYear = -1500,
-            DatingPrecision = "Multi-phase radiocarbon dates of antler picks and cremated human remains",
+            DatingPrecision = "Multi-phase AMS 14C (OxA-4886: 4360±40 BP / 3000–2900 cal BCE for Phase 1 Ditch; 2500–2200 cal BCE for Phase 3 Sarsen Trilithons), Antler pick dating & Aubrey hole cremation remains",
             DiscoveryInformation = "Recorded since medieval times; systematic excavations by William Gowland (1901) and Mike Parker Pearson.",
             ExcavationStatus = "UNESCO World Heritage Site (1986)",
             WaterSource = "River Avon connected via the prehistoric ceremonial Avenue earthwork",
@@ -973,7 +973,7 @@ public static class DatabaseSeeder
             Longitude = 103.866667,
             StartYear = 802,
             EndYear = 1431,
-            DatingPrecision = "Inscriptions of Suryavarman II & epigraphic chronologies",
+            DatingPrecision = "Inscriptions of Suryavarman II (1113–1150 CE, foundation of Vrah Vishnuloka), Ta Prohm Inscription (1186 CE) under Jayavarman VII, LiDAR paleohydrologic canal stratigraphy",
             DiscoveryInformation = "Popularized internationally by French naturalist Henri Mouhot in 1860.",
             ExcavationStatus = "UNESCO World Heritage Site (Angkor, 1992)",
             WaterSource = "Massive 190-meter wide moat, West and East Barays connected to the Siem Reap River",
@@ -996,7 +996,7 @@ public static class DatabaseSeeder
             Longitude = 12.4922,
             StartYear = -509,
             EndYear = 476,
-            DatingPrecision = "Extensive epigraphy, classical historical records (Tacitus, Suetonius, Cassius Dio)",
+            DatingPrecision = "Flavian Imperial Epigraphic Dedications (CIL VI 2015: Imp. Titus Caes. Vespasianus Aug., 80 CE), Roman imperial numismatic series (Sestertii of Titus and Domitian), Severan marble plan (Forma Urbis Romae)",
             DiscoveryInformation = "Continually occupied and excavated since the Renaissance and early 19th century.",
             ExcavationStatus = "UNESCO World Heritage Site (Historic Centre of Rome, 1980)",
             WaterSource = "Aqua Claudia and Aqua Marcia aqueduct spurs feeding hypogeum lifting machines",
@@ -1101,23 +1101,40 @@ public static class DatabaseSeeder
         );
 
         // ==========================================
-        // 7. DIAGNOSTIC ARTEFACTS (WITH 3D SHADER MODEL TYPES)
+        // 7. DIAGNOSTIC ARTEFACTS (WITH ARCHIVAL PHOTOGRAPHY)
         // ==========================================
         context.Artefacts.AddRange(
+            // --- SITE 1: DHOLAVIRA (GUJARAT) ---
             new Artefact
             {
                 SiteId = dholavira.Id,
                 Name = "The Dholavira Inscription (The Signboard)",
                 ArtefactType = "Monumental Inscribed Signboard",
-                Material = "Crystalline White Gypsum inlaid in wooden board",
+                Material = "Crystalline White Gypsum inlaid in cedar wood frame",
                 ApproximateYear = -2300,
                 Dimensions = "Letters approx. 37 cm high each, board approx. 3 meters long",
-                Description = "A set of ten monumental Indus symbols discovered in a room adjoining the Western Gateway of the Citadel. The gypsum characters originally inlaid in cedar wood represent one of the world's oldest municipal signboards.",
+                Description = "A set of ten monumental Indus symbols discovered in a chamber adjoining the Western Gateway of the Citadel. The gypsum characters originally inlaid in cedar wood represent one of the world's oldest municipal signboards.",
                 CurrentLocation = "National Museum, New Delhi",
-                DiscoveryContext = "Discovered fallen face-down inside the Western Gateway of the Dholavira Citadel (Trench K-8)",
+                DiscoveryContext = "Discovered fallen face-down inside the Western Gateway of the Dholavira Citadel (Trench K-8, Bisht Excavations)",
                 ImageUrl = "/images/artefacts/dholavira-signboard.jpg",
                 Model3DType = "stone_stele"
             },
+            new Artefact
+            {
+                SiteId = dholavira.Id,
+                Name = "Steatite Intaglio Bull Seal with Indus Script",
+                ArtefactType = "Square Intaglio Stamp Seal",
+                Material = "Low-Fired Glazed Steatite",
+                ApproximateYear = -2400,
+                Dimensions = "2.8 cm x 2.8 cm x 0.8 cm",
+                Description = "Crisply incised stamp seal depicting a majestic zebu humped bull with curved horns and dewlap folds, surmounted by five diagnostic Indus logographic glyphs.",
+                CurrentLocation = "Archaeological Site Museum, Dholavira",
+                DiscoveryContext = "Excavated from the Bailey administrative sector of the Dholavira Citadel",
+                ImageUrl = "/images/artefacts/dholavira-steatite-seal.jpg",
+                Model3DType = "seal_cube"
+            },
+
+            // --- SITE 2: LOTHAL (GUJARAT) ---
             new Artefact
             {
                 SiteId = lothal.Id,
@@ -1126,12 +1143,28 @@ public static class DatabaseSeeder
                 Material = "Glazed Steatite with Intaglio Carving",
                 ApproximateYear = -2100,
                 Dimensions = "Diameter 2.25 cm, Thickness 0.6 cm",
-                Description = "A circular steatite button seal with two jumping ibexes flanking a sun motif, diagnostic of maritime trade with Dilmun (Bahrain) and Ur in Mesopotamia.",
+                Description = "A circular steatite button seal with two jumping ibexes flanking a sun motif, diagnostic proof of direct maritime trade with Dilmun (Bahrain) and Ur in Mesopotamia.",
                 CurrentLocation = "Archaeological Museum, Lothal",
                 DiscoveryContext = "Found in the Warehouse area near the Tidal Dockyard basin (SR Rao excavation)",
                 ImageUrl = "/images/artefacts/lothal-seal.jpg",
                 Model3DType = "seal_cube"
             },
+            new Artefact
+            {
+                SiteId = lothal.Id,
+                Name = "Micro-Drilled Carnelian & Agate Bead Necklace",
+                ArtefactType = "Lapidary Luxury Jewellery",
+                Material = "Heat-Treated Banded Carnelian, Agate, and Micro-Steatite",
+                ApproximateYear = -2200,
+                Dimensions = "Necklace length 48 cm, longest bead 5.2 cm",
+                Description = "Long barrel-shaped biconical carnelian beads micro-drilled with chert Ernestite drills, the hallmark export product of Lothal's industrial lapidary bead factory.",
+                CurrentLocation = "National Museum, New Delhi",
+                DiscoveryContext = "Recovered from a ceramic jar cache inside the Lothal Bead Factory workshop",
+                ImageUrl = "/images/artefacts/lothal-carnelian-necklace.jpg",
+                Model3DType = "gold_armlet"
+            },
+
+            // --- SITE 3: RAKHIGARHI (HARYANA) ---
             new Artefact
             {
                 SiteId = rakhigarhi.Id,
@@ -1140,7 +1173,7 @@ public static class DatabaseSeeder
                 Material = "Low-fired Steatite and Banded Agate",
                 ApproximateYear = -2500,
                 Dimensions = "Seal 3.2 cm x 3.2 cm",
-                Description = "Finely carved seal showing a sacred unicorn before a standard/incense burner, accompanied by 5 Indus pictographs, alongside high-precision micro-drilled banded agate beads.",
+                Description = "Finely carved seal showing a sacred unicorn before a ritual incense burner, accompanied by 5 Indus pictographs, recovered alongside high-precision micro-drilled banded agate beads.",
                 CurrentLocation = "National Museum, New Delhi",
                 DiscoveryContext = "Found in Mound 2 residential workshop area",
                 ImageUrl = "/images/artefacts/rakhigarhi-unicorn-seal.jpg",
@@ -1148,9 +1181,25 @@ public static class DatabaseSeeder
             },
             new Artefact
             {
+                SiteId = rakhigarhi.Id,
+                Name = "Terracotta Toy Cart Frame and Wheels",
+                ArtefactType = "Diagnostic Terracotta Play & Transport Model",
+                Material = "Kiln-Fired Terracotta with Natural Ochre Slip",
+                ApproximateYear = -2400,
+                Dimensions = "Chassis Length 14 cm, Wheel Diameter 7.5 cm",
+                Description = "Articulated terracotta model cart with solid wheels and axle-holes, illustrating the vehicular technology utilized for bulk grain transport between Drishadvati farmlands and granaries.",
+                CurrentLocation = "Haryana State Archaeology Museum, Panchkula",
+                DiscoveryContext = "Excavated from Mound 1 residential sector (Deccan College expedition)",
+                ImageUrl = "/images/artefacts/rakhigarhi-terracotta-cart.jpg",
+                Model3DType = "terracotta_tablet"
+            },
+
+            // --- SITE 4: KALIBANGAN (RAJASTHAN) ---
+            new Artefact
+            {
                 SiteId = kalibangan.Id,
                 Name = "Terracotta Sacrificial Havana Cake & Fire Vessel",
-                ArtefactType = "Ritual Terracotta Cake & Cylindrical Seal",
+                ArtefactType = "Ritual Terracotta Cake & Fire Vessel",
                 Material = "Kiln-fired Terracotta with Red Slip",
                 ApproximateYear = -2400,
                 Dimensions = "Diameter 8.5 cm",
@@ -1162,10 +1211,26 @@ public static class DatabaseSeeder
             },
             new Artefact
             {
+                SiteId = kalibangan.Id,
+                Name = "Diagnostic Terracotta and Glazed Black Bangles",
+                ArtefactType = "Personal Adornment Assemblage",
+                Material = "Kiln-Fired Black-Slip Terracotta and Faience",
+                ApproximateYear = -2300,
+                Dimensions = "Diameters 5.5 cm to 7.2 cm",
+                Description = "Fragments and complete circlets of black-slipped terracotta bangles whose overwhelming abundance throughout the mound gave Kalibangan ('Black Bangles') its ancient name.",
+                CurrentLocation = "Archaeological Site Museum, Kalibangan",
+                DiscoveryContext = "Recovered in stratified abundance across KLB-1 and KLB-2 street levels",
+                ImageUrl = "/images/artefacts/kalibangan-bangles.jpg",
+                Model3DType = "gold_armlet"
+            },
+
+            // --- SITE 5: SINAULI (UTTAR PRADESH) ---
+            new Artefact
+            {
                 SiteId = sinauli.Id,
                 Name = "Royal Solid-Wheeled Bronze Age War Chariot",
                 ArtefactType = "Full-Scale Two-Wheeled War Vehicle",
-                Material = "Wood, Copper Plate Inlays, Bronze Hardware",
+                Material = "Sal Wood, Copper Plate Inlays, Bronze Hardware",
                 ApproximateYear = -1900,
                 Dimensions = "Wheel diameter 90 cm; Chassis width 120 cm",
                 Description = "Sensational discovery of a royal war chariot with solid wooden wheels adorned with embossed copper triangles and a high canopy chassis, excavated beside royal warrior burials.",
@@ -1174,6 +1239,36 @@ public static class DatabaseSeeder
                 ImageUrl = "/images/artefacts/sinauli-chariot.jpg",
                 Model3DType = "bronze_chariot"
             },
+            new Artefact
+            {
+                SiteId = sinauli.Id,
+                Name = "Copper Antennae Sword with Wire-Bound Hilt",
+                ArtefactType = "Warrior Weaponry & Martial Regalia",
+                Material = "Forged Arsenical Copper with Gold Inlay Wire",
+                ApproximateYear = -1850,
+                Dimensions = "Length 62 cm, Blade Width 4.8 cm",
+                Description = "A leaf-shaped double-edged thrusting sword terminating in two distinct curved antennae bifurcations, diagnostic of the 2nd millennium BCE Copper Hoard warrior elite.",
+                CurrentLocation = "National Museum, New Delhi",
+                DiscoveryContext = "Found placed parallel to the skeletal remains of a warrior chieftain in Burial Trench 3",
+                ImageUrl = "/images/artefacts/sinauli-antennae-sword.jpg",
+                Model3DType = "bronze_chariot"
+            },
+            new Artefact
+            {
+                SiteId = sinauli.Id,
+                Name = "Embossed Copper Warrior Helmet & Anthropomorph",
+                ArtefactType = "Ceremonial Martial Armor",
+                Material = "Sheet Copper with Embossed Chevron Repoussé",
+                ApproximateYear = -1850,
+                Dimensions = "Height 24 cm, Circumference 58 cm",
+                Description = "Rare intact copper battle helmet crafted from beaten copper sheet with leaf-shaped cheek guards and horned crest mountings, marking high-status military leadership.",
+                CurrentLocation = "Archaeological Survey of India Archive, New Delhi",
+                DiscoveryContext = "Excavated from the royal wooden sarcophagus chamber containing anthropomorphic ritual copper slabs",
+                ImageUrl = "/images/artefacts/sinauli-copper-helmet.jpg",
+                Model3DType = "bronze_chariot"
+            },
+
+            // --- SITE 6: BHIMBETKA (MADHYA PRADESH) ---
             new Artefact
             {
                 SiteId = bhimbetka.Id,
@@ -1190,6 +1285,22 @@ public static class DatabaseSeeder
             },
             new Artefact
             {
+                SiteId = bhimbetka.Id,
+                Name = "Mythical Giant Horned Boar & Fleeing Hunters Panel",
+                ArtefactType = "Mesolithic Cave Wall Narrative Fresco",
+                Material = "Mineral Hematite & Kaolin White on Quartzite Rock",
+                ApproximateYear = -7000,
+                Dimensions = "Panel width 2.8 meters, Boar Length 1.4 meters",
+                Description = "Iconic prehistoric painting depicting a colossal, supernatural boar with stylized upright bristles pursuing miniature human hunters in terror, reflecting early ritual shamanism.",
+                CurrentLocation = "In situ at Rock Shelter 15 (Boar Shelter), Bhimbetka",
+                DiscoveryContext = "Identified by Dr. V.S. Wakankar during the initial 1957 survey of the Vindhyan escarpment",
+                ImageUrl = "/images/artefacts/bhimbetka-boar-panel.jpg",
+                Model3DType = "cave_art_slab"
+            },
+
+            // --- SITE 7: PATALIPUTRA (BIHAR) ---
+            new Artefact
+            {
                 SiteId = pataliputra.Id,
                 Name = "Polished Sandstone Lion Capital of Pataliputra",
                 ArtefactType = "Monolithic Architectural Capital",
@@ -1202,6 +1313,36 @@ public static class DatabaseSeeder
                 ImageUrl = "/images/artefacts/pataliputra-capital.jpg",
                 Model3DType = "mauryan_capital"
             },
+            new Artefact
+            {
+                SiteId = pataliputra.Id,
+                Name = "The Celebrated Didarganj Yakshi",
+                ArtefactType = "Life-Sized Monolithic Fly-Whisk Bearer Sculpture",
+                Material = "Buff Chunar Sandstone with Imperial Mauryan Mirror Polish",
+                ApproximateYear = -250,
+                Dimensions = "Height 162 cm (5 ft 4 in)",
+                Description = "Unanimously hailed as one of the supreme masterpieces of Indian art, portraying a voluptuous celestial female holding a fly-whisk (chauri), executed with breathtaking anatomical precision and flawless mirror-gloss polish.",
+                CurrentLocation = "Bihar Museum, Patna",
+                DiscoveryContext = "Unearthed on the banks of the Ganges at Didarganj, Patna in October 1917",
+                ImageUrl = "/images/artefacts/pataliputra-didarganj-yakshi.jpg",
+                Model3DType = "ashokan_relief"
+            },
+            new Artefact
+            {
+                SiteId = pataliputra.Id,
+                Name = "Mauryan Imperial Silver Punch-Marked Coins (Karshapanas)",
+                ArtefactType = "State Currency Numismatic Hoard",
+                Material = "Refined Silver Alloy",
+                ApproximateYear = -280,
+                Dimensions = "1.5 cm x 1.4 cm, Weight 3.4 grams each",
+                Description = "Five-symbol royal Karshapana coins stamped with the imperial Mauryan solar symbol, six-armed wheel, crescent-on-hill, and peacock emblems, the economic engine of imperial Pataliputra.",
+                CurrentLocation = "Patna Museum, Bihar",
+                DiscoveryContext = "Recovered in a copper vessel hoard beneath the Mauryan 80-Pillared Hall at Kumrahar",
+                ImageUrl = "/images/artefacts/pataliputra-punchmarked-coins.jpg",
+                Model3DType = "terracotta_tablet"
+            },
+
+            // --- SITE 8: KEELADI (TAMIL NADU) ---
             new Artefact
             {
                 SiteId = keeladi.Id,
@@ -1218,6 +1359,22 @@ public static class DatabaseSeeder
             },
             new Artefact
             {
+                SiteId = keeladi.Id,
+                Name = "Sangam Gold Filigree Ear Ornament & Carnelian Beads",
+                ArtefactType = "Elite Gold Jewellery & Lapidary Beads",
+                Material = "High-Karat Gold Wire and Imported Gujarat Carnelian",
+                ApproximateYear = -400,
+                Dimensions = "Gold ornament diameter 1.8 cm, bead string 22 cm",
+                Description = "Exquisite granulated gold wire ear-stud and micro-drilled banded carnelian beads demonstrating elite luxury consumption and long-distance trade networks in the ancient Sangam urban center.",
+                CurrentLocation = "Keeladi On-site Heritage Museum, Tamil Nadu",
+                DiscoveryContext = "Excavated from Stratum II residential brick floor (Tamil Nadu State Archaeology Department)",
+                ImageUrl = "/images/artefacts/keeladi-gold-ornament.jpg",
+                Model3DType = "gold_armlet"
+            },
+
+            // --- SITE 9: ARIKAMEDU (PUDUCHERRY) ---
+            new Artefact
+            {
                 SiteId = arikamedu.Id,
                 Name = "Stamped Roman Mediterranean Wine Amphora",
                 ArtefactType = "Double-Handled Transport Vessel",
@@ -1230,6 +1387,22 @@ public static class DatabaseSeeder
                 ImageUrl = "/images/artefacts/arikamedu-amphora.jpg",
                 Model3DType = "pottery_amphora"
             },
+            new Artefact
+            {
+                SiteId = arikamedu.Id,
+                Name = "Roman Arretine Terra Sigillata Molded Plate",
+                ArtefactType = "High-Status Roman Tableware Ceramic",
+                Material = "Ultra-Fine Coralline Gloss Slipped Red Clay",
+                ApproximateYear = 20,
+                Dimensions = "Rim Diameter 22.4 cm, Base Diameter 11.2 cm",
+                Description = "Diagnostic Roman glossy red Arretine table plate bearing an in planta pedis potter stamp from Arezzo, Italy, proving direct dining and merchant residency at ancient Podouke.",
+                CurrentLocation = "Government Museum, Chennai",
+                DiscoveryContext = "Recovered by Sir Mortimer Wheeler in the 1945 Southern Sector stratigraphic trench",
+                ImageUrl = "/images/artefacts/arikamedu-terra-sigillata.jpg",
+                Model3DType = "terracotta_tablet"
+            },
+
+            // --- SITE 10: SANNATI & KANAGANAHALLI (KARNATAKA) ---
             new Artefact
             {
                 SiteId = sannati.Id,
@@ -1246,6 +1419,52 @@ public static class DatabaseSeeder
             },
             new Artefact
             {
+                SiteId = sannati.Id,
+                Name = "Sculptured Limestone Buddha-Pada with Astamangala",
+                ArtefactType = "Monastic Votive Footprint Relief",
+                Material = "Palnad Greenish Limestone with Carved Bas-Relief",
+                ApproximateYear = -150,
+                Dimensions = "Length 65 cm, Width 55 cm, Thickness 14 cm",
+                Description = "Sacred aniconic footprint stone of the Buddha decorated with the central Dharmachakra wheel, triratna, svastika, and auspicious astamangala symbols from the stupa pradakshinapatha.",
+                CurrentLocation = "Kanaganahalli Site Museum, Karnataka",
+                DiscoveryContext = "Excavated at the western ayaka platform of the Kanaganahalli Great Stupa",
+                ImageUrl = "/images/artefacts/sannati-buddha-pada.jpg",
+                Model3DType = "ashokan_relief"
+            },
+
+            // --- SITE 11: SURKOTADA (GUJARAT) ---
+            new Artefact
+            {
+                SiteId = surkotada.Id,
+                Name = "Harappan Cast Copper Celt & Flat Chisel",
+                ArtefactType = "Metallurgical Woodworking & Masonry Tool",
+                Material = "Cast Arsenical Copper / Bronze Alloy",
+                ApproximateYear = -2100,
+                Dimensions = "Length 14.2 cm, Cutting Edge 7.5 cm",
+                Description = "Heavy cast copper celt with a splayed working edge and flat butt, utilized by Harappan stone masons for dressing rubblestone fortification ramparts.",
+                CurrentLocation = "Archaeological Survey of India Collection, Vadodara",
+                DiscoveryContext = "Excavated from Period IB occupational stratum inside the Citadel barracks",
+                ImageUrl = "/images/artefacts/surkotada-copper-celt.jpg",
+                Model3DType = "bronze_chariot"
+            },
+            new Artefact
+            {
+                SiteId = surkotada.Id,
+                Name = "Polychrome Painted Harappan Ceramic Urn",
+                ArtefactType = "Slip-Painted Terracotta Storage Vessel",
+                Material = "Wheel-Thrown Fired Silt Clay with Red Slip & Black Pigment",
+                ApproximateYear = -2200,
+                Dimensions = "Height 34 cm, Rim Diameter 18 cm",
+                Description = "Diagnostic globular ceramic urn adorned with painted intersecting circles, pipal leaves, and stylized peacocks characteristic of Gujarat Mature Harappan pottery.",
+                CurrentLocation = "National Museum, New Delhi",
+                DiscoveryContext = "Found in situ within a residential room in the Surkotada Lower Town (J.P. Joshi excavation)",
+                ImageUrl = "/images/artefacts/surkotada-painted-pottery.jpg",
+                Model3DType = "pottery_amphora"
+            },
+
+            // --- SITE 12: INAMGAON (MAHARASHTRA) ---
+            new Artefact
+            {
                 SiteId = inamgaon.Id,
                 Name = "Chalcolithic Clay Mother Goddess Figurine",
                 ArtefactType = "Ritual Terracotta Anthropomorphic Figurine",
@@ -1258,6 +1477,22 @@ public static class DatabaseSeeder
                 ImageUrl = "/images/artefacts/inamgaon-goddess.jpg",
                 Model3DType = "terracotta_goddess"
             },
+            new Artefact
+            {
+                SiteId = inamgaon.Id,
+                Name = "Jorwe Culture Painted Red Ware Spouted Vessel",
+                ArtefactType = "Diagnostic Chalcolithic Ceramic Vessel",
+                Material = "Fine Well-Levigated Clay with Red Slip and Black Geometric Painting",
+                ApproximateYear = -1200,
+                Dimensions = "Height 21 cm, Diameter 16 cm",
+                Description = "Characteristic spouted red ware vessel with tubular spout and painted carination showing stylized deer and geometric zigzags, hallmarks of the Deccan Chalcolithic Jorwe culture.",
+                CurrentLocation = "Deccan College Museum, Pune",
+                DiscoveryContext = "Excavated from House 38 near the hydraulic diversion dam (Dhavalikar & Sankalia)",
+                ImageUrl = "/images/artefacts/inamgaon-pottery.jpg",
+                Model3DType = "pottery_amphora"
+            },
+
+            // --- SITE 13: MOHENJO-DARO (PAKISTAN) ---
             new Artefact
             {
                 SiteId = mohenjodaro.Id,
@@ -1274,18 +1509,240 @@ public static class DatabaseSeeder
             },
             new Artefact
             {
+                SiteId = mohenjodaro.Id,
+                Name = "The Celebrated Priest-King of Mohenjo-daro",
+                ArtefactType = "Carved Soapstone / Steatite Bust",
+                Material = "Glazed Steatite with Traces of Red Pigment",
+                ApproximateYear = -2200,
+                Dimensions = "Height 17.5 cm, Width 11 cm",
+                Description = "The iconic seated patriarchal figure wearing a fillet headband with circular jewel, armlet, and a mantle draped over the left shoulder decorated with trefoil cloverleaf motifs.",
+                CurrentLocation = "National Museum of Pakistan, Karachi",
+                DiscoveryContext = "Excavated by Sir John Marshall's team in the DK Area of Mohenjo-daro (1927)",
+                ImageUrl = "/images/artefacts/priest-king.jpg",
+                Model3DType = "ashokan_relief"
+            },
+            new Artefact
+            {
+                SiteId = mohenjodaro.Id,
+                Name = "The Pashupati / Proto-Shiva Intaglio Seal",
+                ArtefactType = "Square Steatite Stamp Seal",
+                Material = "Fine-Grained Pyramidal Steatite",
+                ApproximateYear = -2350,
+                Dimensions = "3.4 cm x 3.4 cm x 0.8 cm",
+                Description = "Masterwork seal depicting a horned three-faced figure seated in a yogic asana posture, surrounded by an elephant, tiger, rhinoceros, water buffalo, and two deer beneath the stool.",
+                CurrentLocation = "National Museum, New Delhi",
+                DiscoveryContext = "Discovered by Ernest Mackay in Block 1, Section DK-G of Mohenjo-daro",
+                ImageUrl = "/images/artefacts/pashupati-seal.jpg",
+                Model3DType = "seal_cube"
+            },
+
+            // --- SITE 14: HARAPPA (PAKISTAN) ---
+            new Artefact
+            {
+                SiteId = harappa.Id,
+                Name = "Red Jasper Polished Male Torso",
+                ArtefactType = "Carved Stone Statuette",
+                Material = "Finely Polished Red Sandstone / Jasper",
+                ApproximateYear = -2300,
+                Dimensions = "Height 9.3 cm, Width 5.8 cm",
+                Description = "Peerless masterpiece of Bronze Age naturalistic anatomical carving excavated at Harappa Mound F, featuring socket drill holes on shoulders and neck for attaching articulated head and arms.",
+                CurrentLocation = "National Museum, New Delhi",
+                DiscoveryContext = "Excavated by Madho Sarup Vats in 1928-29 at Harappa Mound F (Stratum III)",
+                ImageUrl = "/images/artefacts/harappa-red-jasper-torso.jpg",
+                Model3DType = "ashokan_relief"
+            },
+            new Artefact
+            {
+                SiteId = harappa.Id,
+                Name = "Cemetery H Painted Funerary Urn with Peacock Motif",
+                ArtefactType = "Cinerary Urn with Post-Urban Iconography",
+                Material = "Fine Red Ware with Deep Black Slip Painting",
+                ApproximateYear = -1800,
+                Dimensions = "Height 46 cm, Diameter 38 cm",
+                Description = "Diagnostic Late Harappan cinerary urn decorated with flying peacocks carrying soul-effigies within their bellies, bull horns, and celestial stars reflecting transformed eschatology.",
+                CurrentLocation = "National Museum, New Delhi",
+                DiscoveryContext = "Excavated from Cemetery H Stratum I urn burials at Harappa",
+                ImageUrl = "/images/artefacts/harappa-cemetery-h-pot.jpg",
+                Model3DType = "pottery_amphora"
+            },
+
+            // --- SITE 15: UR (IRAQ) ---
+            new Artefact
+            {
                 SiteId = ur.Id,
                 Name = "Standard of Ur",
-                ArtefactType = "Hollow Wooden Box Mosaic",
+                ArtefactType = "Hollow Wooden Box Narrative Mosaic",
                 Material = "Lapis Lazuli, Red Limestone, and Shell set in Bitumen",
                 ApproximateYear = -2600,
                 Dimensions = "Length 49.5 cm, Height 21.5 cm",
-                Description = "Dual-sided narrative mosaic box depicting 'War' and 'Peace'. Shows chariot warfare, prisoners, feast banquets, and trade tribute.",
+                Description = "Dual-sided narrative mosaic box depicting 'War' and 'Peace'. Shows four-wheeled onager war chariots, bound prisoners, a royal banquet, and long-distance luxury tribute.",
                 CurrentLocation = "The British Museum, London",
-                DiscoveryContext = "Found in the Royal Cemetery of Ur, tomb PG 779",
+                DiscoveryContext = "Found in the Royal Cemetery of Ur, tomb PG 779 by Sir Leonard Woolley",
                 ImageUrl = "/images/artefacts/standard-of-ur.jpg",
                 Model3DType = "cuneiform_tablet"
             },
+            new Artefact
+            {
+                SiteId = ur.Id,
+                Name = "The Ram in a Thicket",
+                ArtefactType = "Composite Religious Offering Stand",
+                Material = "Hammered Gold, Silver, Lapis Lazuli, Shell, and Red Limestone over Wood",
+                ApproximateYear = -2500,
+                Dimensions = "Height 45.7 cm, Width 30.5 cm",
+                Description = "Spectacular composite sculpture depicting a rampant goat upright against a blossoming golden tree, emblematic of Sumerian fertility rites and the deity Dumuzi.",
+                CurrentLocation = "The British Museum, London",
+                DiscoveryContext = "Found crushed together in the 'Great Death Pit' (PG 1237) of the Royal Cemetery of Ur",
+                ImageUrl = "/images/artefacts/ur-ram-in-a-thicket.jpg",
+                Model3DType = "gold_armlet"
+            },
+            new Artefact
+            {
+                SiteId = ur.Id,
+                Name = "Golden Floral Headdress of Queen Puabi",
+                ArtefactType = "Royal Gold & Gemstone Mortuary Regalia",
+                Material = "Pure Beaten Gold, Lapis Lazuli, and Banded Carnelian",
+                ApproximateYear = -2500,
+                Dimensions = "Headdress height 38 cm, Choker Length 32 cm",
+                Description = "Intricate royal regalia comprised of delicate golden beech leaves, weeping willow ribbons, a magnificent seven-pointed gold flower comb, and lapis lazuli choker beads.",
+                CurrentLocation = "Penn Museum, Philadelphia",
+                DiscoveryContext = "Recovered in situ directly on the skull of Queen Puabi in intact vaulted tomb PG 800",
+                ImageUrl = "/images/artefacts/ur-queen-puabi-headdress.jpg",
+                Model3DType = "gold_armlet"
+            },
+
+            // --- SITE 16: GIZA NECROPOLIS (EGYPT) ---
+            new Artefact
+            {
+                SiteId = giza.Id,
+                Name = "Khufu Royal Cedarwood Solar Barque Ship",
+                ArtefactType = "Full-Sized Royal Funerary Vessel",
+                Material = "Lebanese Cedar (Cedrus libani) and Cordage Rigging",
+                ApproximateYear = -2560,
+                Dimensions = "Length 43.4 meters, Beam Width 5.9 meters",
+                Description = "The oldest intact royal ship in world archaeology, buried in 1,224 dismantled pieces inside a sealed limestone rock-cut pit at the foot of the Great Pyramid for Khufu's celestial voyage with Ra.",
+                CurrentLocation = "Grand Egyptian Museum, Giza",
+                DiscoveryContext = "Discovered in 1954 hermetically sealed beneath 41 limestone blocks south of the Great Pyramid",
+                ImageUrl = "/images/artefacts/giza-khufu-solar-boat.jpg",
+                Model3DType = "bronze_chariot"
+            },
+            new Artefact
+            {
+                SiteId = giza.Id,
+                Name = "Diorite Statue of King Khafre Enthroned",
+                ArtefactType = "Monumental Royal Diorite Sculpture",
+                Material = "Rare Dark Diorite-Gneiss with Translucent Veins",
+                ApproximateYear = -2520,
+                Dimensions = "Height 168 cm, Width 57 cm",
+                Description = "Masterpiece of Old Kingdom royal power portraying pharaoh Khafre seated on a lion-throne; behind his headdress, the celestial falcon god Horus envelops the king's neck with protective wings.",
+                CurrentLocation = "The Egyptian Museum, Cairo",
+                DiscoveryContext = "Found by Auguste Mariette in 1860 inside the well of Khafre's Valley Temple at Giza",
+                ImageUrl = "/images/artefacts/giza-khafre-enthroned.jpg",
+                Model3DType = "ashokan_relief"
+            },
+            new Artefact
+            {
+                SiteId = giza.Id,
+                Name = "Graywacke Triad of King Menkaure with Hathor",
+                ArtefactType = "High-Relief Royal Divine Triad",
+                Material = "Polished Fine-Grained Graywacke / Schist",
+                ApproximateYear = -2490,
+                Dimensions = "Height 95.5 cm, Width 48 cm",
+                Description = "Exquisite high-relief carving depicting King Menkaure wearing the White Crown of Upper Egypt, holding hands with the goddess Hathor and the local Nome deity.",
+                CurrentLocation = "Museum of Fine Arts, Boston",
+                DiscoveryContext = "Excavated by George Reisner in 1908 inside the Menkaure Valley Temple at Giza",
+                ImageUrl = "/images/artefacts/giza-triad-menkaure.jpg",
+                Model3DType = "ashokan_relief"
+            },
+
+            // --- SITE 17: KNOSSOS (GREECE) ---
+            new Artefact
+            {
+                SiteId = knossos.Id,
+                Name = "Minoan Faience Snake Goddess Figurine",
+                ArtefactType = "Votive Palatial Cult Figurine",
+                Material = "Glazed Polychrome Faience",
+                ApproximateYear = -1600,
+                Dimensions = "Height 34.2 cm",
+                Description = "Iconic statuette of a Minoan priestess or deity wearing a flounced tiered skirt, tightly laced bodice exposing breasts, and brandishing writhing snakes in both outstretched hands.",
+                CurrentLocation = "Heraklion Archaeological Museum, Crete",
+                DiscoveryContext = "Excavated by Sir Arthur Evans in 1903 from the stone Temple Repositories in the West Wing",
+                ImageUrl = "/images/artefacts/knossos-snake-goddess.jpg",
+                Model3DType = "terracotta_goddess"
+            },
+            new Artefact
+            {
+                SiteId = knossos.Id,
+                Name = "Bull-Leaping Palace Wall Fresco",
+                ArtefactType = "Palatial Polychrome Lime Plaster Fresco",
+                Material = "Wet Lime Plaster (Buon Fresco) with Mineral Pigments",
+                ApproximateYear = -1450,
+                Dimensions = "Height 80 cm, Length 140 cm",
+                Description = "Vivid palatial fresco depicting the acrobatic Minoan ritual of taurokathapsia: an athlete somersaulting over the back of a galloping bull flanked by two female attendants.",
+                CurrentLocation = "Heraklion Archaeological Museum, Crete",
+                DiscoveryContext = "Excavated from the upper court wall debris in the East Wing of the Palace of Knossos",
+                ImageUrl = "/images/artefacts/knossos-bull-leaping-fresco.jpg",
+                Model3DType = "cave_art_slab"
+            },
+            new Artefact
+            {
+                SiteId = knossos.Id,
+                Name = "Monumental Ceramic Pithos Storage Oil Jars",
+                ArtefactType = "Palatial Bulk Oil & Wine Storage Vessel",
+                Material = "Heavy Kiln-Fired Coarse Terracotta with Rope Relief",
+                ApproximateYear = -1550,
+                Dimensions = "Height 180 cm, Capacity approx. 500 liters each",
+                Description = "Colossal storage jars decorated with raised rope-work designs and multiple suspension handles, lining the West Magazines to store thousands of liters of olive oil and wine.",
+                CurrentLocation = "In situ at the West Magazines, Palace of Knossos",
+                DiscoveryContext = "Uncovered along the corridors of the West Magazines during Sir Arthur Evans's initial excavations",
+                ImageUrl = "/images/artefacts/knossos-pithoi-jar.jpg",
+                Model3DType = "pottery_amphora"
+            },
+
+            // --- SITE 18: POMPEII (ITALY) ---
+            new Artefact
+            {
+                SiteId = pompeii.Id,
+                Name = "The Pompeii Indian Ivory Statuette of Lakshmi / Yakshi",
+                ArtefactType = "Carved Elephant Ivory Statuette",
+                Material = "Indian Elephant Ivory with Intricate Bas-Relief",
+                ApproximateYear = 50,
+                Dimensions = "Height 25 cm",
+                Description = "Sensational proof of direct maritime commerce between ancient India and the Roman Empire: an Indian ivory statuette of a female deity/yakshi discovered in Pompeii, buried by Vesuvius in 79 CE.",
+                CurrentLocation = "National Archaeological Museum of Naples (MANN)",
+                DiscoveryContext = "Unearthed in October 1938 inside a wooden jewel box in the Casa dei Quattro Stili (Regio I, Insula 8)",
+                ImageUrl = "/images/artefacts/pompeii-lakshmi.jpg",
+                Model3DType = "ashokan_relief"
+            },
+            new Artefact
+            {
+                SiteId = pompeii.Id,
+                Name = "The Alexander Mosaic from the House of the Faun",
+                ArtefactType = "Monumental Opus Vermiculatum Floor Mosaic",
+                Material = "Over 1.5 million hand-cut polychrome stone and glass tesserae",
+                ApproximateYear = -100,
+                Dimensions = "5.82 meters x 3.13 meters",
+                Description = "World-famous masterpiece depicting the climactic Battle of Issus (333 BCE) between Alexander the Great mounted on Bucephalus and Persian King Darius III in his royal chariot.",
+                CurrentLocation = "National Archaeological Museum of Naples (MANN)",
+                DiscoveryContext = "Excavated in 1831 in the exedra room between the peristyles of the House of the Faun",
+                ImageUrl = "/images/artefacts/pompeii-alexander-mosaic.jpg",
+                Model3DType = "cave_art_slab"
+            },
+            new Artefact
+            {
+                SiteId = pompeii.Id,
+                Name = "Fresco Portrait of a Young Woman with Stylus ('Sappho')",
+                ArtefactType = "Domestic Wall Fresco (Fourth Pompeian Style)",
+                Material = "Polychrome Pigments on Smooth Hydraulic Lime Plaster",
+                ApproximateYear = 55,
+                Dimensions = "Diameter 37 cm",
+                Description = "Iconic tondo fresco depicting an educated upper-class Roman woman holding a four-leaf wax tablet (polyptych) and pressing a bronze stylus against her lips in thoughtful contemplation.",
+                CurrentLocation = "National Archaeological Museum of Naples (MANN)",
+                DiscoveryContext = "Excavated in June 1760 from Regio VI, Insula 17 at Pompeii",
+                ImageUrl = "/images/artefacts/pompeii-fresco-sappho.jpg",
+                Model3DType = "cave_art_slab"
+            },
+
+            // --- SITE 19: PYRAMIDS OF MEROË (SUDAN) ---
             new Artefact
             {
                 SiteId = meroe.Id,
@@ -1302,6 +1759,22 @@ public static class DatabaseSeeder
             },
             new Artefact
             {
+                SiteId = meroe.Id,
+                Name = "Meroë Bronze Head of Roman Emperor Augustus",
+                ArtefactType = "Cast Bronze Imperial Portrait",
+                Material = "Hollow-Cast Bronze with Alabaster and Glass Eyes",
+                ApproximateYear = -25,
+                Dimensions = "Height 46.2 cm, Weight 16.5 kg",
+                Description = "Looted by Kushite armies during Queen Amanirenas's raid on Roman Upper Egypt in 24 BCE and buried deliberately beneath the steps of a victory temple in Meroë so worshippers trampled Caesar's face.",
+                CurrentLocation = "The British Museum, London",
+                DiscoveryContext = "Excavated in 1910 by John Garstang beneath the entryway steps of Temple M292 at Meroë",
+                ImageUrl = "/images/artefacts/meroe-head-augustus.jpg",
+                Model3DType = "ashokan_relief"
+            },
+
+            // --- SITE 20: PETRA (JORDAN) ---
+            new Artefact
+            {
                 SiteId = petra.Id,
                 Name = "Nabataean Painted Fine Ware Bowl",
                 ArtefactType = "Eggshell-Thin Painted Ceramic",
@@ -1314,6 +1787,22 @@ public static class DatabaseSeeder
                 ImageUrl = "/images/artefacts/petra-bowl.jpg",
                 Model3DType = "sangam_potsherd"
             },
+            new Artefact
+            {
+                SiteId = petra.Id,
+                Name = "Sandstone Eye Idol of Goddess Atargatis / Al-Uzza",
+                ArtefactType = "Aniconic Cult Stele (Betyl)",
+                Material = "Local Rose Sandstone with Carved Facial Features",
+                ApproximateYear = 20,
+                Dimensions = "Height 38 cm, Width 22 cm, Thickness 8 cm",
+                Description = "Distinctive Nabataean aniconic rectangular stele featuring large stylized geometric eyes and nose representing the supreme Arabian goddess Al-Uzza or Atargatis.",
+                CurrentLocation = "Petra Archaeological Museum, Jordan",
+                DiscoveryContext = "Recovered from the Temple of the Winged Lions on the northern ridge of Petra",
+                ImageUrl = "/images/artefacts/petra-eye-idol.jpg",
+                Model3DType = "stone_stele"
+            },
+
+            // --- SITE 21: MACHU PICCHU (PERU) ---
             new Artefact
             {
                 SiteId = machuPicchu.Id,
@@ -1330,6 +1819,36 @@ public static class DatabaseSeeder
             },
             new Artefact
             {
+                SiteId = machuPicchu.Id,
+                Name = "Classic Inca Polychrome Geometric Aryballos Ceramic Jar",
+                ArtefactType = "Imperial Chicha Fermentation Vessel",
+                Material = "Fine Andean Clay with Red, Black, and Ochre Mineral Slip",
+                ApproximateYear = 1480,
+                Dimensions = "Height 48 cm, Diameter 32 cm",
+                Description = "Conical-based transport amphora adorned with geometric fern patterns and a jaguar-head lug handle, engineered to be carried across mountain trails with a back-strap.",
+                CurrentLocation = "Museo Machu Picchu Casa Concha, Cusco",
+                DiscoveryContext = "Excavated from the residential sector of the Inca nobility by Hiram Bingham's Yale expedition",
+                ImageUrl = "/images/artefacts/machu-picchu-aryballos.jpg",
+                Model3DType = "pottery_amphora"
+            },
+            new Artefact
+            {
+                SiteId = machuPicchu.Id,
+                Name = "Inca Dyed Knotted Cotton Cord Quipu Record",
+                ArtefactType = "Tawantinsuyu Decimal Accounting Device",
+                Material = "Spun and Pled Cotton and Alpaca Fiber with Vegetable Dyes",
+                ApproximateYear = 1500,
+                Dimensions = "Main cord length 65 cm, Pendant cords 45 cm",
+                Description = "A primary administrative instrument using color-coded cords and clustered decimal knots to record tribute, granary stores, and population censuses across the Inca Empire.",
+                CurrentLocation = "Museo Larco, Lima, Peru",
+                DiscoveryContext = "Found sealed inside a stone niche in the Royal Estate administrative sector",
+                ImageUrl = "/images/artefacts/machu-picchu-quipu.jpg",
+                Model3DType = "gold_armlet"
+            },
+
+            // --- SITE 22: STONEHENGE & AVEBURY (UNITED KINGDOM) ---
+            new Artefact
+            {
                 SiteId = stonehenge.Id,
                 Name = "Bush Barrow Gold Lozenge",
                 ArtefactType = "Ceremonial Hammered Gold Breastplate",
@@ -1344,18 +1863,64 @@ public static class DatabaseSeeder
             },
             new Artefact
             {
-                SiteId = angkorWat.Id,
-                Name = "Khmer Bronze Avalokiteshvara with Silver Eyes",
-                ArtefactType = "Lost-Wax Cast Bronze Icon",
-                Material = "Bronze with Inlaid Silver Eyes",
-                ApproximateYear = 1150,
-                Dimensions = "Height 42 cm, Width 18 cm",
-                Description = "Graceful eight-armed deity embodying compassion, wearing an intricate cylindrical sampot and jatamukuta headdress bearing Amitabha Buddha.",
-                CurrentLocation = "National Museum of Cambodia, Phnom Penh",
-                DiscoveryContext = "Discovered during gallery clearance near the Northern Library",
-                ImageUrl = "/images/artefacts/angkor-wat-avalokiteshvara.jpg",
-                Model3DType = "dancing_girl_bronze"
+                SiteId = stonehenge.Id,
+                Name = "Red Deer Antler Excavation Pick from Ditch Strata",
+                ArtefactType = "Neolithic Earthworking Megalithic Tool",
+                Material = "Red Deer (Cervus elaphus) Antler Tine",
+                ApproximateYear = -3000,
+                Dimensions = "Length 52 cm",
+                Description = "Diagnostic Neolithic bone tool with battered tines used to dig the circular ditch and chalk banks of Stonehenge Phase 1; prime organic source for high-precision radiocarbon dating.",
+                CurrentLocation = "Salisbury Museum, Wiltshire",
+                DiscoveryContext = "Recovered directly from the primary chalk silt at the bottom of the Stonehenge outer ditch",
+                ImageUrl = "/images/artefacts/stonehenge-antler-pick.jpg",
+                Model3DType = "terracotta_tablet"
             },
+
+            // --- SITE 23: ANGKOR WAT (CAMBODIA) ---
+            new Artefact
+            {
+                SiteId = angkorWat.Id,
+                Name = "Stone Portrait Head of King Jayavarman VII (Bayon Style)",
+                ArtefactType = "Sandstone Sculptural Portrait",
+                Material = "Carved Fine-Grained Greenish-Grey Sandstone",
+                ApproximateYear = 1190,
+                Dimensions = "Height 42 cm, Width 26 cm",
+                Description = "Diagnostic Late Angkorian masterpiece from the National Museum of Cambodia portraying the great Buddhist monarch Jayavarman VII with serene half-closed meditative eyes, smiling lips, and coiled hair ushnisha.",
+                CurrentLocation = "National Museum of Cambodia, Phnom Penh",
+                DiscoveryContext = "Recovered from the Angkor royal enclosure during archaeological clearance",
+                ImageUrl = "/images/artefacts/angkor-wat-avalokiteshvara.jpg",
+                Model3DType = "ashokan_relief"
+            },
+            new Artefact
+            {
+                SiteId = angkorWat.Id,
+                Name = "Bas-Relief of the Churning of the Ocean of Milk",
+                ArtefactType = "Continuous Monolithic Wall Bas-Relief",
+                Material = "Phnom Kulen Fine Sandstone",
+                ApproximateYear = 1140,
+                Dimensions = "Panel Length 49 meters, Height 2.2 meters",
+                Description = "The monumental east gallery relief depicting 88 Asuras and 92 Devas churning the cosmic milk ocean using the serpent Vasuki wrapped around Mount Mandara, overseen by four-armed Vishnu.",
+                CurrentLocation = "In situ on the third enclosure eastern gallery wall of Angkor Wat",
+                DiscoveryContext = "Commissioned by King Suryavarman II as the theological centerpiece of Angkor Wat",
+                ImageUrl = "/images/artefacts/angkor-wat-churning-milk.jpg",
+                Model3DType = "ashokan_relief"
+            },
+            new Artefact
+            {
+                SiteId = angkorWat.Id,
+                Name = "Historic Relief of King Suryavarman II in Royal Procession",
+                ArtefactType = "Imperial Historical Stone Relief",
+                Material = "Carved Sandstone",
+                ApproximateYear = 1135,
+                Dimensions = "Height 2.0 meters, Width 3.5 meters",
+                Description = "Splendid relief depicting King Suryavarman II seated under fifteen royal parasols and peacock feather fans holding the royal battle-axe, commanding his army.",
+                CurrentLocation = "In situ at the South Gallery western wing, Angkor Wat",
+                DiscoveryContext = "Identified by Henri Mouhot during his 1860 documentation of Angkor Wat's bas-relief series",
+                ImageUrl = "/images/artefacts/angkor-wat-suryavarman.jpg",
+                Model3DType = "ashokan_relief"
+            },
+
+            // --- SITE 24: COLOSSEUM & ROMAN FORUM (ITALY) ---
             new Artefact
             {
                 SiteId = colosseum.Id,
@@ -1369,11 +1934,25 @@ public static class DatabaseSeeder
                 DiscoveryContext = "Excavated from the gladiator barracks (Ludus Magnus) adjacent to the Colosseum",
                 ImageUrl = "/images/artefacts/gladiator-helmet.jpg",
                 Model3DType = "bronze_chariot"
+            },
+            new Artefact
+            {
+                SiteId = colosseum.Id,
+                Name = "Bronze Sestertius of Emperor Titus Depicting the Colosseum",
+                ArtefactType = "Imperial Commemorative Coinage",
+                Material = "Struck Orichalcum / Bronze",
+                ApproximateYear = 80,
+                Dimensions = "Diameter 34.5 mm, Weight 24.8 grams",
+                Description = "Celebrated imperial coin struck in 80 CE to commemorate the grand opening games of the Amphitheatrum Flavium, showing the tiered exterior arcades filled with statues, packed spectators, and the Meta Sudans fountain.",
+                CurrentLocation = "British Museum, London & Capitoline Museums, Rome",
+                DiscoveryContext = "Excavated from the Flavian destruction horizon in the Roman Forum",
+                ImageUrl = "/images/artefacts/colosseum-sestertius.jpg",
+                Model3DType = "terracotta_tablet"
             }
         );
 
         // ==========================================
-        // 8. EXCAVATIONS & STRATIGRAPHY
+        // 8. EXCAVATIONS & STRATIGRAPHY (WHEELER-BOX MATRICES)
         // ==========================================
         var excDholavira = new Excavation
         {
@@ -1383,7 +1962,7 @@ public static class DatabaseSeeder
             StartYear = 1990,
             EndYear = 2005,
             Organization = "Archaeological Survey of India (Excavation Branch V)",
-            Summary = "Fifteen seasons of excavations revealing 7 continuous cultural stages from pre-Harappan formative settlement through mature planning to post-urban decline."
+            Summary = "Fifteen seasons of deep soundings uncovering 7 continuous cultural stages from pre-Harappan formative settlement through mature planning to post-urban decline."
         };
 
         var excKeeladi = new Excavation
@@ -1397,80 +1976,333 @@ public static class DatabaseSeeder
             Summary = "Multi-phase deep soundings uncovering 6th century BCE urban layers, brick channels, ring wells, and literate Sangam society."
         };
 
-        context.Excavations.AddRange(excDholavira, excKeeladi);
+        var excHarappa = new Excavation
+        {
+            SiteId = harappa.Id,
+            ExpeditionName = "Harappa Archaeological Research Project (HARP)",
+            LeadArchaeologist = "Dr. Jonathan Mark Kenoyer & Dr. Richard H. Meadow",
+            StartYear = 1986,
+            EndYear = 2010,
+            Organization = "University of Wisconsin-Madison & Department of Archaeology, Pakistan",
+            Summary = "Modern multidisciplinary stratigraphic excavation using micro-morphology, paleobotany, and AMS dating to establish the five-period chronological sequence of the Indus tradition."
+        };
+
+        var excMohenjo = new Excavation
+        {
+            SiteId = mohenjodaro.Id,
+            ExpeditionName = "Mohenjo-daro Deep Sounding & Urban Survey Expeditions",
+            LeadArchaeologist = "Sir John Marshall, Ernest Mackay & Sir Mortimer Wheeler",
+            StartYear = 1922,
+            EndYear = 1965,
+            Organization = "Archaeological Survey of India & UNESCO International Campaign",
+            Summary = "Monumental clearances uncovering the Citadel platform, Great Bath, HR and DK domestic quarters, and deep soundings reaching waterlogged basal layers."
+        };
+
+        var excLothal = new Excavation
+        {
+            SiteId = lothal.Id,
+            ExpeditionName = "Lothal Maritime Settlement Excavations",
+            LeadArchaeologist = "Dr. Shikaripura Ranganatha Rao",
+            StartYear = 1955,
+            EndYear = 1962,
+            Organization = "Archaeological Survey of India",
+            Summary = "Seven excavation seasons revealing the baked-brick tidal dockyard, warehouse acropolis, and micro-bead lapidary industrial factory."
+        };
+
+        var excPompeii = new Excavation
+        {
+            SiteId = pompeii.Id,
+            ExpeditionName = "Pompeii Stratigraphic & Volcanic Tephra Project",
+            LeadArchaeologist = "Dr. Amedeo Maiuri & Soprintendenza Archeologica di Pompei",
+            StartYear = 1924,
+            EndYear = 2026,
+            Organization = "Parco Archeologico di Pompei & University Consortia",
+            Summary = "Systematic excavations of the 79 CE pyroclastic surge horizons, insulae domestic architecture, and pre-Roman Samnite stratigraphic sequences."
+        };
+
+        var excKnossos = new Excavation
+        {
+            SiteId = knossos.Id,
+            ExpeditionName = "Palace of Minos Stratigraphic Exploration",
+            LeadArchaeologist = "Sir Arthur Evans & British School at Athens",
+            StartYear = 1900,
+            EndYear = 1935,
+            Organization = "British School at Athens",
+            Summary = "Excavations establishing the tripartite Minoan chronological framework (Early, Middle, Late Minoan) based on ceramic seriation and palatial architectural horizons."
+        };
+
+        var excUr = new Excavation
+        {
+            SiteId = ur.Id,
+            ExpeditionName = "Ur of the Chaldees Joint Expedition",
+            LeadArchaeologist = "Sir C. Leonard Woolley",
+            StartYear = 1922,
+            EndYear = 1934,
+            Organization = "British Museum & University of Pennsylvania Museum",
+            Summary = "Twelve landmark seasons uncovering the Ziggurat complex, 1,800 graves in the Royal Cemetery, and the deep 'Flood Stratum' silt."
+        };
+
+        context.Excavations.AddRange(excDholavira, excKeeladi, excHarappa, excMohenjo, excLothal, excPompeii, excKnossos, excUr);
         await context.SaveChangesAsync();
 
+        // --- Stratigraphic Layers ---
+        // Dholavira Strata
         var layerD1 = new ExcavationLayer
         {
             ExcavationId = excDholavira.Id,
             LayerNumber = 1,
             LayerName = "Stage VII: Late Post-Urban Encampment",
             DepthMeters = 0.6,
-            SoilComposition = "Loose wind-blown sand, aeolian deposit and crumbling rubble",
+            SoilComposition = "10YR 7/3 (Very Pale Brown) loose wind-blown sand, aeolian deposit and crumbling rubble",
             EstimatedStartYear = -1650,
             EstimatedEndYear = -1500,
             CulturalAffiliation = "Late Harappan (Jhukar-like ceramic affinity)",
-            Description = "Impoverished sub-urban circular stone hut structures without urban drainage or writing."
+            Description = "Impoverished sub-urban circular stone hut structures without urban drainage, weights, or writing."
         };
-
         var layerD2 = new ExcavationLayer
         {
             ExcavationId = excDholavira.Id,
             LayerNumber = 2,
             LayerName = "Stage IV-V: Peak Mature Harappan Urban Horizon",
             DepthMeters = 2.4,
-            SoilComposition = "Dense compacted occupational floor with burnt lime plaster and paved brick",
+            SoilComposition = "10YR 5/4 (Yellowish Brown) dense compacted occupational floor with burnt lime plaster and paved brick",
             EstimatedStartYear = -2500,
             EstimatedEndYear = -2000,
             CulturalAffiliation = "Mature Harappan (Classic Indus)",
             Description = "Apex of architectural monumentalism: tripartite stone citadel walls, rock-cut reservoirs, standardized Indus seals, weights, and the monumental Signboard."
         };
-
         var layerD3 = new ExcavationLayer
         {
             ExcavationId = excDholavira.Id,
             LayerNumber = 3,
             LayerName = "Stage I: Early Pre-Harappan Settlement",
             DepthMeters = 6.8,
-            SoilComposition = "Virgin weathered bedrock overlain with sterile riverine silt and non-Harappan red slip pottery",
+            SoilComposition = "7.5YR 4/4 (Brown) sterile weathered bedrock overlain with riverine silt and non-Harappan red slip pottery",
             EstimatedStartYear = -3000,
             EstimatedEndYear = -2600,
             CulturalAffiliation = "Early Pre-Harappan",
             Description = "First stone and mudbrick fortification walls built directly over bed-rock; wheel-made bichrome and monochrome pottery."
         };
 
+        // Keeladi Strata
         var layerK1 = new ExcavationLayer
         {
             ExcavationId = excKeeladi.Id,
             LayerNumber = 1,
             LayerName = "Stratum IV: Early Historic Sangam Horizon (AMS 580 BCE)",
             DepthMeters = 2.8,
-            SoilComposition = "Compacted dark alluvial clay with burnt brick fragments, charcoal nodules, and pot sherds",
+            SoilComposition = "10YR 3/2 (Very Dark Grayish Brown) compacted dark alluvial clay with burnt brick fragments, charcoal nodules, and pot sherds",
             EstimatedStartYear = -600,
             EstimatedEndYear = -300,
             CulturalAffiliation = "Early Sangam (Old Tamil / Tamil-Brahmi)",
             Description = "Continuous occupational stratum yielding Tamil-Brahmi inscribed Black-and-Red ware potsherds, ring wells, and lapidary carnelian bead debitage."
         };
+        var layerK2 = new ExcavationLayer
+        {
+            ExcavationId = excKeeladi.Id,
+            LayerNumber = 2,
+            LayerName = "Stratum II: Industrial Weaving & Roman Commerce Horizon",
+            DepthMeters = 1.2,
+            SoilComposition = "10YR 5/3 (Brown) silty sand with brick kilns, terracotta drain pipes, and glass slag",
+            EstimatedStartYear = -200,
+            EstimatedEndYear = 200,
+            CulturalAffiliation = "Mature Sangam Era",
+            Description = "Industrial quarter containing open brick dye vats, spindle whorls, gold filigree ornaments, and imported Arretine ceramic sherds."
+        };
 
-        context.ExcavationLayers.AddRange(layerD1, layerD2, layerD3, layerK1);
+        // Harappa Strata
+        var layerH1 = new ExcavationLayer
+        {
+            ExcavationId = excHarappa.Id,
+            LayerNumber = 1,
+            LayerName = "Period 5: Cemetery H Horizon",
+            DepthMeters = 1.0,
+            SoilComposition = "7.5YR 6/4 (Light Brown) alluvial loam with red-and-black burial urn clusters",
+            EstimatedStartYear = -1900,
+            EstimatedEndYear = -1300,
+            CulturalAffiliation = "Late Harappan (Cemetery H Culture)",
+            Description = "Funerary urn burials marked by peacock eschatological motifs; decline of monumental civic granaries."
+        };
+        var layerH2 = new ExcavationLayer
+        {
+            ExcavationId = excHarappa.Id,
+            LayerNumber = 2,
+            LayerName = "Period 3C: Peak Mature Harappan Metropolis",
+            DepthMeters = 2.8,
+            SoilComposition = "10YR 6/3 (Pale Brown) compact brick debris, street silt, and drainage sediment",
+            EstimatedStartYear = -2450,
+            EstimatedEndYear = -2000,
+            CulturalAffiliation = "Mature Harappan (Harappa Phase)",
+            Description = "Maximum urban extent: Mound AB Citadel ramparts, circular grain threshing floors, red jasper male torso statuary, and intaglio unicorn seals."
+        };
+        var layerH3 = new ExcavationLayer
+        {
+            ExcavationId = excHarappa.Id,
+            LayerNumber = 3,
+            LayerName = "Period 1: Ravi Phase (Early Formative Settlement)",
+            DepthMeters = 7.2,
+            SoilComposition = "10YR 4/2 (Dark Grayish Brown) virgin clay overlain with early hearths and bone debris",
+            EstimatedStartYear = -3300,
+            EstimatedEndYear = -2800,
+            CulturalAffiliation = "Ravi Phase (Hakra Ware Horizon)",
+            Description = "Earliest agro-pastoral village settlement, handmade polychrome pottery, bone tools, and proto-script potter marks incised before firing."
+        };
+
+        // Mohenjo-daro Strata
+        var layerM1 = new ExcavationLayer
+        {
+            ExcavationId = excMohenjo.Id,
+            LayerNumber = 1,
+            LayerName = "Late Period: Post-Urban Sub-Division Phase",
+            DepthMeters = 1.4,
+            SoilComposition = "10YR 7/2 (Light Gray) wind-blown dust, collapsing brick kilns, and flood silt",
+            EstimatedStartYear = -1900,
+            EstimatedEndYear = -1700,
+            CulturalAffiliation = "Late Harappan Decline",
+            Description = "Encroachment of courtyard houses onto public streets, partitioned rooms, and unburied skeletons in HR Area."
+        };
+        var layerM2 = new ExcavationLayer
+        {
+            ExcavationId = excMohenjo.Id,
+            LayerNumber = 2,
+            LayerName = "Intermediate Period II: Great Bath & Acropolis Peak",
+            DepthMeters = 3.6,
+            SoilComposition = "10YR 5/2 (Grayish Brown) kiln-fired brick masonry with bitumen waterproofing and gypsiferous mortar",
+            EstimatedStartYear = -2400,
+            EstimatedEndYear = -2100,
+            CulturalAffiliation = "Mature Harappan Zenith",
+            Description = "Erection of the bitumen-waterproofed Great Bath, the pillared assembly hall, and recovered masterpieces including the Priest-King and Dancing Girl."
+        };
+
+        // Lothal Strata
+        var layerL1 = new ExcavationLayer
+        {
+            ExcavationId = excLothal.Id,
+            LayerNumber = 1,
+            LayerName = "Phase II-IV: Engineered Tidal Dockyard & Industrial Acropolis",
+            DepthMeters = 2.5,
+            SoilComposition = "10YR 6/2 (Light Brownish Gray) marine estuary silt with brick paving and kiln slag",
+            EstimatedStartYear = -2350,
+            EstimatedEndYear = -2000,
+            CulturalAffiliation = "Mature Harappan Maritime Horizon",
+            Description = "Operation of the 214m brick tidal basin, lock-gate sluice, warehouse acropolis, and mass production of micro-drilled carnelian beads for Mesopotamian export."
+        };
+
+        // Pompeii Strata
+        var layerP1 = new ExcavationLayer
+        {
+            ExcavationId = excPompeii.Id,
+            LayerNumber = 1,
+            LayerName = "79 CE Vesuvius Pyroclastic Pumice & Lapilli Fallout",
+            DepthMeters = 3.2,
+            SoilComposition = "5Y 8/1 (White) volcanic pumice tephra overlain with dark pyroclastic ash surge flow",
+            EstimatedStartYear = 79,
+            EstimatedEndYear = 79,
+            CulturalAffiliation = "Flavian Roman Imperial",
+            Description = "Hermetic volcanic burial sealing domestic villas, wall frescoes, the Alexander Mosaic, and luxury exotic imports including the Indian ivory Lakshmi statuette."
+        };
+
+        // Knossos Strata
+        var layerKn1 = new ExcavationLayer
+        {
+            ExcavationId = excKnossos.Id,
+            LayerNumber = 1,
+            LayerName = "Late Minoan I-II: Neopalatial Fresco & Pithoi Horizon",
+            DepthMeters = 2.1,
+            SoilComposition = "10YR 6/4 (Light Yellowish Brown) crushed limestone debris, gypsum slabs, and plaster fragments",
+            EstimatedStartYear = -1600,
+            EstimatedEndYear = -1450,
+            CulturalAffiliation = "Neopalatial Minoan",
+            Description = "Peak of Minoan palatial splendor: Bull-Leaping frescoes, West Magazines with 500-liter pithoi jars, and faience Snake Goddess figurines."
+        };
+
+        // Ur Strata
+        var layerU1 = new ExcavationLayer
+        {
+            ExcavationId = excUr.Id,
+            LayerNumber = 1,
+            LayerName = "Early Dynastic III-A: Royal Cemetery Necropolis",
+            DepthMeters = 5.4,
+            SoilComposition = "10YR 4/3 (Brown) clay loam with bitumen brick coffins and gold burial offerings",
+            EstimatedStartYear = -2600,
+            EstimatedEndYear = -2500,
+            CulturalAffiliation = "Early Dynastic Sumerian",
+            Description = "Vaulted stone burial chambers yielding the Standard of Ur, Ram in a Thicket, and Queen Puabi's gold floral headdress."
+        };
+
+        context.ExcavationLayers.AddRange(
+            layerD1, layerD2, layerD3,
+            layerK1, layerK2,
+            layerH1, layerH2, layerH3,
+            layerM1, layerM2,
+            layerL1, layerP1, layerKn1, layerU1
+        );
         await context.SaveChangesAsync();
 
         context.Findings.AddRange(
             new Finding
             {
                 ExcavationLayerId = layerD2.Id,
-                Name = "Unicorn Stamp Seal with Indus Script",
-                FindingType = "Intaglio Seal",
-                Description = "Squared steatite seal depicting a one-horned bovine and five sacred pictographs",
-                YearFound = 1997
+                Name = "The Dholavira Ten-Glyph Municipal Signboard",
+                FindingType = "Monumental Inscription",
+                Description = "White crystalline gypsum letters fallen face down in the Western Gateway",
+                YearFound = 1990
             },
             new Finding
             {
                 ExcavationLayerId = layerK1.Id,
-                Name = "Agate Micro-Drill Bead Core",
-                FindingType = "Lapidary Tooling",
-                Description = "High precision quartz drill-bits used for piercing semi-precious stone beads",
-                YearFound = 2019
+                Name = "Potsherd Inscribed with 'Aadhan' in Tamil-Brahmi",
+                FindingType = "Inscribed Ceramic",
+                Description = "Black-and-Red Ware rim sherd recovered from charcoal-dated 580 BCE stratum",
+                YearFound = 2018
+            },
+            new Finding
+            {
+                ExcavationLayerId = layerH2.Id,
+                Name = "Red Jasper Male Anatomical Torso",
+                FindingType = "Sculpture",
+                Description = "Polished red sandstone torso found in Mound F Stratum III",
+                YearFound = 1928
+            },
+            new Finding
+            {
+                ExcavationLayerId = layerM2.Id,
+                Name = "Bronze Dancing Girl Statuette",
+                FindingType = "Cast Bronze Metalwork",
+                Description = "Lost-wax cast bronze statuette recovered from the HR Area residential court",
+                YearFound = 1926
+            },
+            new Finding
+            {
+                ExcavationLayerId = layerL1.Id,
+                Name = "Persian Gulf Steatite Button Seal",
+                FindingType = "Trade Stamp Seal",
+                Description = "Circular glazed steatite seal found adjacent to the tidal dock basin",
+                YearFound = 1958
+            },
+            new Finding
+            {
+                ExcavationLayerId = layerP1.Id,
+                Name = "Indian Carved Ivory Lakshmi Statuette",
+                FindingType = "Imported Exotic Adornment",
+                Description = "Ivory statuette recovered inside a jewel box in Casa dei Quattro Stili",
+                YearFound = 1938
+            },
+            new Finding
+            {
+                ExcavationLayerId = layerKn1.Id,
+                Name = "Faience Snake Goddess Figurine",
+                FindingType = "Ritual Cult Figurine",
+                Description = "Glazed faience figurine from the stone cists of the Temple Repositories",
+                YearFound = 1903
+            },
+            new Finding
+            {
+                ExcavationLayerId = layerU1.Id,
+                Name = "The Standard of Ur Mosaic Box",
+                FindingType = "Narrative Mosaic Box",
+                Description = "Double-sided shell and lapis lazuli mosaic from royal tomb PG 779",
+                YearFound = 1927
             }
         );
 
