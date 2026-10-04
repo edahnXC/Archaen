@@ -62,7 +62,7 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
         <div class="error-icon">🏛️</div>
         <h3 class="error-title">No Site Selected</h3>
         <p class="error-desc">
-          Select an archaeological site on the map, featured sites list, or discoveries catalogue to inspect its excavation records, stratigraphy, and 3D artefacts.
+          Select an archaeological site on the map, featured sites list, or discoveries catalogue to inspect its excavation records, stratigraphy, and museum archival artefacts.
         </p>
       </div>
 
@@ -206,12 +206,22 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
                 </div>
               </div>
 
+              <!-- Archaeological Stratigraphic Trench Matrix -->
+              <div class="trench-overview-banner">
+                <span class="trench-banner-icon">⛏️</span>
+                <div>
+                  <h5 class="trench-banner-title font-display">Archaeological Stratigraphic Trench Matrix</h5>
+                  <p class="trench-banner-desc">Wheeler-box grid excavation section showing occupational horizons, Munsell soil composition, and associated in situ cultural diagnostic finds.</p>
+                </div>
+              </div>
+
               <!-- Stratigraphic Layers Sequence -->
               <div class="strata-sequence">
-                <div *ngFor="let layer of exc.layers" class="stratum-card">
+                <div *ngFor="let layer of exc.layers; let lIdx = index" class="stratum-card">
+                  <div class="stratum-soil-stripe" [style.background]="getSoilColor(layer.soilComposition, lIdx)"></div>
                   <div class="stratum-depth-indicator">
                     <span class="depth-val font-mono">{{ layer.depthMeters }}m</span>
-                    <span class="depth-label">Depth</span>
+                    <span class="depth-label font-mono">Depth</span>
                   </div>
 
                   <div class="stratum-info">
@@ -220,23 +230,28 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
                       <span class="stratum-culture" *ngIf="layer.culturalAffiliation">{{ layer.culturalAffiliation }}</span>
                     </div>
 
-                    <div class="stratum-dates font-mono" *ngIf="layer.chronologicalSpan">
-                      Horizon: {{ layer.chronologicalSpan }}
+                    <div class="stratum-meta-row font-mono">
+                      <span class="stratum-dates" *ngIf="layer.chronologicalSpan">⏳ {{ layer.chronologicalSpan }}</span>
+                      <span class="stratum-c14-tag">☢ 14C AMS Calibrated</span>
                     </div>
 
                     <p class="stratum-desc">{{ layer.description }}</p>
 
                     <div class="stratum-soil" *ngIf="layer.soilComposition">
-                      <em>Matrix:</em> {{ layer.soilComposition }}
+                      <span class="soil-label font-mono">SOIL MATRIX:</span>
+                      <span class="soil-color-chip" [style.background]="getSoilColor(layer.soilComposition, lIdx)"></span>
+                      <span>{{ layer.soilComposition }}</span>
                     </div>
 
                     <!-- Findings within this layer -->
                     <div class="layer-findings" *ngIf="layer.findings && layer.findings.length > 0">
-                      <div class="findings-header">Diagnostic In Situ Finds:</div>
-                      <div class="finding-pill" *ngFor="let f of layer.findings">
-                        <span class="finding-type">[{{ f.findingType }}]</span>
-                        <span class="finding-name">{{ f.name }}</span>
-                        <span class="finding-year" *ngIf="f.yearFound">(Found {{ f.yearFound }})</span>
+                      <div class="findings-header font-mono">DIAGNOSTIC IN SITU RECOVERIES:</div>
+                      <div class="findings-flex-list">
+                        <div class="finding-pill" *ngFor="let f of layer.findings">
+                          <span class="finding-type font-mono">[{{ f.findingType }}]</span>
+                          <span class="finding-name">{{ f.name }}</span>
+                          <span class="finding-year font-mono" *ngIf="f.yearFound">(Found {{ f.yearFound }})</span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -283,7 +298,7 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
             </div>
 
             <div *ngIf="!currentSite.artefacts || currentSite.artefacts.length === 0" class="empty-state">
-              No diagnostic 3D artefacts cataloged for this site.
+              No diagnostic museum artefacts cataloged for this site.
             </div>
           </div>
 
@@ -740,6 +755,35 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
       margin-top: 12px;
     }
 
+    .trench-overview-banner {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #fdfaf6;
+      border: 1px solid #fed7aa;
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+    }
+
+    .trench-banner-icon {
+      font-size: 24px;
+    }
+
+    .trench-banner-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #9a3412;
+      margin: 0 0 2px 0;
+    }
+
+    .trench-banner-desc {
+      font-size: 11.5px;
+      color: #78350f;
+      margin: 0;
+      line-height: 1.4;
+    }
+
     .stratum-card {
       position: relative;
       background: #f9fafb;
@@ -748,6 +792,13 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
       padding: 14px;
       display: flex;
       gap: 14px;
+      overflow: hidden;
+    }
+
+    .stratum-soil-stripe {
+      width: 6px;
+      border-radius: 4px;
+      flex-shrink: 0;
     }
 
     .stratum-depth-indicator {
@@ -797,10 +848,27 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
       font-weight: 600;
     }
 
+    .stratum-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+
     .stratum-dates {
       font-size: 11.5px;
       color: #92400e;
-      margin-bottom: 6px;
+    }
+
+    .stratum-c14-tag {
+      font-size: 10px;
+      color: #047857;
+      background: #ecfdf5;
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid #a7f3d0;
+      font-weight: 600;
     }
 
     .stratum-desc {
@@ -811,8 +879,27 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
     }
 
     .stratum-soil {
+      display: flex;
+      align-items: center;
       font-size: 11px;
       color: #6b7280;
+      margin-bottom: 4px;
+    }
+
+    .soil-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: #64748b;
+      margin-right: 6px;
+    }
+
+    .soil-color-chip {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      margin-right: 6px;
+      border: 1px solid rgba(0, 0, 0, 0.2);
     }
 
     .layer-findings {
@@ -822,22 +909,39 @@ import { ArtefactViewer3DComponent } from '../artefact-viewer3d/artefact-viewer3
     }
 
     .findings-header {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
       color: var(--accent-terracotta, #c25e2e);
-      margin-bottom: 4px;
+      margin-bottom: 6px;
+      letter-spacing: 0.04em;
+    }
+
+    .findings-flex-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
     }
 
     .finding-pill {
       font-size: 11px;
       color: #374151;
-      margin-bottom: 2px;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      padding: 2px 8px;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
 
     .finding-type {
       color: #92400e;
-      font-family: var(--font-mono, monospace);
-      margin-right: 4px;
+      font-weight: 600;
+    }
+
+    .finding-year {
+      color: #6b7280;
+      font-size: 10px;
     }
 
     .artefact-selector {
@@ -1190,5 +1294,19 @@ export class SiteDrawerComponent {
       img.dataset['fallback'] = 'true';
       img.src = 'https://images.unsplash.com/photo-1599833975787-5c143f373c30?auto=format&fit=crop&w=1200&q=80';
     }
+  }
+
+  public getSoilColor(soil: string | undefined, index: number): string {
+    if (!soil) {
+      const colors = ['#8d6e63', '#6d4c41', '#5d4037', '#4e342e', '#3e2723'];
+      return colors[index % colors.length];
+    }
+    const s = soil.toLowerCase();
+    if (s.includes('ash') || s.includes('charcoal')) return '#52525b';
+    if (s.includes('sand') || s.includes('silt')) return '#d97706';
+    if (s.includes('clay') || s.includes('brick')) return '#b45309';
+    if (s.includes('loam')) return '#78350f';
+    const fallback = ['#8d6e63', '#6d4c41', '#5d4037', '#4e342e', '#3e2723'];
+    return fallback[index % fallback.length];
   }
 }

@@ -197,27 +197,7 @@ h1, h2, h3, h4, .font-display {
   filter: none;
 }
 
-/* 4D Trade Route Dash Animations */
-.animated-trade-route {
-  stroke-dasharray: 8, 8;
-  animation: dashAnimation 30s linear infinite;
-  transition: stroke 0.4s ease, opacity 0.4s ease, stroke-width 0.4s ease;
-}
 
-.animated-trade-route.route-active-4d {
-  stroke-dasharray: 10, 8;
-  animation: dashAnimationActive 14s linear infinite;
-  filter: drop-shadow(0 0 6px currentColor);
-}
-
-.animated-trade-route.route-dormant-4d {
-  opacity: 0.15 !important;
-}
-
-@keyframes dashAnimationActive {
-  from { stroke-dashoffset: 200; }
-  to { stroke-dashoffset: 0; }
-}
 
 @keyframes dashAnimation {
   from { stroke-dashoffset: 200; }
@@ -318,24 +298,3 @@ h1, h2, h3, h4, .font-display {
   border: 1px solid #e5e7eb;
 }
 
-/* Animated Geodesic Trade Corridors (Zoom Earth Style) */
-.animated-trade-route path {
-  stroke-dasharray: 10, 10;
-  animation: tradeRouteFlow 2.5s linear infinite;
-  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25));
-  cursor: pointer;
-  transition: stroke-width 0.2s ease;
-}
-
-.animated-trade-route path:hover {
-  stroke-width: 6 !important;
-}
-
-@keyframes tradeRouteFlow {
-  from {
-    stroke-dashoffset: 40;
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
-}

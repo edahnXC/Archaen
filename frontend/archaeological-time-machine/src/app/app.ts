@@ -87,14 +87,13 @@ export class App implements OnInit, OnDestroy {
   public readonly selectedCategory = signal<string>('all');
   public readonly isSidebarVisible = signal<boolean>(true);
   public readonly isTimeFilterEnabled = signal<boolean>(false);
-  public readonly showTradeRoutes = signal<boolean>(true);
 
   // 4D Spatio-Temporal Flight State
   public readonly isPlaying4DFlight = signal<boolean>(false);
   public readonly flightSpeed = signal<number>(1);
   private flightTimer: any = null;
 
-  // 3D Laboratory State
+  // Museum Archival Laboratory State
   public readonly allArtefacts = signal<Artefact[]>([]);
   public readonly selectedGalleryArtefact = signal<Artefact | null>(null);
 
@@ -648,10 +647,6 @@ export class App implements OnInit, OnDestroy {
   public toggleTimeFilter(): void {
     this.isTimeFilterEnabled.update(v => !v);
     this.applyLocalFilters();
-  }
-
-  public toggleTradeRoutes(): void {
-    this.showTradeRoutes.update(v => !v);
   }
 
   public onSearchChange(): void {

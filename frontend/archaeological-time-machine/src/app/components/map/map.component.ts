@@ -66,14 +66,6 @@ export type MapTileStyle = 'voyager' | 'satellite' | 'topo';
           <button class="nav-pill-btn" (click)="focusGlobal()" title="Global View">
             <span>🌍</span> World
           </button>
-          <button
-            class="nav-pill-btn"
-            [class.active]="showTradeRoutes"
-            (click)="toggleTradeRoutes()"
-            title="Toggle Ancient Trade Corridors"
-          >
-            <span>⛵</span> {{ showTradeRoutes ? 'Hide Routes' : 'Trade Routes' }}
-          </button>
         </div>
       </div>
 
@@ -96,9 +88,8 @@ export type MapTileStyle = 'voyager' | 'satellite' | 'topo';
           <span class="hud-4d-epoch">{{ activeEpochName() }}</span>
         </div>
         <div class="hud-4d-meta font-mono">
-          <span class="meta-pill">● {{ activeSitesCount() }} Active Settlements</span>
-          <span class="meta-pill" *ngIf="activeTradeRoutesCount() > 0">⛵ {{ activeTradeRoutesCount() }} Active Corridors</span>
-          <span class="meta-pill" *ngIf="activeTradeRoutesCount() === 0">🌐 Inland Regional Exchange</span>
+          <span class="meta-pill">● {{ activeSitesCount() }} Active Archaeological Settlements</span>
+          <span class="meta-pill">🌐 Calibrated Spatial Horizon</span>
         </div>
       </div>
 
@@ -130,12 +121,6 @@ export type MapTileStyle = 'voyager' | 'satellite' | 'topo';
           <div class="legend-item"><span class="legend-dot copper"></span> Copper Age / Sinauli</div>
           <div class="legend-item"><span class="legend-dot kushite"></span> Kushite / Meroë (Sudan)</div>
           <div class="legend-item"><span class="legend-dot international"></span> World Heritage Wonders</div>
-        </div>
-        <div *ngIf="showTradeRoutes" class="routes-legend">
-          <span class="routes-label">Active Trade Network:</span>
-          <span class="route-tag meluhha">── Indus-Sumer</span>
-          <span class="route-tag indoroman">── Indo-Roman</span>
-          <span class="route-tag nile">── Kushite Nile</span>
         </div>
       </div>
     </div>
@@ -342,31 +327,6 @@ export type MapTileStyle = 'voyager' | 'satellite' | 'topo';
       border-color: #0284c7;
     }
 
-    .routes-legend {
-      margin-top: 8px;
-      padding-top: 8px;
-      border-top: 1px dashed rgba(0, 0, 0, 0.1);
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-
-    .routes-label {
-      font-size: 10px;
-      font-weight: 700;
-      color: #111827;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    .route-tag {
-      font-size: 10.5px;
-      font-weight: 600;
-    }
-
-    .route-tag.meluhha { color: #c25e2e; }
-    .route-tag.indoroman { color: #1e40af; }
-    .route-tag.nile { color: #b8860b; }
 
     /* ==========================================================================
        4D SPATIO-TEMPORAL CHRONOMETER HUD (TOP CENTER OF MAP)
@@ -512,7 +472,6 @@ export type MapTileStyle = 'voyager' | 'satellite' | 'topo';
 export class MapComponent implements OnInit, OnChanges, OnDestroy {
   @Input() sites: SiteSummary[] = [];
   @Input() selectedSiteId: number | null = null;
-  @Input() showTradeRoutes = false;
   @Input() currentYear: number = -2500;
   @Input() isTimeFilterActive: boolean = false;
   @Input() isPlayingFlight: boolean = false;
@@ -528,7 +487,6 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
   private map!: L.Map;
   private currentTileLayer: L.TileLayer | null = null;
   private markerLayerGroup = L.layerGroup();
-  private tradeRoutesLayerGroup = L.layerGroup();
   private markersMap = new Map<number, L.Marker>();
 
   formattedYear(): string {
@@ -554,23 +512,9 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
     return this.sites.filter(s => (this.currentYear >= s.startYear - 80) && (this.currentYear <= s.endYear + 80)).length;
   }
 
-  activeTradeRoutesCount(): number {
-    if (!this.showTradeRoutes) return 0;
-    let count = 0;
-    const y = this.currentYear;
-    if (y >= -2500 && y <= -1900) count++;
-    if (y >= -100 && y <= 300) count++;
-    if (y >= -1000 && y <= 350) count++;
-    if (y >= -400 && y <= 106) count++;
-    return count;
-  }
-
   ngOnInit(): void {
     this.initMap();
     this.renderMarkers();
-    if (this.showTradeRoutes) {
-      this.drawTradeRoutes();
-    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -580,33 +524,8 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
     if (changes['selectedSiteId'] && this.selectedSiteId !== null) {
       this.highlightSelectedSite(this.selectedSiteId);
     }
-    if (changes['showTradeRoutes']) {
-      if (this.showTradeRoutes) {
-        this.drawTradeRoutes();
-      } else {
-        this.clearTradeRoutes();
-      }
-    }
     if (changes['currentYear'] || changes['isTimeFilterActive'] || changes['isPlayingFlight']) {
       this.renderMarkers();
-      if (this.showTradeRoutes) {
-        this.drawTradeRoutes();
-      }
-    }
-  }
-
-  ngOnDestroy(): void {
-    if (this.map) {
-      this.map.remove();
-    }
-  }
-
-  toggleTradeRoutes(): void {
-    this.showTradeRoutes = !this.showTradeRoutes;
-    if (this.showTradeRoutes) {
-      this.drawTradeRoutes();
-    } else {
-      this.clearTradeRoutes();
     }
   }
 
@@ -839,116 +758,9 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  private drawTradeRoutes(): void {
-    if (!this.map) return;
-    this.tradeRoutesLayerGroup.clearLayers();
-
-    const activeYear = this.currentYear;
-    const isFilterOn = this.isTimeFilterActive;
-
-    const routes = [
-      {
-        name: 'Meluhha-Mesopotamia Maritime Trade Corridor',
-        era: '2500 – 1900 BCE',
-        startYear: -2500,
-        endYear: -1900,
-        cargo: 'Carnelian etched beads, lapis lazuli, copper ingots, timber, ivory seals',
-        color: '#c25e2e',
-        points: [
-          [22.5233, 72.2494], // Lothal
-          [23.8864, 70.2131], // Dholavira
-          [25.15, 62.32],    // Sutkagen Dor
-          [26.2285, 50.5860], // Dilmun (Bahrain)
-          [29.37, 47.98],    // Failaka
-          [30.9622, 46.1031]  // Ur
-        ] as L.LatLngExpression[]
-      },
-      {
-        name: 'Indo-Roman Trans-Oceanic Maritime Route',
-        era: '100 BCE – 300 CE',
-        startYear: -100,
-        endYear: 300,
-        cargo: 'Malabar black pepper, fine muslins, beryls, pearls, Roman wine amphorae, gold aurei',
-        color: '#1e40af',
-        points: [
-          [11.9028, 79.8183], // Arikamedu
-          [9.8517, 78.1872],  // Keeladi
-          [10.1989, 76.2081], // Muziris
-          [12.5, 54.0],       // Socotra
-          [12.8, 45.0],       // Aden (Eudaemon Arabia)
-          [23.9167, 35.4833], // Berenike (Red Sea)
-          [26.16, 32.72],     // Coptos (Nile)
-          [31.2001, 29.9187], // Alexandria
-          [41.8902, 12.4922]  // Rome (Colosseum)
-        ] as L.LatLngExpression[]
-      },
-      {
-        name: 'Nubian Kushite Nile Trade Corridor',
-        era: '1000 BCE – 350 CE',
-        startYear: -1000,
-        endYear: 350,
-        cargo: 'Kushite iron weapons, Nubian gold, ebony, leopard skins, frankincense, Meroitic ceramics',
-        color: '#b8860b',
-        points: [
-          [16.9383, 33.7492], // Pyramids of Meroë
-          [18.53, 31.83],     // Napata (Jebel Barkal)
-          [24.09, 32.90],     // Aswan / Elephantine
-          [25.6872, 32.6396], // Thebes / Luxor
-          [29.9792, 31.1342]  // Giza / Memphis
-        ] as L.LatLngExpression[]
-      },
-      {
-        name: 'Nabataean Frankincense & Desert Caravan Highway',
-        era: '400 BCE – 106 CE',
-        startYear: -400,
-        endYear: 106,
-        cargo: 'Frankincense, myrrh, Indian spices, bitumen from Dead Sea, Hellenistic glass',
-        color: '#059669',
-        points: [
-          [17.02, 54.09],     // Dhofar (Oman)
-          [24.47, 39.61],     // Hegra (Mada'in Salih)
-          [30.3285, 35.4444], // Petra
-          [31.50, 34.46],     // Gaza
-          [31.2001, 29.9187]  // Alexandria
-        ] as L.LatLngExpression[]
-      }
-    ];
-
-    for (const r of routes) {
-      const isRouteActive = !isFilterOn || (activeYear >= (r.startYear - 50) && activeYear <= (r.endYear + 50));
-      const line = L.polyline(r.points, {
-        color: isRouteActive ? r.color : '#cbd5e1',
-        weight: isRouteActive ? 4 : 1.5,
-        opacity: isRouteActive ? 0.95 : 0.2,
-        dashArray: isRouteActive ? '10, 8' : '4, 8',
-        className: isRouteActive ? 'animated-trade-route route-active-4d' : 'animated-trade-route route-dormant-4d'
-      });
-
-      const popup = `
-        <div style="padding: 14px; min-width: 240px; font-family: 'Google Sans Text', sans-serif;">
-          <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: ${isRouteActive ? r.color : '#64748b'}; letter-spacing: 0.05em; margin-bottom: 2px;">
-            ${isRouteActive ? '● Active Maritime Corridor' : '⏳ Dormant Corridor'} (${this.formattedYear()})
-          </div>
-          <h4 style="font-family: 'Google Sans Display', sans-serif; font-size: 15px; font-weight: 700; color: #111827; margin: 0 0 6px;">
-            ${r.name}
-          </h4>
-          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #92400e; background: #fef8e7; padding: 3px 6px; border-radius: 4px; display: inline-block; margin-bottom: 8px;">
-            ⏳ Historical Era: ${r.era}
-          </div>
-          <div style="font-size: 11.5px; color: #4b5563; line-height: 1.4;">
-            <strong>Documented Cargo:</strong> ${r.cargo}
-          </div>
-        </div>
-      `;
-
-      line.bindPopup(popup);
-      this.tradeRoutesLayerGroup.addLayer(line);
+  ngOnDestroy(): void {
+    if (this.map) {
+      this.map.remove();
     }
-
-    this.tradeRoutesLayerGroup.addTo(this.map);
-  }
-
-  private clearTradeRoutes(): void {
-    this.tradeRoutesLayerGroup.clearLayers();
   }
 }

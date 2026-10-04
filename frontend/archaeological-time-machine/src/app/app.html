@@ -147,7 +147,7 @@
       </h1>
 
       <p class="hero-subtext">
-        Explore ancient archaeological settlements, discover their stratigraphic evidence, inspect diagnostic artefacts in 3D, and understand how archaeologists decode human history across space and time.
+        Explore ancient archaeological settlements, discover their stratigraphic evidence, inspect diagnostic artefacts with museum-grade archival macrophotography, and understand how archaeologists decode human history across space and time.
       </p>
 
       <div class="hero-cta-group">
@@ -323,7 +323,7 @@
                 class="card-action-btn view-details-btn"
                 (click)="$event.stopPropagation(); onSiteClicked(site.id)"
               >
-                <span>📖</span> Inspect Excavation & 3D
+                <span>📖</span> Inspect Excavation & Finds
               </button>
 
               <button
@@ -449,15 +449,6 @@
 
             <button
               class="gis-tool-btn"
-              [class.active]="showTradeRoutes()"
-              (click)="toggleTradeRoutes()"
-              title="Toggle Ancient Trade Corridors"
-            >
-              <span>⛵</span> {{ showTradeRoutes() ? 'Hide Trade Routes' : 'Show Trade Routes' }}
-            </button>
-
-            <button
-              class="gis-tool-btn"
               [class.active]="isTimeFilterEnabled()"
               (click)="toggleTimeFilter()"
               title="Toggle Temporal Filter"
@@ -540,7 +531,6 @@
       <app-map
         [sites]="allSites()"
         [selectedSiteId]="selectedSiteId()"
-        [showTradeRoutes]="showTradeRoutes()"
         [currentYear]="currentYear()"
         [isTimeFilterActive]="isTimeFilterEnabled()"
         [isPlayingFlight]="isPlaying4DFlight()"
@@ -774,7 +764,7 @@
               <div class="story-art-material">{{ currentStory.artefactMaterial }}</div>
               <p class="story-art-summary">{{ currentStory.artefactSummary }}</p>
 
-              <div class="story-3d-box">
+              <div class="story-photo-box">
                 <app-artefact-viewer3d
                   [artefact]="{
                     id: currentStory.siteId,
@@ -793,7 +783,7 @@
               </div>
 
               <div class="card-footer-note">
-                <span class="note-text">Interactive 3D WebGL • Drag to inspect surface craftsmanship</span>
+                <span class="note-text">Archival High-Resolution Photography • Zoom & pan to inspect surface craftsmanship and epigraphy</span>
               </div>
             </div>
           </div>
@@ -1151,7 +1141,7 @@
                 class="card-action-btn view-details-btn"
                 (click)="$event.stopPropagation(); onSiteClicked(site.id)"
               >
-                <span>📖</span> Inspect Excavation & 3D
+                <span>📖</span> Inspect Excavation & Finds
               </button>
 
               <button
@@ -1192,7 +1182,7 @@
           <li><a (click)="scrollToSection('featured')">Featured Sites</a></li>
           <li><a (click)="scrollToSection('methodology')">How Archaeology Works</a></li>
           <li><a (click)="scrollToSection('map-explorer')">Interactive GIS Map</a></li>
-          <li><a (click)="scrollToSection('artefacts')">Diagnostic Artefacts 3D</a></li>
+          <li><a (click)="scrollToSection('artefacts')">Diagnostic Artefacts Laboratory</a></li>
           <li><a (click)="scrollToSection('stories')">Archaeological Expeditions</a></li>
         </ul>
       </div>
