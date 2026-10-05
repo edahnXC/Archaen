@@ -54,9 +54,10 @@ The **Archaeological Time Machine** is an interactive 4D Geographic Information 
 | **Milestone 1: Web API Backend** | ASP.NET Core 10, C# 13, EF Core | **COMPLETED** | Normalized domain entities, spatial queries, signed BCE/CE math, REST endpoints. |
 | **Unit Test Suite** | xUnit, FluentAssertions | **COMPLETED** | 16/16 tests passing cleanly. Temporal boundary math and spatial distance validated. |
 | **Indian Archaeological Expansion** | EF Core, DatabaseSeeder | **COMPLETED** | Extensive expansion of Indian sites (Rakhigarhi, Kalibangan, Sinauli, Keeladi, Arikamedu, Bhimbetka, Pataliputra, Sannati, Surkotada, Inamgaon). |
-| **Milestone 2: Angular 21 GIS Frontend** | Angular 21, Leaflet, Three.js | **IN PROGRESS** | Interactive map, BCE/CE time scrubber (-4000 to 500 CE), Indian site drawer, 3D artefact inspection. |
-| **3D Artefact Viewer** | Three.js WebGL procedural shaders | **IN PROGRESS** | Real-time 3D rotation, inspection of seals, bronzes, inscribed stelae, terracotta. |
-| **Site Comparison Matrix** | Angular Standalone Components | **PLANNED** | Side-by-side comparison of 2 sites with distance, stratigraphy alignment, and co-existence duration. |
+| **Milestone 2: Angular 21 GIS Frontend** | Angular 21, Leaflet, Three.js | **COMPLETED** | Interactive map, BCE/CE time scrubber (-4000 to 500 CE), Indian site drawer, 3D artefact inspection. |
+| **Epigraphy & Archaeometry Labs** | Canvas, Multi-Spectral Filters, Three.js | **COMPLETED** | Multi-spectral image enhancement, radiometric dating & AMS 14C calibration, Wheeler stratigraphic trench profiles. |
+| **Site Comparison Matrix** | Angular Standalone Components | **COMPLETED** | Side-by-side comparison of 2 sites with distance, stratigraphy alignment, and co-existence duration. |
+| **Milestone 3: Synchronous Horizons** | Angular Signals, Reactive Computeds | **COMPLETED** | Real-time synchronized global comparative snapshots across civilizations at key chronological horizons. |
 
 ---
 

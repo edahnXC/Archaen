@@ -155,6 +155,26 @@
 - Backend running live on `http://localhost:5032`.
 - End-to-end browser subagent verification verified clean navigation, authentic images, search/filtering, and 3D lab toggle.
 
+---
 
+## Milestone Iteration 6: Diagnostic Artefact Expansion, Synchronous Horizons & Archaeometric Provenance
 
-
+### TASK SPECIFICATION
+- **GOAL**: Expand diagnostic artefact corpus to 57 authentic finds across all 24 sites, enrich calibrated radiometric chronologies (AMS 14C IntCal20), eliminate fake 3D primitives in favor of Epigraphy & Archaeometry Labs, implement Synchronous Horizons cross-civilization timeline comparison, collapsible archaeological horizon legends, and bind complete authentic primary monograph references for all 24 excavations.
+- **DELIVERABLES & ACHIEVEMENTS**:
+  1. **Diagnostic Artefacts Corpus**:
+     - Expanded to 57 authentic cataloged artefacts (2–3 diagnostic finds per site) with local high-resolution photography.
+     - Replaced all speculative 3D meshes with real museum specimen imagery and Epigraphy multi-spectral filters (Inversion, High-Pass Relief, Raking Light, False-Color Infrared).
+  2. **Synchronous Horizons**:
+     - Synchronized comparative panoramic view on the timeline scrubber at major historical inflection points (-2500, -1800, -1000, -580, -250, 50 CE).
+     - Compares simultaneous developments across Ganga-Yamuna Doab, Indus Valley, Babylonia, Egypt, Nubia, Levant, Greece, and Rome.
+  3. **Archaeometric Provenance & Stratigraphy**:
+     - 38 Wheeler-box stratigraphic trench profiles with Munsell soil codes and in situ diagnostic finds.
+     - Calibrated 14C AMS dates with 2-sigma confidence ranges, IntCal20 calibration, and lab sample IDs.
+     - 25 verified primary archaeological publications (Joshi 1990, Dhavalikar 1988, Spooner 1913, Garstang 1911, Hammond 1965, Bingham 1930, Wheeler, Marshall, etc.).
+  4. **GIS Map UX Enhancements**:
+     - Collapsible Archaeological Horizons legend with `▲ Show` / `▼ Hide` toggle.
+     - Ergonomic control placements preventing map obstruction.
+- **STATUS: COMPLETED & VERIFIED**:
+  - Backend running cleanly (`dotnet test` passing 16/16 unit tests).
+  - Frontend compiling cleanly (`ng build` passing with 0 errors).

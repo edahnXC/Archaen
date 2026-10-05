@@ -108,13 +108,16 @@ export type MapTileStyle = 'voyager' | 'satellite' | 'topo';
         </div>
       </div>
 
-      <!-- Horizons Legend Pill (Clean White Design) -->
-      <div class="map-legend-card">
-        <div class="legend-header">
+      <!-- Horizons Legend Pill (Clean White Design with Collapse Toggle) -->
+      <div class="map-legend-card" [class.collapsed]="isLegendCollapsed()">
+        <div class="legend-header" (click)="toggleLegend()" title="Click to minimize or expand horizons legend">
           <span class="legend-icon">🏺</span>
           <span class="legend-title">Archaeological Horizons</span>
+          <button type="button" class="legend-toggle-btn" aria-label="Toggle Horizons Legend">
+            {{ isLegendCollapsed() ? '▲ Show' : '▼ Hide' }}
+          </button>
         </div>
-        <div class="legend-items">
+        <div class="legend-items" *ngIf="!isLegendCollapsed()">
           <div class="legend-item"><span class="legend-dot harappan"></span> Indus / Harappan</div>
           <div class="legend-item"><span class="legend-dot mauryan"></span> Mauryan & Gangetic</div>
           <div class="legend-item"><span class="legend-dot sangam"></span> Sangam Maritime</div>
@@ -246,26 +249,55 @@ export type MapTileStyle = 'voyager' | 'satellite' | 'topo';
       color: var(--accent-terracotta);
     }
 
-    /* Clean White Legend Card */
+    /* Clean White Legend Card - Elevated above bottom timeline scrubber bar */
     .map-legend-card {
       position: absolute;
-      bottom: 24px;
+      bottom: 118px;
       left: 18px;
       z-index: 800;
-      background: rgba(255, 255, 255, 0.95);
+      background: rgba(255, 255, 255, 0.96);
       border: 1px solid rgba(0, 0, 0, 0.1);
       border-radius: 12px;
-      padding: 12px 16px;
+      padding: 10px 14px;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
       backdrop-filter: blur(16px);
       max-width: 290px;
+      transition: all 0.25s ease;
+    }
+
+    .map-legend-card.collapsed {
+      padding: 6px 12px;
     }
 
     .legend-header {
       display: flex;
       align-items: center;
       gap: 6px;
+      margin-bottom: 0;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .map-legend-card:not(.collapsed) .legend-header {
       margin-bottom: 8px;
+    }
+
+    .legend-toggle-btn {
+      margin-left: auto;
+      background: rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 10px;
+      font-size: 9.5px;
+      font-weight: 700;
+      color: #64748b;
+      padding: 2px 7px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .legend-toggle-btn:hover {
+      background: #111827;
+      color: #ffffff;
     }
 
     .legend-icon {
@@ -448,11 +480,11 @@ export type MapTileStyle = 'voyager' | 'satellite' | 'topo';
       border-radius: 10px;
     }
 
-    /* Natural Page Scroll Safety Hint (Bottom Left) */
+    /* Natural Page Scroll Safety Hint (Bottom Right) */
     .map-scroll-hint-bar {
       position: absolute;
-      bottom: 22px;
-      left: 20px;
+      bottom: 60px;
+      right: 70px;
       z-index: 800;
       display: inline-flex;
       align-items: center;
@@ -467,6 +499,36 @@ export type MapTileStyle = 'voyager' | 'satellite' | 'topo';
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
       pointer-events: none;
     }
+
+    /* Leaflet Controls Custom Placement (Bottom Right above coordinates) */
+    :host ::ng-deep .leaflet-bottom.leaflet-right {
+      margin-bottom: 58px !important;
+      margin-right: 18px !important;
+      z-index: 850 !important;
+    }
+
+    :host ::ng-deep .leaflet-control-zoom {
+      border: 1px solid rgba(0, 0, 0, 0.12) !important;
+      border-radius: 12px !important;
+      overflow: hidden !important;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12) !important;
+    }
+
+    :host ::ng-deep .leaflet-control-zoom a {
+      background: rgba(255, 255, 255, 0.96) !important;
+      color: #111827 !important;
+      font-weight: 700 !important;
+      backdrop-filter: blur(12px) !important;
+      transition: all 0.2s ease !important;
+      width: 32px !important;
+      height: 32px !important;
+      line-height: 32px !important;
+    }
+
+    :host ::ng-deep .leaflet-control-zoom a:hover {
+      background: #111827 !important;
+      color: #ffffff !important;
+    }
   `]
 })
 export class MapComponent implements OnInit, OnChanges, OnDestroy {
@@ -477,6 +539,12 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
   @Input() isPlayingFlight: boolean = false;
   @Output() siteSelected = new EventEmitter<number>();
   @Output() flightToggle = new EventEmitter<void>();
+
+  public readonly isLegendCollapsed = signal(false);
+
+  toggleLegend(): void {
+    this.isLegendCollapsed.update(c => !c);
+  }
 
   @ViewChild('mapContainer', { static: true }) mapContainerRef!: ElementRef<HTMLDivElement>;
 
@@ -624,7 +692,7 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
       scrollWheelZoom: false
     });
 
-    L.control.zoom({ position: 'topleft' }).addTo(this.map);
+    L.control.zoom({ position: 'bottomright' }).addTo(this.map);
 
     // Track mouse coordinates for Zoom Earth style readout
     this.map.on('mousemove', (e: L.LeafletMouseEvent) => {

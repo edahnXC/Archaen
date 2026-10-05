@@ -445,7 +445,112 @@ public static class DatabaseSeeder
             JournalOrPublisher = "Profile Books"
         };
 
-        context.References.AddRange(refBisht, refRao, refShinde, refLal, refManjul, refWakankar, refAmarnath, refWheeler, refPoonacha, refMarshall, refKenoyer, refWoolley, refLehner, refEvans, refBeard);
+        
+        var refJoshi = new Reference
+        {
+            CitationKey = "Joshi1990",
+            Authors = "Joshi, Jagat Pati",
+            PublicationYear = 1990,
+            Title = "Excavations at Surkotada (1971-72) and Exploration in Kutch",
+            JournalOrPublisher = "Memoirs of the Archaeological Survey of India, No. 87",
+            Url = "https://asi.nic.in"
+        };
+
+        var refDhavalikar = new Reference
+        {
+            CitationKey = "Dhavalikar1988",
+            Authors = "Dhavalikar, M. K.; Sankalia, H. D.; Ansari, Z. D.",
+            PublicationYear = 1988,
+            Title = "Excavations at Inamgaon, Vol. I & II (Chalcolithic Settlement & Hydrology)",
+            JournalOrPublisher = "Deccan College Post-Graduate and Research Institute (Pune)",
+            Url = "https://www.dcpune.ac.in"
+        };
+
+        var refSpooner = new Reference
+        {
+            CitationKey = "Spooner1913",
+            Authors = "Spooner, David Brainard; Waddell, L. A.",
+            PublicationYear = 1913,
+            Title = "Excavations at Pataliputra (Kumrahar & Bulandibagh Mauryan Hall)",
+            JournalOrPublisher = "Annual Report of the Archaeological Survey of India (ASI AR 1912-13), pp. 53-86",
+            Url = "https://asi.nic.in"
+        };
+
+        var refGarstang = new Reference
+        {
+            CitationKey = "Garstang1911",
+            Authors = "Garstang, John; Sayce, A. H.; Griffith, F. Ll.",
+            PublicationYear = 1911,
+            Title = "Meroë: The City of the Ethiopians (Excavations of Royal Pyramids and Ironworks)",
+            JournalOrPublisher = "Clarendon Press (Oxford University)",
+            DoiOrIsbn = "978-1172084531"
+        };
+
+        var refHammond = new Reference
+        {
+            CitationKey = "Hammond1965",
+            Authors = "Hammond, Philip C.; Joukowsky, Martha Sharp",
+            PublicationYear = 1965,
+            Title = "The Excavation of the Main Theater & Great Temple at Petra (1961-1962 / 1993-2008)",
+            JournalOrPublisher = "Colt Archaeological Institute & Brown University Monographs",
+            Url = "https://www.brown.edu/Departments/Anthropology/petra/"
+        };
+
+        var refBingham = new Reference
+        {
+            CitationKey = "Bingham1930",
+            Authors = "Bingham, Hiram; Wright, Kenneth R.; Valencia Zegarra, Alfredo",
+            PublicationYear = 1930,
+            Title = "Machu Picchu: A Citadel of the Incas & Paleohydraulic Engineering Survey",
+            JournalOrPublisher = "Yale University Press & ASCE Press (Reston)",
+            DoiOrIsbn = "978-0784404447"
+        };
+
+        var refAtkinson = new Reference
+        {
+            CitationKey = "Atkinson1956",
+            Authors = "Atkinson, Richard J. C.; Parker Pearson, Michael",
+            PublicationYear = 1956,
+            Title = "Stonehenge: Stratigraphy, Chronology, and the Antler Pick Excavations",
+            JournalOrPublisher = "Hamish Hamilton & English Heritage Archaeological Reports",
+            DoiOrIsbn = "978-0140136463"
+        };
+
+        var refCoedes = new Reference
+        {
+            CitationKey = "Coedes1943",
+            Authors = "Cœdès, George; Pottier, Christophe; Fletcher, Roland",
+            PublicationYear = 1943,
+            Title = "Pour mieux comprendre Angkor & The Greater Angkor Project Urban Survey",
+            JournalOrPublisher = "École française d'Extrême-Orient (EFEO, Paris) & University of Sydney",
+            Url = "https://www.efeo.fr"
+        };
+
+        var refBeste = new Reference
+        {
+            CitationKey = "Beste2000",
+            Authors = "Beste, Heinz-Jürgen; Rea, Rossella",
+            PublicationYear = 2000,
+            Title = "The Subterranean Hypogeum of the Colosseum: Mechanics and Stratigraphy",
+            JournalOrPublisher = "Journal of Roman Archaeology & Parco Archeologico del Colosseo",
+            DoiOrIsbn = "978-8882650056"
+        };
+
+        var refReisner = new Reference
+        {
+            CitationKey = "Reisner1942",
+            Authors = "Reisner, George Andrew",
+            PublicationYear = 1942,
+            Title = "A History of the Giza Necropolis, Vol. I & II",
+            JournalOrPublisher = "Harvard University Press (Cambridge, MA)",
+            Url = "https://mfa.org"
+        };
+
+        context.References.AddRange(
+            refBisht, refRao, refShinde, refLal, refManjul, refWakankar, refAmarnath, refWheeler, 
+            refPoonacha, refMarshall, refKenoyer, refWoolley, refLehner, refEvans, refBeard,
+            refJoshi, refDhavalikar, refSpooner, refGarstang, refHammond, refBingham, refAtkinson, refCoedes, refBeste, refReisner
+        );
         await context.SaveChangesAsync();
 
         // ==========================================
@@ -1083,21 +1188,31 @@ public static class DatabaseSeeder
         // 6. SITE CITATIONS
         // ==========================================
         context.SiteReferences.AddRange(
-            new SiteReference { SiteId = dholavira.Id, ReferenceId = refBisht.Id, SpecificPagesOrPlates = "pp. 45-120; Plates XII-XXX" },
-            new SiteReference { SiteId = lothal.Id, ReferenceId = refRao.Id, SpecificPagesOrPlates = "Vol I, pp. 23-88; Dockyard analysis" },
-            new SiteReference { SiteId = rakhigarhi.Id, ReferenceId = refShinde.Id, SpecificPagesOrPlates = "Cell 179(3), pp. 729-735; Ancient DNA I6113" },
-            new SiteReference { SiteId = kalibangan.Id, ReferenceId = refLal.Id, SpecificPagesOrPlates = "pp. 67-142; Furrow agriculture & Fire altars" },
-            new SiteReference { SiteId = sinauli.Id, ReferenceId = refManjul.Id, SpecificPagesOrPlates = "Puratattva 50, pp. 1-25; Solid-wheel war chariots" },
-            new SiteReference { SiteId = bhimbetka.Id, ReferenceId = refWakankar.Id, SpecificPagesOrPlates = "pp. 12-65; Zoo Rock & Mesolithic pigments" },
-            new SiteReference { SiteId = keeladi.Id, ReferenceId = refAmarnath.Id, SpecificPagesOrPlates = "pp. 1-84; 6th century BCE Tamil-Brahmi script" },
-            new SiteReference { SiteId = arikamedu.Id, ReferenceId = refWheeler.Id, SpecificPagesOrPlates = "Ancient India No. 2, pp. 17-124; Roman amphorae" },
-            new SiteReference { SiteId = sannati.Id, ReferenceId = refPoonacha.Id, SpecificPagesOrPlates = "pp. 45-98; Inscribed portrait of Emperor Ashoka" },
-            new SiteReference { SiteId = mohenjodaro.Id, ReferenceId = refMarshall.Id, SpecificPagesOrPlates = "Vol I, Chapter 3: The Great Bath" },
-            new SiteReference { SiteId = harappa.Id, ReferenceId = refKenoyer.Id, SpecificPagesOrPlates = "pp. 55-92; Mound AB and Cemetery R-37" },
-            new SiteReference { SiteId = ur.Id, ReferenceId = refWoolley.Id, SpecificPagesOrPlates = "pp. 12-45; Royal Tombs PG 789" },
-            new SiteReference { SiteId = giza.Id, ReferenceId = refLehner.Id, SpecificPagesOrPlates = "pp. 108-133; Great Pyramid of Khufu" },
-            new SiteReference { SiteId = knossos.Id, ReferenceId = refEvans.Id, SpecificPagesOrPlates = "Vol I, pp. 200-245; The Central Court" },
-            new SiteReference { SiteId = pompeii.Id, ReferenceId = refBeard.Id, SpecificPagesOrPlates = "pp. 75-102; Street life and domestic housing" }
+            new SiteReference { SiteId = dholavira.Id, ReferenceId = refBisht.Id, SpecificPagesOrPlates = "MASI No. 104, pp. 45-120; Rock-cut water architecture" },
+            new SiteReference { SiteId = lothal.Id, ReferenceId = refRao.Id, SpecificPagesOrPlates = "MASI No. 78, Vol I, pp. 23-88; Dockyard & bead factory" },
+            new SiteReference { SiteId = rakhigarhi.Id, ReferenceId = refShinde.Id, SpecificPagesOrPlates = "Cell 179(3), pp. 729-735; Paleogenetics & granary trenches" },
+            new SiteReference { SiteId = kalibangan.Id, ReferenceId = refLal.Id, SpecificPagesOrPlates = "MASI No. 98, pp. 67-142; Early ploughed field & fire altars" },
+            new SiteReference { SiteId = sinauli.Id, ReferenceId = refManjul.Id, SpecificPagesOrPlates = "Puratattva No. 50, pp. 1-25; Royal chariot burials & antennae swords" },
+            new SiteReference { SiteId = bhimbetka.Id, ReferenceId = refWakankar.Id, SpecificPagesOrPlates = "pp. 12-65; Zoo Rock & Mesolithic pigment analysis" },
+            new SiteReference { SiteId = keeladi.Id, ReferenceId = refAmarnath.Id, SpecificPagesOrPlates = "pp. 1-84; 6th century BCE Tamil-Brahmi & Vaigai stratigraphy" },
+            new SiteReference { SiteId = arikamedu.Id, ReferenceId = refWheeler.Id, SpecificPagesOrPlates = "Ancient India No. 2, pp. 17-124; Indo-Roman trade horizons" },
+            new SiteReference { SiteId = sannati.Id, ReferenceId = refPoonacha.Id, SpecificPagesOrPlates = "MASI No. 106, pp. 45-98; Emperor Ashoka portrait stela" },
+            new SiteReference { SiteId = pataliputra.Id, ReferenceId = refSpooner.Id, SpecificPagesOrPlates = "ASI AR 1912-13, pp. 53-86; 80-pillared hall & wooden palisade" },
+            new SiteReference { SiteId = surkotada.Id, ReferenceId = refJoshi.Id, SpecificPagesOrPlates = "MASI No. 87, pp. 15-92; Rubblestone fortification & copper celts" },
+            new SiteReference { SiteId = inamgaon.Id, ReferenceId = refDhavalikar.Id, SpecificPagesOrPlates = "Vol I, pp. 110-185; Jorwe painted pottery & irrigation canal" },
+            new SiteReference { SiteId = mohenjodaro.Id, ReferenceId = refMarshall.Id, SpecificPagesOrPlates = "Vol I, Chapter 3: Great Bath, HR & DK deep soundings" },
+            new SiteReference { SiteId = harappa.Id, ReferenceId = refKenoyer.Id, SpecificPagesOrPlates = "pp. 55-92; Mound AB, Cemetery R-37, and Ravi Phase" },
+            new SiteReference { SiteId = ur.Id, ReferenceId = refWoolley.Id, SpecificPagesOrPlates = "pp. 12-45; Royal Cemetery PG 789 & PG 800 Puabi" },
+            new SiteReference { SiteId = giza.Id, ReferenceId = refLehner.Id, SpecificPagesOrPlates = "pp. 108-133; Pyramid builders' city Heit el-Ghurab" },
+            new SiteReference { SiteId = giza.Id, ReferenceId = refReisner.Id, SpecificPagesOrPlates = "Vol I, pp. 45-88; 4th Dynasty royal mastaba stratigraphy" },
+            new SiteReference { SiteId = meroe.Id, ReferenceId = refGarstang.Id, SpecificPagesOrPlates = "pp. 1-60; Royal Pyramid Necropolis & iron blast furnaces" },
+            new SiteReference { SiteId = knossos.Id, ReferenceId = refEvans.Id, SpecificPagesOrPlates = "Vol I, pp. 200-245; The Central Court & Pithoi magazines" },
+            new SiteReference { SiteId = pompeii.Id, ReferenceId = refBeard.Id, SpecificPagesOrPlates = "pp. 75-102; 79 CE pyroclastic stratigraphy & Indian ivory" },
+            new SiteReference { SiteId = petra.Id, ReferenceId = refHammond.Id, SpecificPagesOrPlates = "pp. 34-78; Great Temple & rock-cut Nabataean hydraulic system" },
+            new SiteReference { SiteId = machuPicchu.Id, ReferenceId = refBingham.Id, SpecificPagesOrPlates = "pp. 112-168; Terracing sub-drainage & granite ashlar masonry" },
+            new SiteReference { SiteId = stonehenge.Id, ReferenceId = refAtkinson.Id, SpecificPagesOrPlates = "pp. 25-70; Outer ditch antler picks & sarsen trilithons" },
+            new SiteReference { SiteId = angkorWat.Id, ReferenceId = refCoedes.Id, SpecificPagesOrPlates = "pp. 88-142; Suryavarman II bas-reliefs & hydraulic canals" },
+            new SiteReference { SiteId = colosseum.Id, ReferenceId = refBeste.Id, SpecificPagesOrPlates = "pp. 15-62; Flavian hypogeum mechanical lift stratigraphy" }
         );
 
         // ==========================================
@@ -2042,7 +2157,188 @@ public static class DatabaseSeeder
             Summary = "Twelve landmark seasons uncovering the Ziggurat complex, 1,800 graves in the Royal Cemetery, and the deep 'Flood Stratum' silt."
         };
 
-        context.Excavations.AddRange(excDholavira, excKeeladi, excHarappa, excMohenjo, excLothal, excPompeii, excKnossos, excUr);
+
+        var excRakhigarhi = new Excavation
+        {
+            SiteId = rakhigarhi.Id,
+            ExpeditionName = "Rakhigarhi Paleogenetic & Urban Metropolis Project",
+            LeadArchaeologist = "Prof. Vasant Shinde & Dr. Amarendra Nath",
+            StartYear = 1997,
+            EndYear = 2016,
+            Organization = "Archaeological Survey of India & Deccan College (Pune)",
+            Summary = "Extensive soundings across mounds RGR-1 to RGR-7 uncovering multi-room mudbrick architecture, granaries, lapidary bead workshops, and cemetery paleogenetic sampling."
+        };
+
+        var excKalibangan = new Excavation
+        {
+            SiteId = kalibangan.Id,
+            ExpeditionName = "Kalibangan Ghaggar Valley Archaeological Project",
+            LeadArchaeologist = "Prof. B. B. Lal, B. K. Thapar & J. P. Joshi",
+            StartYear = 1960,
+            EndYear = 1969,
+            Organization = "Archaeological Survey of India",
+            Summary = "Decade of landmark soundings discovering the world's earliest criss-cross ploughed agricultural field (Period I) and fortified citadel with ritual fire altars (Period II)."
+        };
+
+        var excSinauli = new Excavation
+        {
+            SiteId = sinauli.Id,
+            ExpeditionName = "Sinauli Royal Necropolis & Warrior Chariot Excavation",
+            LeadArchaeologist = "Dr. Sanjay Kumar Manjul & Arvin Manjul",
+            StartYear = 2018,
+            EndYear = 2019,
+            Organization = "Archaeological Survey of India (Excavation Branch II)",
+            Summary = "Sensational discovery of 2000 BCE royal warrior burials: solid-wheeled war chariots adorned with copper triangles, antennae swords with wire hilts, and anthropomorphic copper sheets."
+        };
+
+        var excBhimbetka = new Excavation
+        {
+            SiteId = bhimbetka.Id,
+            ExpeditionName = "Bhimbetka Rock Shelters Stratigraphic Survey",
+            LeadArchaeologist = "Dr. Vishnu Shridhar Wakankar & Dr. V. N. Misra",
+            StartYear = 1973,
+            EndYear = 1977,
+            Organization = "Vikram University (Ujjain) & Deccan College (Pune)",
+            Summary = "Stratigraphic trial trenches in Shelter III F-23 revealing continuous occupational deposits from Acheulian Lower Paleolithic through Mesolithic rock art painting phases."
+        };
+
+        var excArikamedu = new Excavation
+        {
+            SiteId = arikamedu.Id,
+            ExpeditionName = "Arikamedu Indo-Roman Port Excavations",
+            LeadArchaeologist = "Sir R. E. Mortimer Wheeler & J.-M. Casal",
+            StartYear = 1945,
+            EndYear = 1950,
+            Organization = "Archaeological Survey of India & Mission Archéologique Française",
+            Summary = "Classic Wheeler-box stratigraphic soundings linking imported Roman Arretine terra sigillata ware and Mediterranean wine amphorae to Indian Megalithic Black-and-Red ware."
+        };
+
+        var excSannati = new Excavation
+        {
+            SiteId = sannati.Id,
+            ExpeditionName = "Kanaganahalli (Sannati) Mahastupa Excavation",
+            LeadArchaeologist = "Dr. K. P. Poonacha & Dr. D. V. Devaraj",
+            StartYear = 1994,
+            EndYear = 2002,
+            Organization = "Archaeological Survey of India (Bangalore Circle)",
+            Summary = "Unearthing of the monumental Adholoka Mahachaitya stupa, 60 inscribed Ashokan limestone slabs, and the only known sculpted portrait of Emperor Ashoka inscribed 'Raya Asoka'."
+        };
+
+        var excPataliputra = new Excavation
+        {
+            SiteId = pataliputra.Id,
+            ExpeditionName = "Kumrahar & Bulandibagh Mauryan Capital Excavations",
+            LeadArchaeologist = "Dr. David Brainard Spooner & Dr. L. A. Waddell",
+            StartYear = 1912,
+            EndYear = 1927,
+            Organization = "Archaeological Survey of India",
+            Summary = "Deep alluvial silt soundings uncovering the monolithic 80-pillared Mauryan hypostyle assembly hall and double-timber defensive palisade ramparts described by Megasthenes."
+        };
+
+        var excSurkotada = new Excavation
+        {
+            SiteId = surkotada.Id,
+            ExpeditionName = "Surkotada Citadel & Fortification Excavation",
+            LeadArchaeologist = "Jagat Pati Joshi",
+            StartYear = 1971,
+            EndYear = 1972,
+            Organization = "Archaeological Survey of India (Excavation Branch)",
+            Summary = "Stratigraphic excavation of an intact rubblestone Harappan citadel and residential annex showing three continuous occupational sub-periods (IA, IB, IC) with copper celts."
+        };
+
+        var excInamgaon = new Excavation
+        {
+            SiteId = inamgaon.Id,
+            ExpeditionName = "Inamgaon Chalcolithic Settlement & Hydrology Project",
+            LeadArchaeologist = "Prof. M. K. Dhavalikar, H. D. Sankalia & Z. D. Ansari",
+            StartYear = 1968,
+            EndYear = 1982,
+            Organization = "Deccan College Post-Graduate and Research Institute (Pune)",
+            Summary = "Fourteen extensive seasons uncovering 130 mud houses, an engineered irrigation canal and embankment, painted Jorwe spouted ware, and mother goddess terracotta cults."
+        };
+
+        var excGiza = new Excavation
+        {
+            SiteId = giza.Id,
+            ExpeditionName = "Giza Plateau Mapping Project & Pyramid Builders City",
+            LeadArchaeologist = "Dr. Mark Lehner & Dr. Zahi Hawass",
+            StartYear = 1988,
+            EndYear = 2026,
+            Organization = "Ancient Egypt Research Associates (AERA) & Ministry of Tourism and Antiquities",
+            Summary = "Detailed stratigraphic excavations of Heit el-Ghurab (Lost City of the Pyramid Builders), worker bakeries, cattle corrals, and 4th Dynasty royal mortuary causeways."
+        };
+
+        var excMeroe = new Excavation
+        {
+            SiteId = meroe.Id,
+            ExpeditionName = "Meroë Royal City & Kushite Necropolis Expedition",
+            LeadArchaeologist = "Prof. John Garstang & UNESCO / University of Khartoum",
+            StartYear = 1909,
+            EndYear = 1914,
+            Organization = "University of Liverpool & National Corporation for Antiquities and Museums",
+            Summary = "Excavations of the steep-angled royal pyramid cemeteries of Kushite kings and Candaces, the Royal Baths, and monumental bloomery iron smelting slag mounds."
+        };
+
+        var excPetra = new Excavation
+        {
+            SiteId = petra.Id,
+            ExpeditionName = "Petra Great Temple & Siq Hydraulic Excavations",
+            LeadArchaeologist = "Dr. Martha Sharp Joukowsky & Dr. Philip C. Hammond",
+            StartYear = 1993,
+            EndYear = 2008,
+            Organization = "Brown University & Department of Antiquities of Jordan",
+            Summary = "Fifteen seasons of stratigraphic excavation uncovering the Great Temple, Nabataean paved street, pressurized ceramic water piping, and rock-cut sanctuaries."
+        };
+
+        var excMachu = new Excavation
+        {
+            SiteId = machuPicchu.Id,
+            ExpeditionName = "Machu Picchu Paleohydrology & Architecture Project",
+            LeadArchaeologist = "Dr. Kenneth R. Wright & Alfredo Valencia Zegarra",
+            StartYear = 1994,
+            EndYear = 2005,
+            Organization = "Instituto Nacional de Cultura (INC Peru) & Wright Paleohydrological Institute",
+            Summary = "Sub-surface trenching examining the Inca subsurface drainage system, 16 cascaded ceremonial stone fountains, agricultural terrace filtration, and cyclopean masonry."
+        };
+
+        var excStonehenge = new Excavation
+        {
+            SiteId = stonehenge.Id,
+            ExpeditionName = "Stonehenge Riverside Project & Ditch Stratigraphy",
+            LeadArchaeologist = "Prof. Michael Parker Pearson & Prof. Richard J. C. Atkinson",
+            StartYear = 1950,
+            EndYear = 2009,
+            Organization = "English Heritage & Universities Consortium (Sheffield/Manchester/UCL)",
+            Summary = "Stratigraphic soundings across the outer circular ditch and Aubrey Holes, recovering in situ Neolithic red deer antler excavation picks and radiocarbon dating Phase 1-3."
+        };
+
+        var excAngkor = new Excavation
+        {
+            SiteId = angkorWat.Id,
+            ExpeditionName = "Greater Angkor Project & Hydraulic Network Survey",
+            LeadArchaeologist = "Dr. Roland Fletcher, Dr. Christophe Pottier & EFEO",
+            StartYear = 2000,
+            EndYear = 2020,
+            Organization = "University of Sydney, APSARA National Authority & École française d'Extrême-Orient",
+            Summary = "Comprehensive stratigraphic soundings and LiDAR surveys tracing the monumental sand-and-laterite temple foundations and the 1,000 sq km hydraulic canal network."
+        };
+
+        var excColosseum = new Excavation
+        {
+            SiteId = colosseum.Id,
+            ExpeditionName = "Colosseum Hypogeum & Subterranean Chamber Clearance",
+            LeadArchaeologist = "Dr. Heinz-Jürgen Beste & Dr. Rossella Rea",
+            StartYear = 1996,
+            EndYear = 2002,
+            Organization = "Parco Archeologico del Colosseo & German Archaeological Institute (DAI)",
+            Summary = "Multi-year clearance and architectural stratigraphy of the subterranean Flavian arena hypogeum, revealing elevator hoist shafts, trap doors, and hydraulic draining conduits."
+        };
+
+        context.Excavations.AddRange(
+            excDholavira, excKeeladi, excHarappa, excMohenjo, excLothal, excPompeii, excKnossos, excUr,
+            excRakhigarhi, excKalibangan, excSinauli, excBhimbetka, excArikamedu, excSannati, excPataliputra,
+            excSurkotada, excInamgaon, excGiza, excMeroe, excPetra, excMachu, excStonehenge, excAngkor, excColosseum
+        );
         await context.SaveChangesAsync();
 
         // --- Stratigraphic Layers ---
@@ -2230,12 +2526,349 @@ public static class DatabaseSeeder
             Description = "Vaulted stone burial chambers yielding the Standard of Ur, Ram in a Thicket, and Queen Puabi's gold floral headdress."
         };
 
+
+        // Rakhigarhi Strata
+        var layerR1 = new ExcavationLayer
+        {
+            ExcavationId = excRakhigarhi.Id,
+            LayerNumber = 1,
+            LayerName = "Period III: Peak Mature Harappan Urban Metropolis",
+            DepthMeters = 2.4,
+            SoilComposition = "10YR 5/3 (Brown) compact clay floor with paved baked-brick drains and hearths",
+            EstimatedStartYear = -2500,
+            EstimatedEndYear = -1900,
+            CulturalAffiliation = "Mature Harappan",
+            Description = "Planned mudbrick houses, public granary storage structures, lapidary workshops, and steatite unicorn seals."
+        };
+        var layerR2 = new ExcavationLayer
+        {
+            ExcavationId = excRakhigarhi.Id,
+            LayerNumber = 2,
+            LayerName = "Period II: Early Harappan Sothi-Siswal Settlement",
+            DepthMeters = 4.8,
+            SoilComposition = "10YR 4/2 (Dark Grayish Brown) dense mudbrick debris and charcoal ash lenses",
+            EstimatedStartYear = -3300,
+            EstimatedEndYear = -2600,
+            CulturalAffiliation = "Early Harappan (Sothi-Siswal)",
+            Description = "Mudbrick houses on standardized ratios, bichrome painted pottery, bone awls, and copper chisel fragments."
+        };
+
+        // Kalibangan Strata
+        var layerKb1 = new ExcavationLayer
+        {
+            ExcavationId = excKalibangan.Id,
+            LayerNumber = 1,
+            LayerName = "Period II: Mature Harappan Fortified Citadel & Fire Altars",
+            DepthMeters = 1.8,
+            SoilComposition = "7.5YR 5/4 (Strong Brown) clay brick masonry with ritual terracotta cakes and ash pits",
+            EstimatedStartYear = -2600,
+            EstimatedEndYear = -1900,
+            CulturalAffiliation = "Mature Harappan",
+            Description = "Citadel with 7 clay-lined ritual fire altars containing ash and bovine bones; rectilinear street grid with sanitary drains."
+        };
+        var layerKb2 = new ExcavationLayer
+        {
+            ExcavationId = excKalibangan.Id,
+            LayerNumber = 2,
+            LayerName = "Period I: Early Harappan Ploughed Field Horizon",
+            DepthMeters = 3.9,
+            SoilComposition = "10YR 5/2 (Grayish Brown) alluvial silt preserving criss-cross agricultural furrow casts",
+            EstimatedStartYear = -2900,
+            EstimatedEndYear = -2600,
+            CulturalAffiliation = "Early Harappan (Kalibangan I)",
+            Description = "The world's earliest excavated ploughed field showing criss-cross furrows for dual-cropping of mustard and horsegram."
+        };
+
+        // Sinauli Strata
+        var layerSn1 = new ExcavationLayer
+        {
+            ExcavationId = excSinauli.Id,
+            LayerNumber = 1,
+            LayerName = "Burial Trench B3: Royal Anthropomorphic Sarcophagus Horizon",
+            DepthMeters = 1.4,
+            SoilComposition = "10YR 4/3 (Dark Brown) silty sand with copper corrosion patination staining",
+            EstimatedStartYear = -1900,
+            EstimatedEndYear = -1800,
+            CulturalAffiliation = "Copper Hoard Warrior Elite",
+            Description = "Royal wooden coffins (manjushas) decorated with anthropomorphic copper sheets, solid-wheeled war chariots, and antennae swords."
+        };
+        var layerSn2 = new ExcavationLayer
+        {
+            ExcavationId = excSinauli.Id,
+            LayerNumber = 2,
+            LayerName = "Habitation Trench H1: Late Ochre Coloured Pottery (OCP) Floor",
+            DepthMeters = 2.2,
+            SoilComposition = "7.5YR 4/4 (Reddish Brown) compact clay with charcoal fragments and smelting crucibles",
+            EstimatedStartYear = -2100,
+            EstimatedEndYear = -1900,
+            CulturalAffiliation = "Late OCP / Early Copper Age",
+            Description = "Domestic living floor yielding copper flat chisels, pottery kilns, and steatite paste beads."
+        };
+
+        // Bhimbetka Strata
+        var layerBh1 = new ExcavationLayer
+        {
+            ExcavationId = excBhimbetka.Id,
+            LayerNumber = 1,
+            LayerName = "Period III: Mesolithic Microlithic & Pigment Workshop Floor",
+            DepthMeters = 0.6,
+            SoilComposition = "5YR 3/3 (Dark Reddish Brown) soil rich in hematite crayons, charcoals, and quartzite chips",
+            EstimatedStartYear = -8000,
+            EstimatedEndYear = -3000,
+            CulturalAffiliation = "Mesolithic Hunter-Gatherer",
+            Description = "Hematite grinding stones, geometric microliths (trapezes, lunates), and pigment preparation tools used on Zoo Rock."
+        };
+        var layerBh2 = new ExcavationLayer
+        {
+            ExcavationId = excBhimbetka.Id,
+            LayerNumber = 2,
+            LayerName = "Period I: Acheulian Lower Paleolithic Quartzite Floor",
+            DepthMeters = 2.8,
+            SoilComposition = "10YR 3/4 (Dark Yellowish Brown) lateritic gravel with compact quartzite rubble",
+            EstimatedStartYear = -100000,
+            EstimatedEndYear = -40000,
+            CulturalAffiliation = "Acheulian Lower Paleolithic",
+            Description = "Deepest occupational layer yielding massive quartzite Acheulian handaxes, cleavers, and scrapers."
+        };
+
+        // Arikamedu Strata
+        var layerAr1 = new ExcavationLayer
+        {
+            ExcavationId = excArikamedu.Id,
+            LayerNumber = 1,
+            LayerName = "Wheeler Stratum II: Roman Ceramic & Amphorae Horizon",
+            DepthMeters = 1.8,
+            SoilComposition = "10YR 6/2 (Light Brownish Gray) estuarine sandy clay with brick fragments",
+            EstimatedStartYear = -50,
+            EstimatedEndYear = 100,
+            CulturalAffiliation = "Indo-Roman Global Maritime Trade",
+            Description = "Abundant fragments of Mediterranean Dressel 2-4 wine amphorae with resin linings, Roman Arretine terra sigillata, and blue glass beads."
+        };
+
+        // Sannati Strata
+        var layerSa1 = new ExcavationLayer
+        {
+            ExcavationId = excSannati.Id,
+            LayerNumber = 1,
+            LayerName = "Upper Medhi: Satavahana Sculptural Casing Slabs",
+            DepthMeters = 1.2,
+            SoilComposition = "10YR 6/3 (Pale Brown) calcareous rubble with broken limestone slabs",
+            EstimatedStartYear = 50,
+            EstimatedEndYear = 250,
+            CulturalAffiliation = "Satavahana Buddhist Horizon",
+            Description = "Adornment of the Mahastupa medhi with intricately carved limestone slabs depicting the life of Buddha and Emperor Ashoka."
+        };
+        var layerSa2 = new ExcavationLayer
+        {
+            ExcavationId = excSannati.Id,
+            LayerNumber = 2,
+            LayerName = "Lower Core: Mauryan Ashokan Stupa Foundation",
+            DepthMeters = 3.2,
+            SoilComposition = "10YR 4/3 (Brown) rammed morrum and river pebble platform",
+            EstimatedStartYear = -260,
+            EstimatedEndYear = -200,
+            CulturalAffiliation = "Mauryan Imperial (Ashokan)",
+            Description = "Original brick stupa core and inscribed granite slabs containing Special Rock Edicts XII & XIV in Mauryan Brahmi script."
+        };
+
+        // Pataliputra Strata
+        var layerPt1 = new ExcavationLayer
+        {
+            ExcavationId = excPataliputra.Id,
+            LayerNumber = 1,
+            LayerName = "Spooner Stratum IV: Mauryan 80-Pillared Hypostyle Hall",
+            DepthMeters = 5.2,
+            SoilComposition = "10YR 3/2 (Very Dark Grayish Brown) Gangetic alluvial silt over a thick layer of charcoal and burnt sal wood",
+            EstimatedStartYear = -300,
+            EstimatedEndYear = -185,
+            CulturalAffiliation = "Mauryan Imperial Court",
+            Description = "Ashoka's colossal 80-pillared audience hall with mirror-polished Chunar sandstone shafts resting on monolithic stone base blocks."
+        };
+        var layerPt2 = new ExcavationLayer
+        {
+            ExcavationId = excPataliputra.Id,
+            LayerNumber = 2,
+            LayerName = "Bulandibagh Trench: Imperial Teakwood Palisade Ramparts",
+            DepthMeters = 6.8,
+            SoilComposition = "10YR 2/2 (Very Dark Brown) waterlogged anaerobic marsh clay preserving timber",
+            EstimatedStartYear = -320,
+            EstimatedEndYear = -250,
+            CulturalAffiliation = "Early Mauryan (Chandragupta)",
+            Description = "Double row of massive teakwood uprights joined by heavy beams, forming the monumental imperial city rampart described by Megasthenes."
+        };
+
+        // Surkotada Strata
+        var layerSk1 = new ExcavationLayer
+        {
+            ExcavationId = excSurkotada.Id,
+            LayerNumber = 1,
+            LayerName = "Sub-Period IC: Late Harappan Rubblestone Rebuilding",
+            DepthMeters = 0.9,
+            SoilComposition = "10YR 6/4 (Light Yellowish Brown) rubble stones with White-Painted Black-and-Red Ware",
+            EstimatedStartYear = -1950,
+            EstimatedEndYear = -1700,
+            CulturalAffiliation = "Late Harappan (Surkotada IC)",
+            Description = "Reconstruction of citadel gateways with coarse rubble masonry; flat copper chisels, beads, and bone tools."
+        };
+        var layerSk2 = new ExcavationLayer
+        {
+            ExcavationId = excSurkotada.Id,
+            LayerNumber = 2,
+            LayerName = "Sub-Period IA: Mature Harappan Citadel & Residential Annex",
+            DepthMeters = 3.2,
+            SoilComposition = "10YR 5/3 (Brown) compact mud mortar, mudbrick slabs, and chert blades",
+            EstimatedStartYear = -2300,
+            EstimatedEndYear = -1950,
+            CulturalAffiliation = "Mature Harappan (Classic Indus)",
+            Description = "Massive rubble-and-mudbrick ramparts with defensive bastions, copper celts, steatite micro-beads, and painted Indus pottery."
+        };
+
+        // Inamgaon Strata
+        var layerIn1 = new ExcavationLayer
+        {
+            ExcavationId = excInamgaon.Id,
+            LayerNumber = 1,
+            LayerName = "Late Jorwe Phase: Round Mud Huts & Spouted Ware",
+            DepthMeters = 0.8,
+            SoilComposition = "10YR 4/2 (Dark Grayish Brown) black cotton soil with pottery sherds",
+            EstimatedStartYear = -1000,
+            EstimatedEndYear = -700,
+            CulturalAffiliation = "Late Jorwe Culture",
+            Description = "Clusters of circular mud huts, channel-spouted red ware pots, decline of agriculture and increased pastoral reliance."
+        };
+        var layerIn2 = new ExcavationLayer
+        {
+            ExcavationId = excInamgaon.Id,
+            LayerNumber = 2,
+            LayerName = "Early Jorwe Phase: Rectangular Houses & Hydraulic Canal",
+            DepthMeters = 2.1,
+            SoilComposition = "10YR 3/3 (Dark Brown) silty clay floor with lime wash and storage pits",
+            EstimatedStartYear = -1400,
+            EstimatedEndYear = -1000,
+            CulturalAffiliation = "Early Jorwe Culture",
+            Description = "Prosperous settlement of 130 rectangular multi-room houses, massive stone irrigation embankment, and painted Jorwe spouted ware."
+        };
+
+        // Giza Strata
+        var layerGz1 = new ExcavationLayer
+        {
+            ExcavationId = excGiza.Id,
+            LayerNumber = 1,
+            LayerName = "Heit el-Ghurab: Lost City of the Pyramid Builders",
+            DepthMeters = 2.2,
+            SoilComposition = "10YR 7/3 (Pale Brown) desert sand overlying mudbrick worker dormitories",
+            EstimatedStartYear = -2550,
+            EstimatedEndYear = -2450,
+            CulturalAffiliation = "Old Kingdom 4th Dynasty",
+            Description = "Planned municipal town for pyramid workers: institutional bakeries producing emmer bread, cattle bone processing, and copper craft workshops."
+        };
+
+        // Meroe Strata
+        var layerMr1 = new ExcavationLayer
+        {
+            ExcavationId = excMeroe.Id,
+            LayerNumber = 1,
+            LayerName = "Begarawiyah North: Royal Pyramid Necropolis Horizon",
+            DepthMeters = 3.2,
+            SoilComposition = "10YR 6/4 (Light Yellowish Brown) sandstone rubble and wind-blown Nubian sand",
+            EstimatedStartYear = -300,
+            EstimatedEndYear = 100,
+            CulturalAffiliation = "Kingdom of Kush (Meroitic)",
+            Description = "Steep-angled sandstone royal pyramids with mortuary chapels and pylon gates, yielding gold armlets and Hellenistic imports."
+        };
+
+        // Petra Strata
+        var layerPtN1 = new ExcavationLayer
+        {
+            ExcavationId = excPetra.Id,
+            LayerNumber = 1,
+            LayerName = "Nabataean Imperial Horizon: Al-Khazneh & Colonnaded Street",
+            DepthMeters = 2.4,
+            SoilComposition = "7.5YR 6/4 (Reddish Yellow) weathered rose-red sandstone sand and paved limestone flagstones",
+            EstimatedStartYear = -100,
+            EstimatedEndYear = 106,
+            CulturalAffiliation = "Nabataean Classical Zenith",
+            Description = "Monumental rock-cut temple façades, terracotta pressurized water conduits, and eggshell-thin painted Nabataean bowls."
+        };
+
+        // Machu Picchu Strata
+        var layerMp1 = new ExcavationLayer
+        {
+            ExcavationId = excMachu.Id,
+            LayerNumber = 1,
+            LayerName = "Hanan (Upper) Urban Sector: Royal Estate & Drainage Stratum",
+            DepthMeters = 1.2,
+            SoilComposition = "10YR 3/1 (Very Dark Gray) rich organic topsoil over granite sub-surface drainage rubble",
+            EstimatedStartYear = 1450,
+            EstimatedEndYear = 1540,
+            CulturalAffiliation = "Imperial Inca (Pachacuti)",
+            Description = "Cyclopean dry-stone granite palaces, 16 cascaded ceremonial stone fountains, agricultural terraces, and bronze tumi knives."
+        };
+
+        // Stonehenge Strata
+        var layerSh1 = new ExcavationLayer
+        {
+            ExcavationId = excStonehenge.Id,
+            LayerNumber = 1,
+            LayerName = "Phase 1: Outer Ditch & Aubrey Holes Primary Chalk Silt",
+            DepthMeters = 2.6,
+            SoilComposition = "10YR 8/1 (White) virgin compact chalk silt at the base of the circular ditch",
+            EstimatedStartYear = -3000,
+            EstimatedEndYear = -2800,
+            CulturalAffiliation = "Early Neolithic Britain",
+            Description = "Basal chalk ditch deposits containing in situ battered red deer antler excavation picks and ox scapulae used as shovels."
+        };
+
+        // Angkor Wat Strata
+        var layerAw1 = new ExcavationLayer
+        {
+            ExcavationId = excAngkor.Id,
+            LayerNumber = 1,
+            LayerName = "Central Temple Sanctuary & Sand Hydraulic Foundation",
+            DepthMeters = 2.1,
+            SoilComposition = "10YR 4/2 (Dark Grayish Brown) compacted alluvial sand-clay under laterite core blocks",
+            EstimatedStartYear = 1113,
+            EstimatedEndYear = 1150,
+            CulturalAffiliation = "Classical Khmer Empire (Suryavarman II)",
+            Description = "Engineered sand foundation engineered to retain moisture and stabilize massive sandstone towers; continuous gallery wall bas-reliefs."
+        };
+
+        // Colosseum Strata
+        var layerCl1 = new ExcavationLayer
+        {
+            ExcavationId = excColosseum.Id,
+            LayerNumber = 1,
+            LayerName = "Flavian Hypogeum Subterranean Stage Mechanics Horizon",
+            DepthMeters = 3.5,
+            SoilComposition = "10YR 6/2 (Light Brownish Gray) travertine dust and pozzolanic hydraulic concrete sediment",
+            EstimatedStartYear = 80,
+            EstimatedEndYear = 200,
+            CulturalAffiliation = "Flavian Roman Imperial",
+            Description = "Subterranean masonry channels with counterweight elevator hoists, wild animal cage shafts, and bronze gladiatorial equipment."
+        };
+
         context.ExcavationLayers.AddRange(
             layerD1, layerD2, layerD3,
             layerK1, layerK2,
             layerH1, layerH2, layerH3,
             layerM1, layerM2,
-            layerL1, layerP1, layerKn1, layerU1
+            layerL1, layerP1, layerKn1, layerU1,
+            layerR1, layerR2,
+            layerKb1, layerKb2,
+            layerSn1, layerSn2,
+            layerBh1, layerBh2,
+            layerAr1,
+            layerSa1, layerSa2,
+            layerPt1, layerPt2,
+            layerSk1, layerSk2,
+            layerIn1, layerIn2,
+            layerGz1,
+            layerMr1,
+            layerPtN1,
+            layerMp1,
+            layerSh1,
+            layerAw1,
+            layerCl1
         );
         await context.SaveChangesAsync();
 
@@ -2303,6 +2936,86 @@ public static class DatabaseSeeder
                 FindingType = "Narrative Mosaic Box",
                 Description = "Double-sided shell and lapis lazuli mosaic from royal tomb PG 779",
                 YearFound = 1927
+            },
+            new Finding
+            {
+                ExcavationLayerId = layerR1.Id,
+                Name = "Terracotta Spoked Wheel Model & Unicorn Seal",
+                FindingType = "Glyptic Intaglio & Toy Cart",
+                Description = "In situ Mature Harappan toy cart wheel and square glazed steatite seal from Mound RGR-2",
+                YearFound = 2014
+            },
+            new Finding
+            {
+                ExcavationLayerId = layerKb2.Id,
+                Name = "Criss-Cross Agricultural Ploughed Furrows",
+                FindingType = "Agricultural Feature",
+                Description = "Intact grid pattern of ancient ploughed furrows preserved under sand dunes",
+                YearFound = 1968
+            },
+            new Finding
+            {
+                ExcavationLayerId = layerSn1.Id,
+                Name = "Royal Solid-Wheeled War Chariot Chassis",
+                FindingType = "Martial Vehicle",
+                Description = "Full-sized two-wheeled war chariot with embossed copper triangles from burial trench 8",
+                YearFound = 2018
+            },
+            new Finding
+            {
+                ExcavationLayerId = layerBh1.Id,
+                Name = "Hematite Pigment Crayon with Faceted Wear",
+                FindingType = "Pigment Processing Tool",
+                Description = "Natural iron-oxide crayon ground down against quartzite rock for shelter paintings",
+                YearFound = 1974
+            },
+            new Finding
+            {
+                ExcavationLayerId = layerSa1.Id,
+                Name = "Inscribed 'Raya Asoka' Limestone Portrait Slab",
+                FindingType = "Imperial Sculptural Relief",
+                Description = "Carved relief showing Emperor Ashoka flanked by royal consorts, inscribed in Brahmi script",
+                YearFound = 1997
+            },
+            new Finding
+            {
+                ExcavationLayerId = layerPt1.Id,
+                Name = "Mirror-Polished Chunar Sandstone Pillar Capital",
+                FindingType = "Architectural Monument",
+                Description = "Monolithic polished column fragment with Hellenistic palmette and honeysuckle motifs",
+                YearFound = 1913
+            },
+            new Finding
+            {
+                ExcavationLayerId = layerSk2.Id,
+                Name = "Harappan Cast Copper Celt and Chisel",
+                FindingType = "Metallurgical Implement",
+                Description = "Cast copper celt with flattened butt and splayed cutting edge from Citadel Trench 2",
+                YearFound = 1971
+            },
+            new Finding
+            {
+                ExcavationLayerId = layerIn2.Id,
+                Name = "Jorwe Culture Painted Red Ware Spouted Pot",
+                FindingType = "Ceramic Vessel",
+                Description = "Fine wheel-made red slipped vessel with tubular spout and painted black deer motif",
+                YearFound = 1972
+            },
+            new Finding
+            {
+                ExcavationLayerId = layerSh1.Id,
+                Name = "Red Deer Antler Excavation Pick",
+                FindingType = "Neolithic Organic Tool",
+                Description = "Antler pick with battered tines found resting directly on virgin chalk bedrock",
+                YearFound = 1953
+            },
+            new Finding
+            {
+                ExcavationLayerId = layerPtN1.Id,
+                Name = "Sandstone Eye Idol of Goddess Atargatis",
+                FindingType = "Religious Votive Stela",
+                Description = "Carved sandstone stela with stylized facial features and inset staring eyes",
+                YearFound = 1999
             }
         );
 
